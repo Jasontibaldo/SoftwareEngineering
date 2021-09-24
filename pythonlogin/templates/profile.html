@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Profile Page</h2>
+			<div class="profileInfo">
+				<p>Your account details are below</p>
+                <table>
+                    <tr>
+                        <td> Username: </td>
+                        <td> {{ account['usrname']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Password: </td>
+                        <td> {{ account['password']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Email: </td>
+                        <td> {{ account['email']}}</td>
+                    </tr>
+                </table>
+			</div>
+		</div>
+{% endblock %}
+
+</body>
+</html>
