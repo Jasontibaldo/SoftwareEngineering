@@ -121,7 +121,7 @@ def register():
     return render_template('register.html', msg=msg)
 
 
-# http://localhost:5000/Flask/register - this will be the registration page, we need to use both GET and POST requests
+# This is where a new owner will be created
 @app.route('/newOwner', methods=['GET', 'POST'])
 def newOwner():
     # Output message if something goes wrong...
@@ -136,9 +136,8 @@ def newOwner():
         city = request.form['city']
         state = request.form['state']
         zipcode = request.form['zipcode']
-        print('Hello World')
 
-        # Check if account exists using MySQL
+        # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Owners WHERE Email = %s', (Email,))
         account = cursor.fetchone()
@@ -152,17 +151,17 @@ def newOwner():
         elif not FirstName or not LastName or not Email:
             msg = 'Please fill out the form!'
         else:
-            # Account doesnt exists and the form data is valid, now insert new account into accounts table
+            # Account doesnt exists and the form data is valid, now insert new owner into the owner table
             
             cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s)',
                            (FirstName,LastName, Email, mailingAddress, city, state, zipcode))
             mysql.connection.commit()
-            msg = 'You have successfully registered!'
+            msg = 'You have successfully created an owner!'
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
-    # Show registration form with message (if any)
+    # Show owner form with message (if any)
     return render_template('newOwner.html', msg=msg)
 
 
