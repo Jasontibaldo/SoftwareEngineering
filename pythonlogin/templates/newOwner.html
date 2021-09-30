@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Owner</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	</head>
+	<body>
+        {% extends 'layout.html' %}
+
+        {% block title %}New Owner{% endblock %}
+
+        {% block content %} 
+
+		<div>
+			<h1>New Owner Details</h1>
+			
+			<form action="{{ url_for('newOwner') }}" method="post" autocomplete="off">
+				
+				<input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
+				
+				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
+				
+				<input type="Email" name="Email" placeholder="Email" id="Email" required>
+
+				<input type="text" name="mailingAddress" placeholder="Mailing Address" id="mailingAddress" required>
+
+				<input type="text" name="city" placeholder="City" id="city" required>
+
+				<input type="text" name="state" placeholder="State" id="state" required>
+
+				<input type="number" name="zipcode" placeholder="Zip Code" id="zipcode" required>
+				
+				<input type="submit" value="Create">
+			</form>
+		</div>
+        {% endblock %}
+	</body>
+</html>
