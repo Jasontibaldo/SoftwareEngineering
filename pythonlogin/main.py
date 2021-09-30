@@ -12,7 +12,7 @@ app.secret_key = 'your secret key'
 
 
 
-# Enter your database connection details below
+# Login information is hosted in the config.py file, which we can use for other information if needed
 app.config['MYSQL_HOST'] = config.mysql_host
 app.config['MYSQL_USER'] = config.mysql_user
 app.config['MYSQL_PASSWORD'] = config.mysql_password
