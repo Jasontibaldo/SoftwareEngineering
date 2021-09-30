@@ -9,18 +9,13 @@ app = Flask(__name__)
 app.secret_key = 'your secret key'
 
 # Enter your database connection details below
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'test'
+app.config['MYSQL_HOST'] = 'finalproject.cv5rjrwx9nu4.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = 'adminpassword'
+app.config['MYSQL_DB'] = 'finalProject'
 
 # Intialize MySQL
 mysql = MySQL(app)
-
-
-# http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
-
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,15 +29,15 @@ def login():
         password = request.form['password']
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM MyGuests WHERE usrname = %s AND password = %s', (username, password,))
+        cursor.execute('SELECT * FROM user WHERE userName = %s AND pass = %s', (username, password,))
         # Fetch one record and return result
         account = cursor.fetchone()
         # If account exists in accounts table in out database
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['usrname'] = account['usrname']
+            session['userID'] = account['userID']
+            session['userName'] = account['userName']
             # Redirect to home page
             return redirect(url_for('home'))
         else:
@@ -56,7 +51,7 @@ def login():
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM MyGuests WHERE id = %s', (session['id'],))
+        cursor.execute('SELECT * FROM user WHERE userID = %s', (session['userID'],))
         account = cursor.fetchone()
         return render_template('profile.html', account=account)
     return redirect(url_for('login'))
@@ -78,7 +73,7 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
-        return render_template('home.html', username=session['usrname'])
+        return render_template('home.html', username=session['userName'])
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
@@ -96,7 +91,7 @@ def register():
 
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM MyGuests WHERE usrname = %s', (username,))
+        cursor.execute('SELECT * FROM finalProject WHERE userName = %s', (username,))
         account = cursor.fetchone()
         # If account exists show error and validation checks
         if account:
@@ -109,7 +104,7 @@ def register():
             msg = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO MyGuests (usrname, password, email) VALUES ( %s, %s, %s)',
+            cursor.execute('INSERT INTO finalProject (userName, password, email) VALUES ( %s, %s, %s)',
                            (username, password, email,))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
