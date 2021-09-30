@@ -156,7 +156,8 @@ def newOwner():
             cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s)',
                            (FirstName,LastName, Email, mailingAddress, city, state, zipcode))
             mysql.connection.commit()
-            msg = 'You have successfully created an owner!'
+             #TODO set up a message for users that successfully created an owner on the home page as a popup or something
+            return redirect(url_for('home'))
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
