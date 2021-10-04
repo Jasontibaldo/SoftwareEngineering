@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Tenant</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="all.css">
+	</head>
+	<body>
+        {% extends 'layout.html' %}
+
+        {% block title %}New Tenant{% endblock %}
+
+        {% block content %} 
+
+		<div>
+			<h1>New Tenant Details</h1>
+			
+			<form action="{{ url_for('newTenant') }}" method="post" autocomplete="off">
+				
+				<input type="number" name="tenantID" placeholder="Tenant ID" id="tenantID" required>
+				
+				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
+				
+				<input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
+
+				<input type="Email" name="tenantEmail" placeholder="Tenant Email" id="tenantEmail" required>
+				
+				<input type="number" name="tenantPhone" placeholder="Tenant Phone" id="tenantPhone" required>
+
+				<input type="text" name="tenantMailingAddress" placeholder="Tenant Mailing Address" id="tenantMailingAddress" required>
+
+				<input type="text" name="tenantCity" placeholder="Tenant City" id="TenantCity" required>
+
+				<input type="text" name="tenantState" placeholder="Tenant State" id="tenantState" required>
+
+				<input type="number" name="tenantZipcode" placeholder="Tenant Zip Code" id="tenantZipcode" required>
+
+				
+				<input type="submit" value="Create">
+			</form>
+		</div>
+        {% endblock %}
+	</body>
+</html>
