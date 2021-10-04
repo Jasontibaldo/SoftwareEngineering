@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>New Property</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="all.css">
+	</head>
+	<body>
+        {% extends 'layout.html' %}
+
+        {% block title %}New Property{% endblock %}
+
+        {% block content %} 
+
+		<div>
+			<h1>New Property Details</h1>
+			
+			<form action="{{ url_for('newProperty') }}" method="post" autocomplete="off">
+				
+				<input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
+				
+				<input type="text" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
+				
+				<input type="text" name="propertyState" placeholder="State" id="propertyState" required>
+
+				<input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
+
+				<input type="number" name="propertyZipcode" placeholder="Property Zip Code" id="propertyZipcode" required>
+				
+				<input type="number" name="numOfBedrooms" placeholder="Number Of Bedrooms" id="numOfBedrooms" required>
+				
+				<input type="number" name="numOfBathrooms" placeholder="Number Of Bathrooms" id="numOfBathrooms" required>
+				
+				<input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
+
+				<input type="number" name="pets" placeholder ="Pets" id="pets" >
+				
+				<input type="number" name="bbq" placeholder ="Barbeque" id="bbq" >
+				
+				<input type="number" name="ac" placeholder ="Air Conditioning" id="ac" >
+				
+				<input type="number" name="washerDryer" placeholder ="Washer and Dryer" id="washerDryer" >
+				
+				<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
+				
+				<input type="number" name="outsideShower" placeholder ="Outisde Shower" id="outsideShower" >
+				
+				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >
+				
+				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPasword" >
+				
+				<input type="number" name="beachside" placeholder ="Beachside" id="beachside" >
+				
+				<input type="number" name="bayside" placeholder ="Bayside" id="bayside" >
+				
+				<input type="number" name="oceanFront" placeholder ="Ocean Front" id="oceanFront" >
+				
+				<input type="number" name="bayFront" placeholder ="Bay Front" id="bayFront" >
+
+ 				<input type="number" name="commisionPercentage" placeholder ="Commission Percentage" id="commisionPercentage" required >
+ 				
+ 				<input type="number" name ="ownerID" placeholder ="Owner ID" id="ownerID" required >
+
+				
+				<input type="submit" value="Create">
+			</form>
+		</div>
+        {% endblock %}
+	</body>
+</html>

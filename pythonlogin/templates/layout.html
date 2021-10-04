@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<link rel="stylesheet" href="all.css">
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">
@@ -12,6 +12,10 @@
 				<h1>Super Awesome Login Website</h1>
 				<a href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="{{ url_for('newOwner') }}"><i class="fas fa-user-circle"></i>New Owner</a>
+				<a href="{{ url_for('newProperty') }}"><i class="fas fa-user-circle"></i>New Property</a>
+				<a href="{{ url_for('newLease') }}"><i class="fas fa-user-circle"></i>New Lease</a>
+				<a href="{{ url_for('newTenant') }}"><i class="fas fa-user-circle"></i>New Tenants</a>
+
 			</div>
 		</nav>
 		<div class="content">
