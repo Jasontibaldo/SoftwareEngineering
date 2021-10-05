@@ -166,6 +166,19 @@ def newOwner():
     return render_template('newOwner.html', msg=msg)
 
 
+@app.route('/newLease', methods=['GET', 'POST'])
+def newLease():
+    return ""
+    
+@app.route('/newTenant', methods=['GET', 'POST'])
+def newTenant():
+    return ""
+
+@app.route('/newProperty', methods=['GET', 'POST'])
+def newProperty():
+    return ""
+
+
 
 if __name__ == '__main__':
     app.run()
