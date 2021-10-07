@@ -14,23 +14,39 @@
         {% block content %} 
 
 		<div>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+     			 {% for message in messages %}
+        			 {{ message }}
+      			{% endfor %}
+   			{% endif %}
+		{% endwith %}
+        
+
 			<h1>New Lease Details</h1>
 			
 			<form action="{{ url_for('newLease') }}" method="post" autocomplete="off">
 				
-				<input type="number" name="leaseID" placeholder="Lease ID" id="leaseID" required>
-				
-				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
-				
-				<input type="text" name="startDate" placeholder="Start Date" id="startDate" required>
+				<input type="date" name="startDate" placeholder="Start Date" id="startDate" required>
 
-				<input type="text" name="endDate" placeholder="End Date" id="endDate" required>
+				<input type="date" name="endDate" placeholder="End Date" id="endDate" required>
 				
 				<input type="number" name="price" placeholder="Price" id="price" required>
 
-				<input type="number" name="rentalInsurance" placeholder="Rental Insurance" id="rentalInsurance" required>
+				<!-- Hidden rental insurance necessary for sending over a 0 when the user doesn't want rental insurance -->
+				<input type="checkbox" name="rentalInsurance" id="rentalInsurance" value="1">
+				<input type="hidden" name="rentalInsurance" id="rentalInsurance" value="0">
 
-				<input type="text" name="leaseStatus" placeholder="Lease Status" id="leaseStatus" required>
+				<label for="rentalInsurance">Rental Insurance</label>
+
+				<!-- Unneeded, as lease status will always be active when creating a new lease -->
+				<!-- <label for="leaseStatus">Lease Status</label>
+  				<select id="leaseStatus" name="leaseStatus">
+    				<option value="Active">Active</option>
+    				<option value="Cancelled">Cancelled</option>
+    				<option value="Checked In">Checked In</option>
+    				<option value="Checked Out">Checked Out</option>
+  				</select> -->
 
 				<input type="text" name="rentalAgent" placeholder="Rental Agent" id="rentalAgent" required>
 
@@ -41,6 +57,7 @@
 				<input type="submit" value="Create">
 			</form>
 		</div>
-        {% endblock %}
+
+		{% endblock %}
 	</body>
 </html>

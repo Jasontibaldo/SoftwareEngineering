@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from os import error
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import config
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -133,6 +135,7 @@ def newOwner():
         LastName = request.form['LastName']
         Email = request.form['Email']
         mailingAddress = request.form['mailingAddress']
+        mailingAddressLine2 = request.form['mailingAddressLine2']
         city = request.form['city']
         state = request.form['state']
         zipcode = request.form['zipcode']
@@ -153,8 +156,8 @@ def newOwner():
         else:
             # Account doesnt exists and the form data is valid, now insert new owner into the owner table
             
-            cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s)',
-                           (FirstName,LastName, Email, mailingAddress, city, state, zipcode))
+            cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, MailingAddressLine2, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (FirstName,LastName, Email, mailingAddress, mailingAddressLine2, city, state, zipcode))
             mysql.connection.commit()
              #TODO set up a message for users that successfully created an owner on the home page as a popup or something
             return redirect(url_for('home'))
@@ -171,37 +174,38 @@ def newLease():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'leaseID' in request.form and 'LastName' in request.form and 'startDate' in request.form and 'endDate' in request.form and 'price' in request.form\
-     and 'rentalInsurance' in request.form and 'leaseStatus' in request.form and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
+    if request.method == 'POST' and 'startDate' in request.form and 'endDate' in request.form and 'price' in request.form \
+         and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
         # Create variables for easy access
-        leaseID = request.form['leaseID']
-        LastName = request.form['LastName']
-        StartDate = request.form['startDate']
-        EndDate = request.form['endDate']
+        # Uses strptime to convert date from string in the wrong format to a date in correct format for mySQL
+        StartDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
+        EndDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
         Price = request.form['price']
-        RentalInsurance=request.form['rentalInsurance']
-        LeaseStatus=request.form['leaseStatus']
+        RentalInsurance = request.form['rentalInsurance']
         rentalAgent = request.form['rentalAgent']
+        leaseStatus = 'Active'
         TenantID = request.form['tenantID']
         PropertyID = request.form['propertyID']
-
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Leases WHERE LeaseID = %s', (leaseID,))
-        lease = cursor.fetchone()
         # If account exists show error and validation checks
-        if lease:
-            msg = 'Lease already exists!'
-        elif not leaseID or not LastName or not StartDate or not EndDate or not Price or not RentalInsurance or not LeaseStatus or not rentalAgent or not TenantID or not PropertyID:
+        
+        if not StartDate or not EndDate or not Price or not rentalAgent or not TenantID or not PropertyID:
             msg = 'Please fill out the form!'
         else:
-            # Account doesnt exists and the form data is valid, now insert new owner into the owner table
-            cursor.execute(
-                'INSERT INTO Leases (leaseID,LastName,startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (leaseID,LastName,StartDate,EndDate,Price,RentalInsurance,LeaseStatus,rentalAgent,TenantID,PropertyID))
-            mysql.connection.commit()
-            # TODO set up a message for users that successfully created an owner on the home page as a popup or something
-            return redirect(url_for('home'))
+            # Try catch to ensure the validity of the data, will reload the page with error message if not compatable with database
+            try:
+                cursor.execute(
+                    'INSERT INTO Leases (startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
+                    (StartDate,EndDate,Price,RentalInsurance,leaseStatus,rentalAgent,TenantID,PropertyID))
+                mysql.connection.commit()
+                # This flash is used on the home page and displays a success message when data was sent to the database correctly
+                flash('The new lease was added successfully', 'message')
+                return redirect(url_for('home'))
+            except:
+                print(error)
+                flash('Something was incorrectly input within your data, please try again', 'error')
+                
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
@@ -245,7 +249,7 @@ def newProperty():
 
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Properties WHERE propertyID = %s', (propertyID,))
+        cursor.execute('SELECT * FROM Properties WHERE propertyAddress = %s', (propertyAddress,))
         property = cursor.fetchone()
         # If account exists show error and validation checks
         if property:

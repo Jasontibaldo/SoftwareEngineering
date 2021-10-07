@@ -10,6 +10,15 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<!-- This with block displays any "Flashed" messages to the user, like a successful data inser -->
+{% with messages = get_flashed_messages() %}
+			{% if messages %}
+     			 {% for message in messages %}
+        			 {{ message }}
+      			{% endfor %}
+   			{% endif %}
+		{% endwith %}
+
 <h2>Home Page</h2>
 <p>Welcome back, {{ username }}!</p>
 {% endblock %}
