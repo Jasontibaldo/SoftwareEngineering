@@ -5,14 +5,17 @@
 		<title>New Lease</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 		<link rel="stylesheet" href="all.css">
+		
 	</head>
 	<body>
+	
         {% extends 'layout.html' %}
 
         {% block title %}New Lease{% endblock %}
 
         {% block content %} 
 
+		
 		<div>
 			{% with messages = get_flashed_messages() %}
 			{% if messages %}

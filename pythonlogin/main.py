@@ -7,6 +7,7 @@ import config
 from datetime import datetime
 
 
+
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
@@ -155,12 +156,15 @@ def newOwner():
             msg = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new owner into the owner table
-            
-            cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, MailingAddressLine2, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
+            try:
+                cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, MailingAddressLine2, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
                            (FirstName,LastName, Email, mailingAddress, mailingAddressLine2, city, state, zipcode))
-            mysql.connection.commit()
-             #TODO set up a message for users that successfully created an owner on the home page as a popup or something
-            return redirect(url_for('home'))
+                mysql.connection.commit()
+                flash('The new Owner was added successfully', 'message')
+                return redirect(url_for('home'))
+            except:
+                flash('Something was incorrectly input within your data, please try again', 'error')
+                return render_template('newOwner.html', msg=msg)
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
@@ -203,7 +207,6 @@ def newLease():
                 flash('The new lease was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
-                print(error)
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 
 
