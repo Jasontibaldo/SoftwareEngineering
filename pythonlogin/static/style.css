@@ -153,3 +153,17 @@ body.loggedin {
 	padding: 5px;
 	margin: 0 0 10px 0;
 }
+
+.alert {
+	position: relative;
+	padding: 1rem 1rem;
+	margin-bottom: 1rem;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+}
+
+.alert-warning {
+	color: #664d03;
+	background-color: #fff3cd;
+	border-color: #ffecb5;
+}
