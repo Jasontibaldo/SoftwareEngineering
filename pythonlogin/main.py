@@ -122,6 +122,14 @@ def register():
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
+@app.route('/leaseMainPage', methods=['GET', 'POST'])
+def leaseMainPage():
+    if request.method == 'GET' in request.form:
+        return render_template('newLease.html')
+    elif request.method == 'POST' in request.form:
+        return render_template('newLease.html')
+    else:
+        return render_template('home.html')
 
 
 # This is where a new owner will be created
@@ -147,7 +155,8 @@ def newOwner():
         account = cursor.fetchone()
         # If account exists show error and validation checks
         if account:
-            msg = 'Account already exists!'
+            flash('An owner with this email address already exists.', 'error')
+            return render_template('newOwner.html', msg=msg)
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', Email):
             msg = 'Invalid email address!'
         # elif not re.match(r'[A-Za-z0-9]+', username):
@@ -163,6 +172,7 @@ def newOwner():
                 flash('The new Owner was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
+
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 return render_template('newOwner.html', msg=msg)
 
