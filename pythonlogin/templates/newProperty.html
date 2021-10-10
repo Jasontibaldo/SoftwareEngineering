@@ -27,13 +27,14 @@
 			
 			<form action="{{ url_for('newProperty') }}" method="post" autocomplete="off">
 				
+				<label for="propertyAddress">Enter the Property Address: </label>
 				<input type="text" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
-
-				<input type="text" name="propertyAddressLine2" placeholder="Property Address Line 2" id="propertyAddressLine2">
-
-				<input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
-
-				<label for="propertyState">State</label>
+				<br>
+				<label for="propertyAddressLine2">Enter the Property Address Line 2: </label><input type="text" name="propertyAddressLine2" placeholder="Property Address Line 2" id="propertyAddressLine2">
+				<br>
+				<label for="propertyCity">Enter the Property city: </label><input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
+				<br>
+				<label for="propertyState">Enter the Property State: </label>
 				<select name="propertyState" id="propertyState" required>
 					<option value="AL">Alabama</option>
 					<option value="AK">Alaska</option>
@@ -87,71 +88,77 @@
 					<option value="WI">Wisconsin</option>
 					<option value="WY">Wyoming</option>
 				</select>
-
-				<label for="propertyZipcode">Zipcode:</label>
+				<br>
+				<label for="propertyZipcode">Enter the Property Zip: </label>
 				<select name="propertyZipcode" id="propertyZipcode">
 					<option value="08006">08006</option>
   					<option value="08008">08008</option>
 				</select>
-				
-
+				<br>
+				<label for="numOfBedrooms">Enter the number of Bedrooms: </label>
 				<input type="number" name="numOfBedrooms" placeholder="Number Of Bedrooms" id="numOfBedrooms" required>
-				
+				<br>
+				<label for="numOfBathrooms">Enter the number of Bathrooms: </label>
 				<input type="number" name="numOfBathrooms" placeholder="Number Of Bathrooms" id="numOfBathrooms" required>
-				
-				<input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
-
+				<br>
+				<label for="keyNum">Enter the key number: </label><input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
+				<br>
 				<input type="checkbox" name="pets" id="pets" value="1">
 				<input type="hidden" name="pets" id="pets" value="0">
 				<label for="pets">Are Pets Allowed?</label>
-
+				<br>
 				<input type="checkbox" name="pool" id="pool" value="1">
 				<input type="hidden" name="pool" id="pool" value="0">
 				<label for="pool">Is there a pool?</label>
-
+				<br>
 				<input type="checkbox" name="bbq" id="bbq" value="1">
 				<input type="hidden" name="bbq" id="bbq" value="0">
 				<label for="bbq">Is there a BBQ Grill?</label>
-
+				<br>
 				<input type="checkbox" name="ac" id="ac" value="1">
 				<input type="hidden" name="ac" id="ac" value="0">
 				<label for="ac">Is there air conditioning?</label>
-				
+				<br>
 				<input type="checkbox" name="washerDryer" id="washerDryer" value="1">
 				<input type="hidden" name="washerDryer" id="washerDryer" value="0">
 				<label for="washerDryer">Is there a Washer and Dryer?</label>
-
+				<br>
+				<label for="numOfParkingSpots">Enter the number of parking spaces: </label> 
 				<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
-				
+				<br>
 				<input type="checkbox" name="outsideShower" id="outsideShower" value="1">
 				<input type="hidden" name="outsideShower" id="outsideShower" value="0">
 				<label for="outsideShower">Is there an outside shower?</label>
-
+				<br>
+				<label for="wifiName">Enter the wifi name: </label>
 				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >
-				
+				<br>
+				<label for="wifiPassword">Enter the wifi password: </label>
 				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPassword" >
-				
+				<br>
 				<input type="checkbox" name="beachside" id="beachside" value="1">
 				<input type="hidden" name="beachside" id="beachside" value="0">
 				<label for="beachside">Is this property beachside?</label>
-				
+				<br>
 				<input type="checkbox" name="bayside" id="bayside" value="1">
 				<input type="hidden" name="bayside" id="bayside" value="0">
 				<label for="bayside">Is this property Bayside</label>
-				
+				<br>
 				<input type="checkbox" name="oceanFront" id="oceanFront" value="1">
 				<input type="hidden" name="oceanFront" id="oceanFront" value="0">
 				<label for="oceanfront">Is this property Oceanfront?</label>
-				
+				<br>
 				<input type="checkbox" name="bayFront" id="bayFront" value="1">
 				<input type="hidden" name="bayFront" id="bayFront" value="0">
 				<label for="bayfront">Is this property Bayfront?</label>
+				<br>
+				<label for="commissionPercentage">Enter the commission percentage: </label>
+				<input type="number" name="commissionPercentage" placeholder ="Commission Percentage" id="commissionPercentage" required >
+ 				<br>
+ 				<label for="ownerID">Enter the owner's ID </label>
+				 <input type="number" name ="ownerID" placeholder ="Owner ID" id="ownerID" required >
 
- 				<input type="number" name="commissionPercentage" placeholder ="Commission Percentage" id="commissionPercentage" required >
- 				
- 				<input type="number" name ="ownerID" placeholder ="Owner ID" id="ownerID" required >
-
-				
+				 <br>
 				<input type="submit" value="Create">
 			</form>
 		</div>
