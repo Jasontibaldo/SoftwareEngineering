@@ -6,14 +6,10 @@ import re
 import config
 from datetime import datetime
 
-
-
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
 app.secret_key = 'your secret key'
-
-
 
 # Login information is hosted in the config.py file, which we can use for other information if needed
 app.config['MYSQL_HOST'] = config.mysql_host
@@ -84,6 +80,7 @@ def home():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
+
 # http://localhost:5000/Falsk/register - this will be the registration page, we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -122,14 +119,6 @@ def register():
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
-@app.route('/leaseMainPage', methods=['GET', 'POST'])
-def leaseMainPage():
-    if request.method == 'GET' in request.form:
-        return render_template('newLease.html')
-    elif request.method == 'POST' in request.form:
-        return render_template('newLease.html')
-    else:
-        return render_template('home.html')
 
 
 # This is where a new owner will be created
@@ -158,21 +147,20 @@ def newOwner():
             flash('An owner with this email address already exists.', 'error')
             return render_template('newOwner.html', msg=msg)
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', Email):
-            msg = 'Invalid email address!'
-        # elif not re.match(r'[A-Za-z0-9]+', username):
-        #     msg = 'Username must contain only characters and numbers!'
+            flash('Please enter a properly formatted email address.', 'error')
+            return render_template('newOwner.html', msg=msg)
         elif not FirstName or not LastName or not Email:
             msg = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new owner into the owner table
             try:
-                cursor.execute('INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, MailingAddressLine2, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (FirstName,LastName, Email, mailingAddress, mailingAddressLine2, city, state, zipcode))
+                cursor.execute(
+                    'INSERT INTO Owners (FirstName, LastName, Email, MailingAddress, MailingAddressLine2, city, state, zip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
+                    (FirstName, LastName, Email, mailingAddress, mailingAddressLine2, city, state, zipcode))
                 mysql.connection.commit()
                 flash('The new Owner was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
-
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 return render_template('newOwner.html', msg=msg)
 
@@ -189,11 +177,11 @@ def newLease():
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'startDate' in request.form and 'endDate' in request.form and 'price' in request.form \
-         and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
+            and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
         # Create variables for easy access
         # Uses strptime to convert date from string in the wrong format to a date in correct format for mySQL
-        StartDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
-        EndDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        StartDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d')
+        EndDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d')
         Price = request.form['price']
         RentalInsurance = request.form['rentalInsurance']
         rentalAgent = request.form['rentalAgent']
@@ -203,7 +191,7 @@ def newLease():
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         # If account exists show error and validation checks
-        
+
         if not StartDate or not EndDate or not Price or not rentalAgent or not TenantID or not PropertyID:
             msg = 'Please fill out the form!'
         else:
@@ -211,14 +199,14 @@ def newLease():
             try:
                 cursor.execute(
                     'INSERT INTO Leases (startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
-                    (StartDate,EndDate,Price,RentalInsurance,leaseStatus,rentalAgent,TenantID,PropertyID))
+                    (StartDate, EndDate, Price, RentalInsurance, leaseStatus, rentalAgent, TenantID, PropertyID))
                 mysql.connection.commit()
                 # This flash is used on the home page and displays a success message when data was sent to the database correctly
                 flash('The new lease was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
                 flash('Something was incorrectly input within your data, please try again', 'error')
-                
+
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
@@ -226,26 +214,28 @@ def newLease():
     # Show owner form with message (if any)
     return render_template('newLease.html', msg=msg)
 
+
 @app.route('/newProperty', methods=['GET', 'POST'])
 def newProperty():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'propertyID' in request.form and 'propertyAddress' in request.form and 'propertyCity' in request.form and 'propertyState' in request.form and 'propertyZipcode' in request.form and 'numOfBedrooms' in request.form and 'numOfBathrooms' in request.form \
-    and 'keyNum' in request.form and 'pets' in request.form and 'bbq' in request.form and 'ac' in request.form and 'washerDryer' in request.form and 'numOfParkingSpots' in request.form and 'outsideShower' \
-    in request.form and 'wifiName' in request.form and 'wifiPassword' in request.form and 'beachside' in request.form and 'bayside' in request.form and 'oceanFront' in request.form \
-    and 'bayFront' in request.form and 'commissionPercentage' in request.form and ownerID in request.form:
+    if request.method == 'POST' and 'propertyAddress' in request.form and 'propertyCity' in request.form \
+            and 'propertyState' in request.form and 'propertyZipcode' in request.form \
+            and 'numOfBedrooms' in request.form and 'keyNum' in request.form and 'ownerID' in request.form:
         # Create variables for easy access
-        propertyID = request.form['propertyID']
+        print('Before Variables')
         propertyAddress = request.form['propertyAddress']
+        propertyAddressLine2 = request.form['propertyAddressLine2']
         propertyState = request.form['propertyState']
         propertyCity = request.form['propertyCity']
         propertyZipcode = request.form['propertyZipcode']
-        numOfBedrooms =request.form['numOfBedrooms']
-        numOfBathrooms =request.form['numOfBathrooms']
+        numOfBedrooms = request.form['numOfBedrooms']
+        numOfBathroom = request.form['numOfBathrooms']
         keyNum = request.form['keyNum']
         pets = request.form['pets']
-        bbq = request.form['bqq']
+        pool = request.form['pool']
+        bbq = request.form['bbq']
         ac = request.form['ac']
         washerDryer = request.form['washerDryer']
         numOfParkingSpots = request.form['numOfParkingSpots']
@@ -259,41 +249,56 @@ def newProperty():
         commissionPercentage = request.form['commissionPercentage']
         ownerID = request.form['ownerID']
 
-
         # Check if owner already exists using MySQL
+        print('Before Cursor')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Properties WHERE propertyAddress = %s', (propertyAddress,))
+        print('Before Property')
+        cursor.execute('SELECT * FROM Property WHERE propertyAddress = %s', (propertyAddress,))
         property = cursor.fetchone()
         # If account exists show error and validation checks
         if property:
-            msg = 'Property already exists!'
-        elif not propertyID or not propertyAddress or not propertyState or not propertyCity or not propertyZipcode or not numOfBedrooms \
-                or not numOfBathrooms or not keyNum or not pets or not bbq or not ac or not washerDryer or not numOfParkingSpots or not outsideShower or not wifiName \
-                or not wifiName or not wifiPassword or not beachside or not bayside or not oceanFront or not bayFront or not commissionPercentage or not ownerID:
-            msg = 'Please fill out the form!'
+            print("Already Exists")
+            flash('A property with this address already exists.', 'error')
+        elif not propertyAddress or not propertyState or not propertyCity or not propertyZipcode or not numOfBedrooms \
+                or not numOfBathroom or not keyNum or not numOfParkingSpots or not wifiName \
+                or not wifiPassword or not commissionPercentage or not ownerID:
+            print("not entered properly")
+            flash('Property not created, please ensure the entire form was filled out.', 'error')
         else:
-            # Account doesnt exists and the form data is valid, now insert new owner into the owner table
-            cursor.execute(
-                'INSERT INTO Leases (propertyID,propertyAddress,propertyCity,propertyState,propertyZipcode,numOfBedrooms,numOfBathrooms,keyNum,pets,ac,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,ownerID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (propertyID,propertyAddress,propertyCity,propertyState,propertyZipcode,numOfBedrooms,numOfBathrooms,keyNum,pets,ac,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,ownerID))
-            mysql.connection.commit()
-            # TODO set up a message for users that successfully created an owner on the home page as a popup or something
-            return redirect(url_for('home'))
+            try:
+                print('Hello World')
+                # Account doesnt exists and the form data is valid, now insert new owner into the owner table
+                cursor.execute(
+                    'INSERT INTO Property (propertyAddress,propertyAddressLine2,propertyCity,propertyState,propertyZip,numOfBedroom,numOfBathroom,keyNumber,pets,pool,airConditioning,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,OwnerID) VALUES '
+                    '( %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                    (propertyAddress,propertyAddressLine2, propertyCity, propertyState, propertyZipcode, numOfBedrooms,
+                     numOfBathroom, keyNum, pets, pool, ac, bbq, washerDryer, numOfParkingSpots, outsideShower, wifiName,
+                     wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID))
+                mysql.connection.commit()
+                flash('The new lease was added successfully', 'message')
+                return redirect(url_for('home'))
+            except:
+                print("Failed insert")
+                flash('Something was incorrectly input within your data, please try again', 'error')
+
+
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
+        print('original if statemnt failing')
         msg = 'Please fill out the form!'
     # Show owner form with message (if any)
     return render_template('newProperty.html', msg=msg)
+
 
 @app.route('/newTenant', methods=['GET', 'POST'])
 def newTenant():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'tenantID' in request.form and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form\
-    and 'tenantPhone' in request.form and 'tenantEmail' in request.formand and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZip' in request.form:
-    # Create variables for easy access
+    if request.method == 'POST' and 'tenantID' in request.form and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form \
+            and 'tenantPhone' in request.form and 'tenantEmail' in request.formand and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZip' in request.form:
+        # Create variables for easy access
         tenantID = request.form['tenantID']
         FirstName = request.form['FirstName']
         LastName = request.form['LastName']
@@ -304,7 +309,6 @@ def newTenant():
         tenantState = request.form['tenantState']
         tenantZipcode = request.form['tenantZipcode']
 
-
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Leases WHERE LeaseID = %s', (tenantID,))
@@ -312,24 +316,24 @@ def newTenant():
         # If account exists show error and validation checks
         if tenant:
             msg = 'Tenant already exists!'
-        elif not tenantID or not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail\
-        or not tenantCity or not tenantState or not tenantZipcode :
+        elif not tenantID or not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail \
+                or not tenantCity or not tenantState or not tenantZipcode:
             msg = 'Please fill out the form!'
         else:
-    # Account doesnt exists and the form data is valid, now insert new owner into the owner table
+            # Account doesnt exists and the form data is valid, now insert new owner into the owner table
             cursor.execute(
-            'INSERT INTO Tenant (tenantID,LastName,FirstName,tenantMailingAddress,tenantPhone,tenantEmail,tenantCity,tenantState,tenantZipcode) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-            (tenantID, LastName, FirstName, tenantMailingAddress, tenantPhone, tenantEmail, tenantCity, tenantState, tenantZipcode))
+                'INSERT INTO Tenant (tenantID,LastName,FirstName,tenantMailingAddress,tenantPhone,tenantEmail,tenantCity,tenantState,tenantZipcode) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                (tenantID, LastName, FirstName, tenantMailingAddress, tenantPhone, tenantEmail, tenantCity, tenantState,
+                 tenantZipcode))
         mysql.connection.commit()
-    # TODO set up a message for users that successfully created a new Tenant on the home page as a popup or something
+        # TODO set up a message for users that successfully created a new Tenant on the home page as a popup or something
         return redirect(url_for('home'))
 
     elif request.method == 'POST':
-    # Form is empty... (no POST data)
+        # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show owner form with message (if any)
     return render_template('newTenant.html', msg=msg)
-
 
 
 if __name__ == '__main__':

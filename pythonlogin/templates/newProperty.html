@@ -26,14 +26,10 @@
 			<h1>New Property Details</h1>
 			
 			<form action="{{ url_for('newProperty') }}" method="post" autocomplete="off">
-			
-				<label for="propertyAddress">Address Line 1:</label>
-	
-				<input id="propertyAddress" name="propertyAddress" placeholder="Property Address" required="" type="text">
-				<label for="propertyAddressLine2">Address Line 2:</label>
+				
+				<input type="text" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
 
 				<input type="text" name="propertyAddressLine2" placeholder="Property Address Line 2" id="propertyAddressLine2">
-				<label for="propertyAddress">City:</label>
 
 				<input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
 
@@ -98,51 +94,42 @@
   					<option value="08008">08008</option>
 				</select>
 				<label for="propertyZipcode">Zipcode:</label>
-				
-				<label for="numOfBedrooms"><br>Number of bedrooms:</label>
+
 				<input type="number" name="numOfBedrooms" placeholder="Number Of Bedrooms" id="numOfBedrooms" required>
 				
-				<label for="numOfBathrooms"><br>Number of bathrooms:</label>
-
 				<input type="number" name="numOfBathrooms" placeholder="Number Of Bathrooms" id="numOfBathrooms" required>
-				<label for="Key Number"><br>Key Number:</label>
-
+				
 				<input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
-				<br>
 
 				<input type="checkbox" name="pets" id="pets" value="1">
 				<input type="hidden" name="pets" id="pets" value="0">
-				<label for="pets">Are Pets Allowed?</label> <br>
+				<label for="pets">Are Pets Allowed?</label>
 
 				<input type="checkbox" name="pool" id="pool" value="1">
 				<input type="hidden" name="pool" id="pool" value="0">
-				<label for="pool">Is there a pool?</label> <br>
+				<label for="pool">Is there a pool?</label>
 
 				<input type="checkbox" name="bbq" id="bbq" value="1">
 				<input type="hidden" name="bbq" id="bbq" value="0">
-				<label for="bbq">Is there a BBQ Grill?<br></label>
+				<label for="bbq">Is there a BBQ Grill?</label>
 
 				<input type="checkbox" name="ac" id="ac" value="1">
 				<input type="hidden" name="ac" id="ac" value="0">
-				<label for="ac">Is there air conditioning?</label> <br>
+				<label for="ac">Is there air conditioning?</label>
 				
 				<input type="checkbox" name="washerDryer" id="washerDryer" value="1">
 				<input type="hidden" name="washerDryer" id="washerDryer" value="0">
-				<label for="washerDryer">Is there a Washer and Dryer?</label><label for="numOfParkingSpots"><br>Number of Parking Spots:</label>
+				<label for="washerDryer">Is there a Washer and Dryer?</label>
 
-				&nbsp;<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
-				<br>
+				<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
 				
 				<input type="checkbox" name="outsideShower" id="outsideShower" value="1">
 				<input type="hidden" name="outsideShower" id="outsideShower" value="0">
-				<label for="outsideShower">Is there an outside shower?</label><label for="wifiName"><br>Name Of Wifi Network:</label>
+				<label for="outsideShower">Is there an outside shower?</label>
 
-				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >&nbsp;
-				<label for="wifiPassword">Wifi Password:</label>
-
-				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPassword" >
+				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >
 				
-				<br>
+				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPassword" >
 				
 				<input type="checkbox" name="beachside" id="beachside" value="1">
 				<input type="hidden" name="beachside" id="beachside" value="0">
@@ -158,12 +145,10 @@
 				
 				<input type="checkbox" name="bayFront" id="bayFront" value="1">
 				<input type="hidden" name="bayFront" id="bayFront" value="0">
-				<label for="bayfront">Is this property Bayfront?</label> <br>
+				<label for="bayfront">Is this property Bayfront?</label>
 
-				<label for="commissionPercentage">Commission Percentage: </label>
  				<input type="number" name="commissionPercentage" placeholder ="Commission Percentage" id="commissionPercentage" required >
-				<br>
- 				<label for="ownerID">Enter Owner ID: </label>
+ 				
  				<input type="number" name ="ownerID" placeholder ="Owner ID" id="ownerID" required >
 
 				
