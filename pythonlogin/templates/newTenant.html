@@ -17,23 +17,28 @@
 			<h1>New Tenant Details</h1>
 			
 			<form action="{{ url_for('newTenant') }}" method="post" autocomplete="off">
-				
-				<input type="number" name="tenantID" placeholder="Tenant ID" id="tenantID" required>
-				
-				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
-				
+				<label for="tenantID">Enter The Tenant ID:</label>
+				<input type="number" name="tenantID" placeholder="Tenant ID" id="tenantID" required>&nbsp;
+				<label for="FirstName"><br>Enter The Tenant's First Name:</label>
 				<input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
-
+				<label for="LastName">Enter The Tenant's Last Name:</label>
+				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
+				<br>
+				<label for="tenantEmail">Enter The Tenant's Email Address:</label>
 				<input type="Email" name="tenantEmail" placeholder="Tenant Email" id="tenantEmail" required>
+				<br>
 				
+				<label for="tenantPhone">Enter The Tenant's Phone Number:</label>
 				<input type="number" name="tenantPhone" placeholder="Tenant Phone" id="tenantPhone" required>
-
+				<br>
+				<label for="tenantPhone">Enter The Tenant's Phone Number:</label>
 				<input type="text" name="tenantMailingAddress" placeholder="Tenant Mailing Address" id="tenantMailingAddress" required>
-
+				<br>
+				<label for="tenantCity">Enter The Tenant's City:</label>
 				<input type="text" name="tenantCity" placeholder="Tenant City" id="TenantCity" required>
-
+				<label for="tenantState">Enter The Tenant's State:</label>
 				<input type="text" name="tenantState" placeholder="Tenant State" id="tenantState" required>
-
+				<label for="tenantPhone">Enter The Tenant's Zipcode:</label>
 				<input type="number" name="tenantZipcode" placeholder="Tenant Zip Code" id="tenantZipcode" required>
 
 				
