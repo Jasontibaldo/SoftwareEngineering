@@ -307,38 +307,48 @@ def newTenant():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'tenantID' in request.form and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form\
-    and 'tenantPhone' in request.form and 'tenantEmail' in request.formand and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZip' in request.form:
+    if request.method == 'POST' and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form\
+    and 'tenantPhone' in request.form and 'tenantEmail' in request.form and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZipcode' in request.form:
     # Create variables for easy access
-        tenantID = request.form['tenantID']
+        print("Before Var")
         FirstName = request.form['FirstName']
         LastName = request.form['LastName']
         tenantMailingAddress = request.form['tenantMailingAddress']
+        tenantMailingAddressLine2 = request.form['tenantMailingAddressLine2']
         tenantPhone = request.form['tenantPhone']
         tenantEmail = request.form['tenantEmail']
         tenantCity = request.form['tenantCity']
         tenantState = request.form['tenantState']
         tenantZipcode = request.form['tenantZipcode']
+        print("After Var")
 
 
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Leases WHERE LeaseID = %s', (tenantID,))
+        cursor.execute('SELECT * FROM Tenant WHERE Email = %s', (tenantEmail,))
         tenant = cursor.fetchone()
         # If account exists show error and validation checks
         if tenant:
-            msg = 'Tenant already exists!'
-        elif not tenantID or not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail\
+            print("Already Exists")
+            flash('A tenant with this email address already exists.', 'error')
+        elif not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail\
         or not tenantCity or not tenantState or not tenantZipcode :
-            msg = 'Please fill out the form!'
+            print("not entered properly")
+            flash('Property not created, please ensure the entire form was filled out.', 'error')
         else:
     # Account doesnt exists and the form data is valid, now insert new owner into the owner table
-            cursor.execute(
-            'INSERT INTO Tenant (tenantID,LastName,FirstName,tenantMailingAddress,tenantPhone,tenantEmail,tenantCity,tenantState,tenantZipcode) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-            (tenantID, LastName, FirstName, tenantMailingAddress, tenantPhone, tenantEmail, tenantCity, tenantState, tenantZipcode))
-        mysql.connection.commit()
+            try:
+                cursor.execute(
+                'INSERT INTO Tenant (LastName,FirstName, mailingAddress, mailingAddressLine2, phoneNumber,Email,mailingCity,mailingState,mailingZip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                (LastName, FirstName, tenantMailingAddress,tenantMailingAddressLine2, tenantPhone, tenantEmail, tenantCity, tenantState, tenantZipcode))
+                mysql.connection.commit()
     # TODO set up a message for users that successfully created a new Tenant on the home page as a popup or something
-        return redirect(url_for('home'))
+                flash('The new tenant was added successfully', 'message')
+                return redirect(url_for('home'))
+            except:
+                print("Failed insert")
+                flash('Something was incorrectly input within your data, please try again', 'error')
+                
 
     elif request.method == 'POST':
     # Form is empty... (no POST data)
