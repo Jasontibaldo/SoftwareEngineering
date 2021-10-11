@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>LeaseS</title>
+		<title>Leases</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 		<link rel="stylesheet" href="all.css">
 		
@@ -27,8 +27,8 @@
         
 
 			<h1>Lease Main Page</h1>
-			<form action="" method="post">
-				<input name="Create New Lease" type="submit" value="Create New Lease">
+			<form action="newLeaseCreation" method="post">
+				<button name="Create New Lease" onclick="newLeaseButton()">Create New Lease </button>
 				<input name="Search Lease" type="button" value="Search Lease" />
 				</form>
 				&nbsp;

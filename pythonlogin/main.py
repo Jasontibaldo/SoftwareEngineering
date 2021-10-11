@@ -125,13 +125,13 @@ def register():
 
 @app.route('/leaseMainPage', methods=['GET', 'POST'])
 def leaseMainPage():
-    if request.method == 'GET' in request.form:
-        return render_template('newLease.html')
-    elif request.method == 'POST' in request.form:
-        return render_template('newLease.html')
-    else:
-        return render_template('home.html')
+    msg = ''
+    return render_template('leaseMainPage.html', msg=msg)
 
+@app.route('/newLeaseCreation/', methods=['GET', 'POST'])
+def newLeaseButton():
+    msg=''
+    return render_template('newLease.html', msg=msg)
 
 # This is where a new owner will be created
 @app.route('/newOwner', methods=['GET', 'POST'])
