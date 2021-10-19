@@ -133,6 +133,24 @@ def newLeaseButton():
     msg=''
     return render_template('newLease.html', msg=msg)
 
+
+@app.route('/searchOwner/', methods=['GET', 'POST'])
+def searchOwner():
+    if request.method == 'POST' and 'ownerID' in request.form:
+        # Create variables for easy access
+        ownerID = request.form['ownerID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Owners WHERE ownerID = %s', (ownerID,))
+        # Fetch one record and return result
+        owner = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if owner:
+            return render_template('ownerResults.html', owner=owner)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+    return render_template('searchOwner.html')
+
 # This is where a new owner will be created
 @app.route('/newOwner', methods=['GET', 'POST'])
 def newOwner():

@@ -24,11 +24,14 @@ VALUES
 
 
 --###################### Search Queries ######################
+--Select everything from Owners based on ownerID
+SELECT * FROM Owners
+WHERE ownerID = ;
+
+--Select everything from Owners based on FirstName and LastName
+SELECT * FROM Owners
+WHERE FirstName ="VARIABLE"
+AND LastName = "VARIABLE" ;
 
 
-
-
-
-
-
---###################### REportQueries ######################
+--###################### ReportQueries ######################

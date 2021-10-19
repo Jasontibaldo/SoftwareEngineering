@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner Information Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Owner Information</h2>
+			<div class="profileInfo">
+				<p>Your account details are below</p>
+                <table>
+                    <tr>
+                        <td> Owner Name </td>
+                        <td> {{ owner['FirstName']}}  {{ owner['LastName']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Owner Email </td>
+                        <td> {{ owner['Email']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Owner Address </td>
+                        <td> {{ owner['mailingAddress']}} {{ owner['mailingAddressLine2']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Owner Address Line 2 </td>
+                        <td> {{ owner['city']}} {{ owner['state']}} {{ owner['zip']}}</td>
+                    </tr>
+
+                </table>
+			</div>
+		</div>
+{% endblock %}
+
+</body>
+</html>
