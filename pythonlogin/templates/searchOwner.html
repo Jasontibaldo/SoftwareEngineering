@@ -20,9 +20,18 @@
 		{% endwith %}
 
 <h2>Search Page</h2>
-<form action="{{ url_for('searchOwner') }}" method="post" autocomplete="off">
+<h3>Search by Owner ID</h3>
+<form action="{{ url_for('searchOwnerByID') }}" method="post" autocomplete="off">
     <label for="ownerID">Enter The OwnerID:</label>
     <input type="number" name="ownerID" placeholder="ownerID" id="ownerID" required>
+	<input type="submit" value="Search">
+</form>
+<hr>
+<h3>Search By Owner Name</h3>
+<form action="{{ url_for('searchOwnerByName') }}" method="post" autocomplete="off">
+    <label for="FirstName">Enter The Name:</label>
+    <input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
+	<input type="submit" value="Search">
 </form>
 
 {% endblock %}
