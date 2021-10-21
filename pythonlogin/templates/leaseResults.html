@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner Information Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Lease Information</h2>
+			<div class="profileInfo">
+				<p>Lease details are below</p>
+                <table>                               
+                    <tr>
+                        <td> Lease Address </td>
+                        <td> {{ lease['mailingAddress']}} {{ lease['mailingAddressLine2']}}</td>
+                    </tr>
+                    <tr>
+                        <td> lease Address Line 2 </td>
+                        <td> {{ lease['city']}} {{ lease['state']}} {{ lease['zip']}}</td>
+                    </tr>
+
+                </table>
+			</div>
+		</div>
+{% endblock %}
+
+</body>
+</html>

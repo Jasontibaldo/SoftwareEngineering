@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- This with block displays any "Flashed" messages to the user, like a successful data inser -->
+{% with messages = get_flashed_messages() %}
+			{% if messages %}
+     			 {% for message in messages %}
+        			 {{ message }}
+      			{% endfor %}
+   			{% endif %}
+		{% endwith %}
+
+<h2>Search Tenant</h2>
+<h3>Search by Tenant ID</h3>
+<form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
+    <label for="tenantID">Enter The Tenant ID:</label>
+    <input type="number" name="tenantID" placeholder="tenant ID" id="tenantID" required>
+	<input type="submit" value="Search">
+</form>
+<hr>
+<h3>Search By Tenant Name</h3>
+<form action="{{ url_for('searchTenantByName') }}" method="post" autocomplete="off">
+    <label for="FirstName">Enter The Name:</label>
+    <input type="text" name="TenantFirstName" placeholder="First Name" id="TenantFirstName" required>
+	<input type="submit" value="Search">
+</form>
+
+{% endblock %}
+</body>
+</html>
