@@ -152,7 +152,6 @@ def searchOwnerByID():
         if owner:
             return render_template('ownerResults.html', owner=owner)
         else:
-             print("dont Exist")
             # Account doesnt exist or username/password incorrect
              flash('Nah fam', 'message')
     return render_template('searchOwner.html')
@@ -165,8 +164,7 @@ def searchOwnerByName():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Owners WHERE FirstName = %s', (FirstName,))
         # Fetch one record and return result
-        owner = cursor.fetchone()
-        print(owner)
+        owner = cursor.fetchall()
         # If account exists in accounts table in out database
         if owner:
             return render_template('ownerResults.html', owner=owner)
@@ -197,6 +195,7 @@ def newOwner():
         cursor.execute('SELECT * FROM Owners WHERE Email = %s', (Email,))
         account = cursor.fetchone()
         # If account exists show error and validation checks
+        # noinspection PyInterpreter
         if account:
             flash('An owner with this email address already exists.', 'error')
             return render_template('newOwner.html', msg=msg)
@@ -215,7 +214,6 @@ def newOwner():
                 flash('The new Owner was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
-
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 return render_template('newOwner.html', msg=msg)
 

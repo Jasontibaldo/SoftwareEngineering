@@ -17,6 +17,22 @@
     <h2>Owner Information</h2>
 			<div class="profileInfo">
 				<p>Your account details are below</p>
+                <script type="text/javascript">
+                    ownerAsJson = {{owner|tojson}};
+                    var jsonStr = JSON.Parse(ownerAsJson);
+                    document.write(jsonStr);
+                    var booleanValue = true;
+                    for (let i =0; i <ownerAsJson.size; i++){
+                        if (booleanValue){
+                            document.getElementById('testing').innerHTML ="Hello World";
+
+                        }
+
+                    }
+                </script>
+                <p id="testing">
+
+                </p>
                 <table>
                     <tr>
                         <td> Owner Name </td>
