@@ -185,7 +185,7 @@ def searchTenantByID():
         # Create variables for easy access
         tenantID = request.form['tenantID']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenants WHERE tenantID = %s', (tenantID,))
+        cursor.execute('SELECT * FROM Tenant WHERE tenantID = %s', (tenantID,))
         # Fetch one record and return result
         tenant = cursor.fetchone()
         # If account exists in accounts table in out database
@@ -203,7 +203,7 @@ def searchTenantByName():
         # Create variables for easy access
         FirstName = request.form['FirstName']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenants WHERE FirstName = %s', (FirstName,))
+        cursor.execute('SELECT * FROM Tenant WHERE FirstName = %s', (FirstName,))
         # Fetch one record and return result
         tenant = cursor.fetchone()
         print(tenant)
