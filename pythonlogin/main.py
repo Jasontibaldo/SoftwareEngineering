@@ -212,7 +212,7 @@ def searchTenantByName():
             return render_template('tenantResults.html', tenant=tenant)
         else:
             # Account doesnt exist or username/password incorrect
-             flash('There is no user that matches that information, please try again', 'message')
+             flash('There is no user that matches that information, please try again ', 'message')
     return render_template('searchTenant.html')
 
 @app.route('/searchProperty/', methods=['GET', 'POST'])
