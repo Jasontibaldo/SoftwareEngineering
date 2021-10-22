@@ -241,9 +241,10 @@ def searchPropertyByAddress():
     if request.method == 'POST':
         # Create variables for easy access
         propertyAddress = request.form['propertyAddress']
+        propertyAddress = '%' + propertyAddress + '%'
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Property WHERE propertyAddress = %s', (propertyAddress,))
+        cursor.execute('SELECT * FROM Property WHERE propertyAddress LIKE %s', (propertyAddress,))
 
         # Fetch one record and return result
         property = cursor.fetchone()
