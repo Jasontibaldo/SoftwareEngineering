@@ -160,9 +160,10 @@ def searchOwnerByID():
 def searchOwnerByName():
     if request.method == 'POST':
         # Create variables for easy access
-        FirstName = request.form['FirstName']
+        LastName = request.form['LastName']
+        LastName = '%' + LastName + '%'
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Owners WHERE FirstName = %s', (FirstName,))
+        cursor.execute('SELECT * FROM Owners WHERE LastName LIKE %s', (LastName,))
         # Fetch one record and return result
         owner = cursor.fetchall()
         # If account exists in accounts table in out database
@@ -199,12 +200,12 @@ def searchTenantByID():
 def searchTenantByName():
     if request.method == 'POST':
         # Create variables for easy access
-        FirstName = request.form['FirstName']
+        LastName = request.form['TenantLastName']
+        LastName = '%' + LastName + '%'
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenant WHERE FirstName = %s', (FirstName,))
+        cursor.execute('SELECT * FROM Tenant WHERE LastName LIKE %s', (LastName,))
         # Fetch one record and return result
         tenant = cursor.fetchone()
-        print(tenant)
         # If account exists in accounts table in out database
         if tenant:
             return render_template('tenantResults.html', tenant=tenant)
