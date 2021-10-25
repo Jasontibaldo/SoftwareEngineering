@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import config
+import json
 from datetime import datetime
 
 
@@ -150,6 +151,7 @@ def searchOwnerByID():
         owner = cursor.fetchone()
         # If account exists in accounts table in out database
         if owner:
+            print(owner)
             return render_template('ownerResults.html', owner=owner)
         else:
             # Account doesnt exist or username/password incorrect
