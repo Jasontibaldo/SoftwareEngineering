@@ -149,10 +149,13 @@ def searchOwnerByID():
         cursor.execute('SELECT * FROM Owners WHERE ownerID = %s', (ownerID,))
         # Fetch one record and return result
         owner = cursor.fetchone()
+        ownerArray =[owner]
         # If account exists in accounts table in out database
         if owner:
             print(owner)
-            return render_template('ownerResults.html', owner=owner)
+            print("Hello")
+            print(ownerArray)
+            return render_template('ownerResults.html', owner=ownerArray)
         else:
             # Account doesnt exist or username/password incorrect
              flash('Nah fam', 'message')
@@ -168,6 +171,7 @@ def searchOwnerByName():
         cursor.execute('SELECT * FROM Owners WHERE LastName LIKE %s', (LastName,))
         # Fetch one record and return result
         owner = cursor.fetchall()
+        
         # If account exists in accounts table in out database
         if owner:
             return render_template('ownerResults.html', owner=owner)
