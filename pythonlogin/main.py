@@ -9,12 +9,10 @@ import json
 from datetime import datetime
 
 
-
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
 app.secret_key = 'your secret key'
-
 
 
 # Login information is hosted in the config.py file, which we can use for other information if needed
@@ -552,7 +550,7 @@ def searchLeaseByStatus():
     return render_template('searchLease.html')
 
 
-# This method is used to search for a lease by its ID
+# This method is used to search for a lease by the tenantID
 @app.route('/searchLeaseByTenant/', methods=['GET', 'POST'])
 def searchLeaseByTenant():
     if request.method == 'POST':
@@ -571,6 +569,45 @@ def searchLeaseByTenant():
              flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
     return render_template('searchLease.html')
 
+
+# This method is used to search for a lease by the PropertyID
+@app.route('/searchLeaseByProperty/', methods=['GET', 'POST'])
+def searchLeaseByProperty():
+    if request.method == 'POST':
+        # Create variables for easy access
+        propertyID = request.form['propertyID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Leases.propertyID = %s', (propertyID,))
+        # Fetch one record and return result
+        lease = cursor.fetchall()
+        print(lease)
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=lease)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
+    return render_template('searchLease.html')
+
+# This method is used to search for a lease by the PropertyID
+@app.route('/searchLeaseByAddress/', methods=['GET', 'POST'])
+def searchLeaseByAddress():
+    if request.method == 'POST':
+        # Create variables for easy access
+        propertyAddress = request.form['propertyAddress']
+        propertyAddress = '%' + propertyAddress + '%'
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Property.propertyAddress LIKE %s', (propertyAddress,))
+        # Fetch one record and return result
+        lease = cursor.fetchall()
+        print(lease)
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=lease)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
+    return render_template('searchLease.html')
 
 if __name__ == '__main__':
     app.run()

@@ -13,7 +13,7 @@
 
         {% block content %} 
 
-		<div class="alert alert-warning">
+		
 			{% with messages = get_flashed_messages() %}
 			{% if messages %}
      			 {% for message in messages %}
@@ -21,7 +21,7 @@
       			{% endfor %}
    			{% endif %}
 		{% endwith %}
-		</div>
+		
 
 
 		<div>
