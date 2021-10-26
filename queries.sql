@@ -34,4 +34,13 @@ WHERE FirstName ="VARIABLE"
 AND LastName = "VARIABLE" ;
 
 
+--Select values from leases based on property Join
+Select Leases.leaseID, Leases.propertyID, Leases.startDate, Leases.endDate, Leases.price,
+ Property.propertyAddress, Property.propertyAddressLine2,
+ Property.propertyState, Property.propertyCity, Property.propertyZip
+FROM Leases
+INNER JOIN Property ON Leases.propertyID = Property.propertyID
+WHERE LeaseID = 1;
+
+
 --###################### ReportQueries ######################

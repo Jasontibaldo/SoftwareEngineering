@@ -1,3 +1,4 @@
+# Imports
 from os import error
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
@@ -25,11 +26,9 @@ app.config['MYSQL_DB'] = config.mysql_db
 # Intialize MySQL
 mysql = MySQL(app)
 
-
+# This allows for a user to be logged in
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    # Output message if something goes wrong...
-    msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # Create variables for easy access
@@ -51,8 +50,8 @@ def login():
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
-    # Show the login form with message (if any)
-    return render_template('index.html', msg=msg)
+    # Show the login form 
+    return render_template('index.html')
 
 
 @app.route('/pythonlogin/profile')
@@ -85,7 +84,7 @@ def home():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
-# http://localhost:5000/Falsk/register - this will be the registration page, we need to use both GET and POST requests
+# http://localhost:5000/Flask/register - this will be the registration page, we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
@@ -124,183 +123,23 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-@app.route('/leaseMainPage', methods=['GET', 'POST'])
-def leaseMainPage():
-    msg = ''
-    return render_template('leaseMainPage.html', msg=msg)
+####################################################### LEASE SECTION  ##############################3########################
 
+# When a user clicks on the "New Lease" button, they are redirected to this page
 @app.route('/newLeaseCreation/', methods=['GET', 'POST'])
 def newLeaseButton():
     msg=''
     return render_template('newLease.html', msg=msg)
 
 
-@app.route('/searchOwner/', methods=['GET', 'POST'])
-def searchOwnerPage():
-    return render_template('searchOwner.html')
+@app.route('/leaseMainPage', methods=['GET', 'POST'])
+def leaseMainPage():
+    msg = ''
+    return render_template('leaseMainPage.html', msg=msg)
 
 
-@app.route('/searchOwnerByID/', methods=['GET', 'POST'])
-def searchOwnerByID():
-    if request.method == 'POST':
-        # Create variables for easy access
-        ownerID = request.form['ownerID']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Owners WHERE ownerID = %s', (ownerID,))
-        # Fetch one record and return result
-        owner = cursor.fetchone()
-        ownerArray =[owner]
-        # If account exists in accounts table in out database
-        if owner:
-            print(owner)
-            print("Hello")
-            print(ownerArray)
-            return render_template('ownerResults.html', owner=ownerArray)
-        else:
-            # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
-    return render_template('searchOwner.html')
 
-@app.route('/searchOwnerByName/', methods=['GET', 'POST'])
-def searchOwnerByName():
-    if request.method == 'POST':
-        # Create variables for easy access
-        LastName = request.form['LastName']
-        LastName = '%' + LastName + '%'
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Owners WHERE LastName LIKE %s', (LastName,))
-        # Fetch one record and return result
-        owner = cursor.fetchall()
-        
-        # If account exists in accounts table in out database
-        if owner:
-            return render_template('ownerResults.html', owner=owner)
-        else:
-            # Account doesnt exist or username/password incorrect
-             flash('There is no user that matches that information, please try again', 'message')
-    return render_template('searchOwner.html')
-
-@app.route('/searchTenant/', methods=['GET', 'POST'])
-def searchTenantPage():
-    return render_template('searchTenant.html')
-
-@app.route('/searchTenantByID/', methods=['GET', 'POST'])
-def searchTenantByID():
-    if request.method == 'POST':
-        # Create variables for easy access
-        tenantID = request.form['tenantID']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenant WHERE tenantID = %s', (tenantID,))
-        # Fetch one record and return result
-        tenant = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if tenant:
-            return render_template('tenantResults.html', tenant=tenant)
-        else:
-             print("dont Exist")
-            # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
-    return render_template('searchTenant.html')
-
-@app.route('/searchTenantByName/', methods=['GET', 'POST'])
-def searchTenantByName():
-    if request.method == 'POST':
-        # Create variables for easy access
-        LastName = request.form['TenantLastName']
-        LastName = '%' + LastName + '%'
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenant WHERE LastName LIKE %s', (LastName,))
-        # Fetch one record and return result
-        tenant = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if tenant:
-            return render_template('tenantResults.html', tenant=tenant)
-        else:
-            # Account doesnt exist or username/password incorrect
-             flash('There is no user that matches that information, please try again ', 'message')
-    return render_template('searchTenant.html')
-
-@app.route('/searchProperty/', methods=['GET', 'POST'])
-def searchPropertyPage():
-    return render_template('searchProperty.html')
-@app.route('/searchPropertyByID/', methods=['GET', 'POST'])
-def searchPropertyByID():
-    if request.method == 'POST':
-        # Create variables for easy access
-        propertyID = request.form['propertyID']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Property WHERE propertyID = %s', (propertyID,))
-        # Fetch one record and return result
-        property = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if property:
-            return render_template('propertyResults.html', property=property)
-        else:
-             print("dont Exist")
-            # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
-    return render_template('searchProperty.html')
-
-@app.route('/searchPropertyByAddress/', methods=['GET', 'POST'])
-def searchPropertyByAddress():
-    if request.method == 'POST':
-        # Create variables for easy access
-        propertyAddress = request.form['propertyAddress']
-        propertyAddress = '%' + propertyAddress + '%'
-
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Property WHERE propertyAddress LIKE %s', (propertyAddress,))
-
-        # Fetch one record and return result
-        property = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if property:
-            return render_template('propertyResults.html', property=property)
-        else:
-             print("dont Exist")
-            # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
-    return render_template('searchProperty.html')
-
-@app.route('/searchLease/', methods=['GET', 'POST'])
-def searchLeasePage():
-    return render_template('searchLease.html')
-
-@app.route('/searchLeaseByID/', methods=['GET', 'POST'])
-def searchLeaseByID():
-    if request.method == 'POST':
-        # Create variables for easy access
-        leaseID = request.form['leaseID']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Leases WHERE leaseID = %s', (leaseID,))
-        # Fetch one record and return result
-        lease = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if lease:
-            return render_template('leaseResults.html', lease=lease)
-        else:
-             print("dont Exist")
-            # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
-    return render_template('searchLease.html')
-
-@app.route('/searchLeaseByStatus/', methods=['GET', 'POST'])
-def searchLeaseByStatus():
-    if request.method == 'POST':
-        # Create variables for easy access
-        status = request.form['leaseStatus']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Leases WHERE leaseStatus = %s', (status,))
-        # Fetch one record and return result
-        lease = cursor.fetchone()
-        print(lease)
-        # If account exists in accounts table in out database
-        if lease:
-            return render_template('leaseResults.html', lease=lease)
-        else:
-            # Account doesnt exist or username/password incorrect
-             flash('There is no user that matches that information, please try again', 'message')
-    return render_template('searchLease.html')
+######################################################## OWNER SECTION ######################################################
 
 # This is where a new owner will be created
 @app.route('/newOwner', methods=['GET', 'POST'])
@@ -352,50 +191,157 @@ def newOwner():
     # Show owner form with message (if any)
     return render_template('newOwner.html', msg=msg)
 
+# This is the page where a user can choose how to search for the owner they're looking for
+@app.route('/searchOwner/', methods=['GET', 'POST'])
+def searchOwnerPage():
+    return render_template('searchOwner.html')
 
-@app.route('/newLease', methods=['GET', 'POST'])
-def newLease():
+
+# This method is used to search for an owner by their ID
+@app.route('/searchOwnerByID/', methods=['GET', 'POST'])
+def searchOwnerByID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        ownerID = request.form['ownerID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Owners WHERE ownerID = %s', (ownerID,))
+        # Fetch one record and return result
+        owner = cursor.fetchone()
+        ownerArray =[owner]
+        # If account exists in accounts table in out database
+        if owner:
+            print(owner)
+            print("Hello")
+            print(ownerArray)
+            return render_template('ownerResults.html', owner=ownerArray)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+    return render_template('searchOwner.html')
+
+# This method is used to search for an owner by their name
+@app.route('/searchOwnerByName/', methods=['GET', 'POST'])
+def searchOwnerByName():
+    if request.method == 'POST':
+        # Create variables for easy access
+        LastName = request.form['LastName']
+        LastName = '%' + LastName + '%'
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Owners WHERE LastName LIKE %s', (LastName,))
+        # Fetch one record and return result
+        owner = cursor.fetchall()
+        
+        # If account exists in accounts table in out database
+        if owner:
+            return render_template('ownerResults.html', owner=owner)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('There is no user that matches that information, please try again', 'message')
+    return render_template('searchOwner.html')
+
+
+
+########################################################## TENANT SECTION ######################################################
+
+# This is where a new tenant will be created
+@app.route('/newTenant', methods=['GET', 'POST'])
+def newTenant():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'startDate' in request.form and 'endDate' in request.form and 'price' in request.form \
-         and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
-        # Create variables for easy access
-        # Uses strptime to convert date from string in the wrong format to a date in correct format for mySQL
-        StartDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
-        EndDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
-        Price = request.form['price']
-        RentalInsurance = request.form['rentalInsurance']
-        rentalAgent = request.form['rentalAgent']
-        leaseStatus = 'Active'
-        TenantID = request.form['tenantID']
-        PropertyID = request.form['propertyID']
+    if request.method == 'POST' and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form\
+    and 'tenantPhone' in request.form and 'tenantEmail' in request.form and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZipcode' in request.form:
+    # Create variables for easy access
+        FirstName = request.form['FirstName']
+        LastName = request.form['LastName']
+        tenantMailingAddress = request.form['tenantMailingAddress']
+        tenantMailingAddressLine2 = request.form['tenantMailingAddressLine2']
+        tenantPhone = request.form['tenantPhone']
+        tenantEmail = request.form['tenantEmail']
+        tenantCity = request.form['tenantCity']
+        tenantState = request.form['tenantState']
+        tenantZipcode = request.form['tenantZipcode']
+
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Tenant WHERE Email = %s', (tenantEmail,))
+        tenant = cursor.fetchone()
         # If account exists show error and validation checks
-        
-        if not StartDate or not EndDate or not Price or not rentalAgent or not TenantID or not PropertyID:
-            msg = 'Please fill out the form!'
+        if tenant:
+            print("Already Exists")
+            flash('A tenant with this email address already exists.', 'error')
+        elif not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail\
+        or not tenantCity or not tenantState or not tenantZipcode :
+            print("not entered properly")
+            flash('Property not created, please ensure the entire form was filled out.', 'error')
         else:
-            # Try catch to ensure the validity of the data, will reload the page with error message if not compatable with database
+    # Account doesnt exists and the form data is valid, now insert new owner into the owner table
             try:
                 cursor.execute(
-                    'INSERT INTO Leases (startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
-                    (StartDate,EndDate,Price,RentalInsurance,leaseStatus,rentalAgent,TenantID,PropertyID))
+                'INSERT INTO Tenant (LastName,FirstName, mailingAddress, mailingAddressLine2, phoneNumber,Email,mailingCity,mailingState,mailingZip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                (LastName, FirstName, tenantMailingAddress,tenantMailingAddressLine2, tenantPhone, tenantEmail, tenantCity, tenantState, tenantZipcode))
                 mysql.connection.commit()
-                # This flash is used on the home page and displays a success message when data was sent to the database correctly
-                flash('The new lease was added successfully', 'message')
+                flash('The new tenant was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
+                print("Failed insert")
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 
-
     elif request.method == 'POST':
-        # Form is empty... (no POST data)
+    # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show owner form with message (if any)
-    return render_template('newLease.html', msg=msg)
+    return render_template('newTenant.html', msg=msg)
 
+
+# This is the page where a user can choose how to search for the tenant they're looking for
+@app.route('/searchTenant/', methods=['GET', 'POST'])
+def searchTenantPage():
+    return render_template('searchTenant.html')
+
+# This method is used to search for a tenant by their ID
+@app.route('/searchTenantByID/', methods=['GET', 'POST'])
+def searchTenantByID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        tenantID = request.form['tenantID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Tenant WHERE tenantID = %s', (tenantID,))
+        # Fetch one record and return result
+        tenant = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if tenant:
+            return render_template('tenantResults.html', tenant=tenant)
+        else:
+             print("dont Exist")
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+    return render_template('searchTenant.html')
+
+# This method is used to search for a tenant by their name
+@app.route('/searchTenantByName/', methods=['GET', 'POST'])
+def searchTenantByName():
+    if request.method == 'POST':
+        # Create variables for easy access
+        LastName = request.form['TenantLastName']
+        LastName = '%' + LastName + '%'
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Tenant WHERE LastName LIKE %s', (LastName,))
+        # Fetch one record and return result
+        tenant = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if tenant:
+            return render_template('tenantResults.html', tenant=tenant)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('There is no user that matches that information, please try again ', 'message')
+    return render_template('searchTenant.html')
+
+
+
+########################################################## PROPERTY SECTION ######################################################
+
+# This is where a new property will be created
 @app.route('/newProperty', methods=['GET', 'POST'])
 def newProperty():
     # Output message if something goes wrong...
@@ -462,8 +408,6 @@ def newProperty():
                 print("Failed insert")
                 flash('Something was incorrectly input within your data, please try again', 'error')
 
-
-
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         print('original if statemnt failing')
@@ -471,59 +415,143 @@ def newProperty():
     # Show owner form with message (if any)
     return render_template('newProperty.html', msg=msg)
 
-@app.route('/newTenant', methods=['GET', 'POST'])
-def newTenant():
+
+#This is the page where a user can determine how to search for the property they are looking for
+@app.route('/searchProperty/', methods=['GET', 'POST'])
+def searchPropertyPage():
+    return render_template('searchProperty.html')
+
+# This method is used to search for a property by its ID
+@app.route('/searchPropertyByID/', methods=['GET', 'POST'])
+def searchPropertyByID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        propertyID = request.form['propertyID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property WHERE propertyID = %s', (propertyID,))
+        # Fetch one record and return result
+        property = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyResults.html', property=property)
+        else:
+             print("dont Exist")
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+    return render_template('searchProperty.html')
+
+# This method is used to search for a property by its address
+@app.route('/searchPropertyByAddress/', methods=['GET', 'POST'])
+def searchPropertyByAddress():
+    if request.method == 'POST':
+        # Create variables for easy access
+        propertyAddress = request.form['propertyAddress']
+        propertyAddress = '%' + propertyAddress + '%'
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property WHERE propertyAddress LIKE %s', (propertyAddress,))
+
+        # Fetch one record and return result
+        property = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyResults.html', property=property)
+        else:
+             print("dont Exist")
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+    return render_template('searchProperty.html')
+
+
+######################################################## LEASE SECTION ######################################################
+
+# This is where a new Lease will be created
+@app.route('/newLease', methods=['GET', 'POST'])
+def newLease():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'LastName' in request.form and 'FirstName' in request.form and 'tenantMailingAddress' in request.form\
-    and 'tenantPhone' in request.form and 'tenantEmail' in request.form and 'tenantCity' in request.form and 'tenantState' in request.form and 'tenantZipcode' in request.form:
-    # Create variables for easy access
-        print("Before Var")
-        FirstName = request.form['FirstName']
-        LastName = request.form['LastName']
-        tenantMailingAddress = request.form['tenantMailingAddress']
-        tenantMailingAddressLine2 = request.form['tenantMailingAddressLine2']
-        tenantPhone = request.form['tenantPhone']
-        tenantEmail = request.form['tenantEmail']
-        tenantCity = request.form['tenantCity']
-        tenantState = request.form['tenantState']
-        tenantZipcode = request.form['tenantZipcode']
-        print("After Var")
-
-
+    if request.method == 'POST' and 'startDate' in request.form and 'endDate' in request.form and 'price' in request.form \
+         and 'rentalAgent' in request.form and 'tenantID' in request.form and 'propertyID' in request.form:
+        # Create variables for easy access
+        # Uses strptime to convert date from string in the wrong format to a date in correct format for mySQL
+        StartDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
+        EndDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        Price = request.form['price']
+        RentalInsurance = request.form['rentalInsurance']
+        rentalAgent = request.form['rentalAgent']
+        leaseStatus = 'Active'
+        TenantID = request.form['tenantID']
+        PropertyID = request.form['propertyID']
         # Check if owner already exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Tenant WHERE Email = %s', (tenantEmail,))
-        tenant = cursor.fetchone()
         # If account exists show error and validation checks
-        if tenant:
-            print("Already Exists")
-            flash('A tenant with this email address already exists.', 'error')
-        elif not LastName or not FirstName or not tenantMailingAddress or not tenantPhone or not tenantEmail\
-        or not tenantCity or not tenantState or not tenantZipcode :
-            print("not entered properly")
-            flash('Property not created, please ensure the entire form was filled out.', 'error')
+        
+        if not StartDate or not EndDate or not Price or not rentalAgent or not TenantID or not PropertyID:
+            msg = 'Please fill out the form!'
         else:
-    # Account doesnt exists and the form data is valid, now insert new owner into the owner table
+            # Try catch to ensure the validity of the data, will reload the page with error message if not compatable with database
             try:
                 cursor.execute(
-                'INSERT INTO Tenant (LastName,FirstName, mailingAddress, mailingAddressLine2, phoneNumber,Email,mailingCity,mailingState,mailingZip) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (LastName, FirstName, tenantMailingAddress,tenantMailingAddressLine2, tenantPhone, tenantEmail, tenantCity, tenantState, tenantZipcode))
+                    'INSERT INTO Leases (startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
+                    (StartDate,EndDate,Price,RentalInsurance,leaseStatus,rentalAgent,TenantID,PropertyID))
                 mysql.connection.commit()
-    # TODO set up a message for users that successfully created a new Tenant on the home page as a popup or something
-                flash('The new tenant was added successfully', 'message')
+                # This flash is used on the home page and displays a success message when data was sent to the database correctly
+                flash('The new lease was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
-                print("Failed insert")
                 flash('Something was incorrectly input within your data, please try again', 'error')
                 
 
     elif request.method == 'POST':
-    # Form is empty... (no POST data)
+        # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show owner form with message (if any)
-    return render_template('newTenant.html', msg=msg)
+    return render_template('newLease.html', msg=msg)
+
+# This is the page where a user can determine how to search for the lease they are looking for
+@app.route('/searchLease/', methods=['GET', 'POST'])
+def searchLeasePage():
+    return render_template('searchLease.html')
+
+# This method is used to search for a lease by its ID
+@app.route('/searchLeaseByID/', methods=['GET', 'POST'])
+def searchLeaseByID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        leaseID = request.form['leaseID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseID = %s', (leaseID,))
+        # Fetch one record and return result
+        lease = cursor.fetchone()
+        leaseArray =[lease]
+        print(lease)
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=leaseArray)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
+    return render_template('searchLease.html')
+
+# This method is used to search for a lease by its Status
+@app.route('/searchLeaseByStatus/', methods=['GET', 'POST'])
+def searchLeaseByStatus():
+    if request.method == 'POST':
+        # Create variables for easy access
+        status = request.form['leaseStatus']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseStatus = %s', (status,))
+        # Fetch one record and return result
+        lease = cursor.fetchall()
+        print(lease)
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=lease)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('There is no user that matches that information, please try again', 'message')
+    return render_template('searchLease.html')
 
 
 

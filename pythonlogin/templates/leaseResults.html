@@ -17,17 +17,32 @@
     <h2>Lease Information</h2>
 			<div class="profileInfo">
 				<p>Lease details are below</p>
+
+                {% for lease in lease %}
                 <table>                               
                     <tr>
                         <td> Lease Address </td>
-                        <td> {{ lease['mailingAddress']}} {{ lease['mailingAddressLine2']}}</td>
+                        <td> {{ lease['propertyAddress']}} {{ lease['propertyAddressLine2']}}</td>
                     </tr>
                     <tr>
                         <td> lease Address Line 2 </td>
-                        <td> {{ lease['city']}} {{ lease['state']}} {{ lease['zip']}}</td>
+                        <td> {{ lease['propertyCity']}} {{ lease['propertyState']}} {{ lease['propertyZip']}}</td>
                     </tr>
-
+                    <tr>
+                        <td>Start Date</td>
+                        <td>{{lease['startDate']}}</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>{{lease['endDate']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>{{lease['price']}}</td>
+                    </tr>
                 </table>
+                <hr>
+                {% endfor %}
 			</div>
 		</div>
 {% endblock %}
