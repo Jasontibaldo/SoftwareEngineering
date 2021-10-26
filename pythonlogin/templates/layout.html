@@ -6,25 +6,75 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 		<link rel="stylesheet" href="all.css">
 		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"
+		
 	</head>
 	<body class="loggedin">
-		<nav class="navtop">
-			<div>
-				<h1>Super Awesome Login Website</h1>
-				<a href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
-				<a href="{{ url_for('newOwner') }}"><i class="fas fa-user-circle"></i>New Owner</a>
-				<a href="{{ url_for('searchOwnerPage') }}"><i class="fas fa-user-circle"></i>Search Owners</a>
-				<a href="{{ url_for('newProperty') }}"><i class="fas fa-user-circle"></i>New Property</a>
-				<a href="{{ url_for('newTenant') }}"><i class="fas fa-user-circle"></i>New Tenants</a>
-				<a href="{{ url_for('home') }}"><i class="fas fa-user-circle"></i>Home</a>
-				<a href="{{ url_for('leaseMainPage') }}"><i class="fas fa-user-circle"></i>Leases</a>
-				<a href="{{ url_for('searchTenantPage') }}"><i class="fas fa-user-circle"></i>Search Tenants</a>
-				<a href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Properties</a>
-				<a href="{{ url_for('searchLeasePage') }}"><i class="fas fa-user-circle"></i>Search Leases</a>
+			
+			<div class="container">
+				<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom bg-dark text-white">
+				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="{{ url_for('home') }}">Super Awesome Website</a>
 
+				<div class="d-flex justify-content-center py-3">
+				
+				<ul class="dropdown-menu dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">
+				<li>
+					<a class="nav-link px-2 text-secondary" href="{{ url_for('newOwner') }}"><i class="fas fa-user-circle"></i>New Owner</a>
+				</li>
+				<li>
+					<a class="nav-link px-2 text-secondary" href="{{ url_for('searchOwnerPage') }}"><i class="fas fa-user-circle"></i>Search Owners</a>
+				</li>
+				</ul>
+				
 
+				<ul class="dropdown-menu dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">	
+					
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('newProperty') }}"><i class="fas fa-user-circle"></i>New Property</a>
+					</li>
 
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Properties</a>
+					</li>
+
+				</ul>
+
+				<ul>
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('newTenant') }}"><i class="fas fa-user-circle"></i>New Tenants</a>
+					</li>
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchTenantPage') }}"><i class="fas fa-user-circle"></i>Search Tenants</a>
+					</li>
+
+				</ul>
+
+				<ul>
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('leaseMainPage') }}"><i class="fas fa-user-circle"></i>Leases</a>
+					</li>
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchLeasePage') }}"><i class="fas fa-user-circle"></i>Search Leases</a>
+					</li>
+
+				</ul>
+
+				<ul>
+
+				<li>
+					<a class="dropdown-item active" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
+					
+				</li>
+
+				
+		
+
+			</header>
 			</div>
+		</div>
 		</nav>
 		<div class="content">
 			{% block content %}{% endblock %}
