@@ -45,7 +45,7 @@
 
 <hr>
 
-<h3>Search By Tenant ID</h3>
+<h3>Search By Property ID</h3>
 <form action="{{ url_for('searchLeaseByProperty') }}" method="post" autocomplete="off">
     <label for="propertyID">Enter The Property ID:</label>
     <input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
@@ -56,7 +56,7 @@
 <h3>Search By Property Address</h3>
 <form action="{{ url_for('searchLeaseByAddress') }}" method="post" autocomplete="off">
     <label for="propertyAddress">Enter The Property Address:</label>
-    <input type="number" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
+    <input type="text" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
 	<input type="submit" value="Search">
 </form>
 
