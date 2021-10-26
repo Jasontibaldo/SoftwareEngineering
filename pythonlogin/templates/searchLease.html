@@ -34,6 +34,15 @@
 	<input type="submit" value="Search">
 </form>
 
+<hr>
+
+<h3>Search By Tenant ID</h3>
+<form action="{{ url_for('searchLeaseByTenant') }}" method="post" autocomplete="off">
+    <label for="leaseTenant">Enter The Tenant ID:</label>
+    <input type="number" name="tenantID" placeholder="Tenant ID" id="tenantID" required>
+	<input type="submit" value="Search">
+</form>
+
 {% endblock %}
 </body>
 </html>

@@ -123,21 +123,6 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-####################################################### LEASE SECTION  ##############################3########################
-
-# When a user clicks on the "New Lease" button, they are redirected to this page
-@app.route('/newLeaseCreation/', methods=['GET', 'POST'])
-def newLeaseButton():
-    msg=''
-    return render_template('newLease.html', msg=msg)
-
-
-@app.route('/leaseMainPage', methods=['GET', 'POST'])
-def leaseMainPage():
-    msg = ''
-    return render_template('leaseMainPage.html', msg=msg)
-
-
 
 ######################################################## OWNER SECTION ######################################################
 
@@ -465,6 +450,19 @@ def searchPropertyByAddress():
 
 ######################################################## LEASE SECTION ######################################################
 
+# When a user clicks on the "New Lease" button, they are redirected to this page
+@app.route('/newLeaseCreation/', methods=['GET', 'POST'])
+def newLeaseButton():
+    msg=''
+    return render_template('newLease.html', msg=msg)
+
+
+@app.route('/leaseMainPage', methods=['GET', 'POST'])
+def leaseMainPage():
+    msg = ''
+    return render_template('leaseMainPage.html', msg=msg)
+
+
 # This is where a new Lease will be created
 @app.route('/newLease', methods=['GET', 'POST'])
 def newLease():
@@ -553,6 +551,25 @@ def searchLeaseByStatus():
              flash('There is no user that matches that information, please try again', 'message')
     return render_template('searchLease.html')
 
+
+# This method is used to search for a lease by its ID
+@app.route('/searchLeaseByTenant/', methods=['GET', 'POST'])
+def searchLeaseByTenant():
+    if request.method == 'POST':
+        # Create variables for easy access
+        tenantID = request.form['tenantID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE tenantID = %s', (tenantID,))
+        # Fetch one record and return result
+        lease = cursor.fetchall()
+        print(lease)
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=lease)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
+    return render_template('searchLease.html')
 
 
 if __name__ == '__main__':
