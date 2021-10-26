@@ -30,8 +30,14 @@
 <h3>Search By Lease Status</h3>
 <form action="{{ url_for('searchLeaseByStatus') }}" method="post" autocomplete="off">
     <label for="leaseStatus">Enter The Status:</label>
-    <input type="text" name="leaseStatus" placeholder="Lease Status" id="leaseStatus" required>
-	<input type="submit" value="Search">
+    <select name = "leaseStatus" placeholder="Lease Status" id="leaseStatus" required>
+        <option value="" disabled selected hidden>Lease Status</option>
+        <option value = "active"> Active</option>
+        <option value = "Checked In">Checked In</option>
+        <option value = "Checked Out">Checked Out</option>
+        <option value = "cancelled">Cancelled</option>
+    </select>
+    <input type="submit" value="Search">
 </form>
 
 <hr>
