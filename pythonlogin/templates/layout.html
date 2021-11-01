@@ -6,74 +6,32 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 		<link rel="stylesheet" href="all.css">
 		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
 	</head>
 	
 	<body class="loggedin">
 		<nav class="navbar navbar-default navbar-fixed-top bg-dark">
+
+			
 			<div class="container-fluid navbar-inner">
 				
 				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="{{ url_for('home') }}">BHHS Zack Shore Rental Manager</a>
-
-				<div class="d-flex justify-content-center py-3">
 				
-				<ul class="dropdown-menu dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">
-				<li>
-					<a class="nav-link px-2 text-secondary" href="{{ url_for('newOwner') }}"><i class="fas fa-user-circle"></i>New Owner</a>
-				</li>
-				<li>
-					<a class="nav-link px-2 text-secondary" href="{{ url_for('searchOwnerPage') }}"><i class="fas fa-user-circle"></i>Search Owners</a>
-				</li>
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Properties</a>
+						<ul class="dropdown-menu">
+							<li> <a class="dropdown-item" href="{{ url_for('newProperty') }}">Create Property </a></li>
+							<li><a class="dropdown-item" href="{{ url_for('searchPropertyPage') }}">Search Property< /a></li>
+						</ul>
+					</li>
 				</ul>
-				
-
-				<ul class="dropdown-menu dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">	
-					
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('newProperty') }}"><i class="fas fa-user-circle"></i>New Property</a>
-					</li>
-
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Properties</a>
-					</li>
-
-				</ul>
-
-				<ul>
-
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('newTenant') }}"><i class="fas fa-user-circle"></i>New Tenants</a>
-					</li>
-
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchTenantPage') }}"><i class="fas fa-user-circle"></i>Search Tenants</a>
-					</li>
-
-				</ul>
-
-				<ul>
-
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('leaseMainPage') }}"><i class="fas fa-user-circle"></i>Leases</a>
-					</li>
-
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchLeasePage') }}"><i class="fas fa-user-circle"></i>Search Leases</a>
-					</li>
-
-				</ul>
-
-				<ul>
-
-				<li>
-					<a class="dropdown-item active" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
-					
-				</li>
-
-				
-		
 
 			</header>
+
 			</div>
 		</div>
 		</nav>
