@@ -436,6 +436,7 @@ def searchPropertyByAddress():
 
         # Fetch one record and return result
         property = cursor.fetchone()
+
         # If account exists in accounts table in out database
         if property:
             return render_template('propertyResults.html', property=property)
@@ -443,6 +444,36 @@ def searchPropertyByAddress():
              print("dont Exist")
             # Account doesnt exist or username/password incorrect
              flash('Nah fam', 'message')
+    return render_template('searchProperty.html')
+
+
+
+# This method is used to search for a property by its attributes other than Address or ID
+@app.route('/searchPropertyByAttributes/', methods=['GET', 'POST'])
+def searchPropertyByAttributes():
+    if request.method == 'POST':
+        # Create variables for easy access, if the user didn't fill out a field, set variable to "IS NOT NULL"
+        
+        bbq = request.form['bbq']
+        print(bbq)
+        
+        pool = request.form['pool']
+        print(pool)
+        
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        
+        cursor.execute('SELECT * FROM Property WHERE bbq = %s AND pool = %s', (bbq,pool,))
+        
+        # Fetch one record and return result
+        property = cursor.fetchall()
+
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyResults.html', property=property)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Something is incorrect within your query, please try again!', 'message')
     return render_template('searchProperty.html')
 
 
@@ -492,6 +523,18 @@ def newLease():
                     'INSERT INTO Leases (startDate,endDate,price,rentalInsurance,leaseStatus,rentalAgent,tenantID,propertyID) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)',
                     (StartDate,EndDate,Price,RentalInsurance,leaseStatus,rentalAgent,TenantID,PropertyID))
                 mysql.connection.commit()
+
+                cursor.execute('SELECT leaseID FROM Leases ORDER BY leaseID DESC LIMIT 0,1')
+
+                leaseIDTuple = cursor.fetchone()
+                leaseData = leaseIDTuple["leaseID"]
+                
+                cursor.execute(
+                    'INSERT INTO unavailability (startDate, endDate, reason, PropertyID, LeaseID) VALUES (%s, %s, %s, %s, %s)',
+                    (StartDate,EndDate,"LeaseRes",PropertyID, leaseData))
+                mysql.connection.commit()
+
+
                 # This flash is used on the home page and displays a success message when data was sent to the database correctly
                 flash('The new lease was added successfully', 'message')
                 return redirect(url_for('home'))
@@ -521,7 +564,6 @@ def searchLeaseByID():
         # Fetch one record and return result
         lease = cursor.fetchone()
         leaseArray =[lease]
-        print(lease)
         # If account exists in accounts table in out database
         if lease:
             return render_template('leaseResults.html', lease=leaseArray)

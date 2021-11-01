@@ -31,8 +31,26 @@
 <form action="{{ url_for('searchPropertyByAddress') }}" method="post" autocomplete="off">
     <label for="address">Enter The Address:</label>
     <input type="text" name="propertyAddress" placeholder="address" id="propertyAddress" required>
+
+	<label for="ownerID">Owner</label>
 	<input type="submit" value="Search">
 </form>
+
+<h3>Search by Attributes</h3>
+
+<form action="{{ url_for('searchPropertyByAttributes') }}" method="post" autocomplete="off">
+    <label for="bbq">Has a BBQ Grill</label>
+    <input type="checkbox" name="bbq" id="bbq" value="1">
+	<input type="hidden" name="bbq" id="bbq" value="0">
+
+	<label for="Pool">Has a Pool:</label>
+    <input type="checkbox" name="pool" id="pool" value="1">
+	<input type="hidden" name="pool" id="pool" value="0">
+
+	<input type="submit" value="Search">
+</form>
+
+
 
 {% endblock %}
 </body>

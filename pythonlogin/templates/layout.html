@@ -28,15 +28,16 @@
 				
 
 				<ul class="dropdown-menu dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">	
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Property</a>
+					</li>
 					
 					<li>
 						<a class="nav-link px-2 text-secondary" href="{{ url_for('newProperty') }}"><i class="fas fa-user-circle"></i>New Property</a>
 					</li>
 
-					<li>
-						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Properties</a>
-					</li>
-
+			
 				</ul>
 
 				<ul>
@@ -55,6 +56,10 @@
 
 					<li>
 						<a class="nav-link px-2 text-secondary" href="{{ url_for('leaseMainPage') }}"><i class="fas fa-user-circle"></i>Leases</a>
+					</li>
+
+					<li>
+						<a class="nav-link px-2 text-secondary" href="{{ url_for('searchPropertyPage') }}"><i class="fas fa-user-circle"></i>Search Properties</a>
 					</li>
 
 					<li>

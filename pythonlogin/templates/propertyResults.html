@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Owner Information Page</title>
+    <title>Property Information Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -17,10 +17,12 @@
     <h2>Property Information</h2>
 			<div class="profileInfo">
 				<p>Property details are below</p>
-                <table>                               
+                <table>                       
+                    
+                    {% for property in property %}
                     <tr>
                         <td> Property Address </td>
-                        <td> {{ property['propertyAddress']}} {{ property['propertyAddressLine2']}}</td>
+                        <td> {{ property['propertyAddress']}}</td>
                     </tr>
                     <tr>
                         <td> Property Address Line 2 </td>
@@ -28,6 +30,8 @@
                     </tr>
 
                 </table>
+                <hr>
+                {% endfor %}
 			</div>
 		</div>
 {% endblock %}
