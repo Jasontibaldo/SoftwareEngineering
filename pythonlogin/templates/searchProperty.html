@@ -21,12 +21,16 @@
 
 <h2>Search Property</h2>
 <h3>Search by Property ID</h3>
+
+
 <form action="{{ url_for('searchPropertyByID') }}" method="post" autocomplete="off">
     <label for="PropertyID">Enter The Property ID:</label>
     <input type="number" name="propertyID" placeholder="propertyID" id="propertyID" required>
 	<input type="submit" value="Search">
 </form>
 <hr>
+
+
 <h3>Search By Property Address</h3>
 <form action="{{ url_for('searchPropertyByAddress') }}" method="post" autocomplete="off">
     <label for="address">Enter The Address:</label>
@@ -47,6 +51,43 @@
     <input type="checkbox" name="pool" id="pool" value="1">
 	<input type="hidden" name="pool" id="pool" value="0">
 
+	<label for="Pets">Allows Pets:</label>
+	<input type="checkbox" name="pets" id="pets" value="1">
+	<input type="hidden" name="pets" id="pets" value="0">
+
+	<label for="beachsideBayside">Is beachside or bayside:</label>
+	<select name="beachsideBayside" id="beachsideBayside">
+	<option value="0" >Neither</option>
+	<option value="1">Beachside</option>
+	<option value="2">Bayside</option>
+	</select>
+
+	<label for="oceanfrontBayfront">Is Oceanfront or Bayfront:</label>
+	<select name="oceanfrontBayfront" id="oceanfrontBayfront">
+	<option value="neither">Neither</option>
+	<option value="oceanfront">Oceanfront</option>
+	<option value="bayfront">Bayfront</option>
+	<option value="both">Both</option>
+	</select>
+
+	<label for="ac">Has Air Conditioning:</label>
+	<input type="checkbox" name="ac" id="ac" value="1">
+	<input type="hidden" name="ac" id="ac" value="0">
+
+	<label for="washerDryer">Has a washer and dryer:</label>
+	<input type="checkbox" name="washerDryer" id="washerDryer" value="1">
+	<input type="hidden" name="washerDryer" id="washerDryer" value="0">
+
+	<label for="outsideShower">Has an outside shower:</label>
+	<input type="checkbox" name="outsideShower" id="outsideShower" value="1">
+	<input type="hidden" name="outsideShower" id="outsideShower" value="0">
+
+	<label for="numOfBedrooms">Number of Bedrooms:</label>
+	<input type="number" name="numOfBedrooms" id="numOfBedrooms" placeholder="Enter a number here">
+	
+	<label for="numOfBathrooms">Number of Bathrooms:</label>
+	<input type="number" step="any" name="numOfBathrooms" id="numOfBathrooms" placeholder="Enter a number here">
+	
 	<input type="submit" value="Search">
 </form>
 

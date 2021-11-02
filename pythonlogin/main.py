@@ -404,6 +404,8 @@ def newProperty():
 def searchPropertyPage():
     return render_template('searchProperty.html')
 
+#TODO add more ownerID as a search option
+
 # This method is used to search for a property by its ID
 @app.route('/searchPropertyByID/', methods=['GET', 'POST'])
 def searchPropertyByID():
@@ -454,17 +456,87 @@ def searchPropertyByAttributes():
     if request.method == 'POST':
         # Create variables for easy access, if the user didn't fill out a field, set variable to "IS NOT NULL"
         
-        bbq = request.form['bbq']
-        print(bbq)
-        
-        pool = request.form['pool']
-        print(pool)
         
 
+        bbq = request.form['bbq']
+        if int(bbq) == 0:
+            bbq = ' IS NOT NULL '
+        else:
+            bbq = '= ' + bbq + ' '
+        
+        pool = request.form['pool']
+        if int(pool) == 0:
+            pool = ' IS NOT NULL '
+        else:
+            pool = '= ' + pool + ' '
+        
+        pets = request.form['pets']
+        if int(pets) == 0:
+            pets = ' IS NOT NULL '
+        else:
+            pets = '= ' + pets + ' '
+        
+        beachside = ""
+        bayside = ""
+        beachsideBayside = request.form['beachsideBayside']
+
+        if int(beachsideBayside) == 0:
+            beachside = ' IS NOT NULL '
+            bayside = ' IS NOT NULL '
+        elif int(beachsideBayside) == 1:
+            beachside = '= 1 '
+            bayside = ' IS NOT NULL '
+        elif int(beachsideBayside) == 2:
+            beachside = ' IS NOT NULL '
+            bayside = '= 1 '
+
+        ac = request.form['ac']
+        if ac == 0:
+            ac = ' IS NOT NULL '
+        else:
+            ac = '= ' + ac + ' '
+        
+        washerDryer = request.form['washerDryer']
+        if washerDryer == 0:
+            washerDryer = ' IS NOT NULL '
+        else:
+            washerDryer = '= ' + washerDryer + ' '
+
+        outsideShower = request.form['outsideShower']
+        if outsideShower == 0:
+            outsideShower = 'IS NOT NULL '
+        else:
+            outsideShower = '= ' + outsideShower + ' '
+
+        numOfBedrooms = request.form['numOfBedrooms']
+        if numOfBedrooms == "":
+            numOfBedrooms = ' IS NOT NULL '
+        else:
+            numOfBedrooms = ' = ' + numOfBedrooms + ' '
+        
+        numOfBathroom = request.form['numOfBathrooms']
+      
+        if numOfBathroom == "":
+            numOfBathroom = ' IS NOT NULL '
+        else:
+            numOfBathroom = ' = ' + numOfBathroom + ' '
+
+    
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+       
         
-        cursor.execute('SELECT * FROM Property WHERE bbq = %s AND pool = %s', (bbq,pool,))
+        cursor.execute('SELECT * FROM Property WHERE bbq' + bbq + ' AND pool' + pool + ' AND pets ' + pets\
+            + ' AND beachside ' + beachside + ' AND bayside ' + bayside + ' AND numOfBedroom ' + numOfBedrooms\
+                 + ' AND numOfBathroom ' + numOfBathroom, ())
         
+        print(bbq)
+        print(pool)
+        print(pets)
+        print(beachside)
+        print(bayside)
+        print(numOfBathroom)
+        print(numOfBedrooms)
+         
         # Fetch one record and return result
         property = cursor.fetchall()
 
@@ -473,7 +545,9 @@ def searchPropertyByAttributes():
             return render_template('propertyResults.html', property=property)
         else:
             # Account doesnt exist or username/password incorrect
-             flash('Something is incorrect within your query, please try again!', 'message')
+             flash('Something is incorrect within your query or no properties matching your request exist!', 'message')
+            # TODO If time allows, add a message saying that no properties were found, separating out from the error message
+
     return render_template('searchProperty.html')
 
 
