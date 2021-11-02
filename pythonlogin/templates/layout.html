@@ -19,51 +19,37 @@
 			<div class="container-fluid navbar-inner">
 				
 				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="{{ url_for('home') }}">BHHS Zack Shore Rental Manager</a>
-				
-				<div class="dropdown">
+				<div class="btn-group">
 					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					  Properties
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 					  <li><a class="dropdown-item" href="{{url_for('newProperty')}}">Enter A New Property</a></li>
-					  <li><a class="dropdown-item" href="{{url_for('searchPropertyPage')}}">Search For A Property</a></li>
-					  					
+					  <li><a class="dropdown-item" href="{{url_for('searchPropertyPage')}}">Search For A Property</a></li>				
 					  </ul>
-				  </div>
-				  <span> 20</span>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					  Tenants
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-					  <li><a class="dropdown-item" href="{{url_for('newTenants')}}">Create A New Tenant</a></li>
-					  <li><a class="dropdown-item" href="{{url_for('searchTenantPage')}}">Search For A Tenant</a></li>		
-					  </ul>
-				  </div>
-				   <span> 20</span>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					  Owners
 					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-					  <li><a class="dropdown-item" href="{{url_for('newOwner')}}">Create A New Owner</a></li>
-					  <li><a class="dropdown-item" href="{{url_for('searchOwnerPage')}}">Search For An Owner</a></li>		
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					  <li><a class="dropdown-item" href="{{url_for('newOwner')}}">Enter A New Owner</a></li>
+					  <li><a class="dropdown-item" href="{{url_for('searchOwnerPage')}}">Search For A Owner</a></li>				
 					  </ul>
-				  </div>
-				  
-				  <span> 20</span>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					  Tenants
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					  <li><a class="dropdown-item" href="{{url_for('newTenant')}}">Enter A New Tenant</a></li>
+					  <li><a class="dropdown-item" href="{{url_for('searchTenantPage')}}">Search For A Tenant</a></li>				
+					  </ul>
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					  Leases
 					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-					  <li><a class="dropdown-item" href="{{url_for('newLease')}}">Create A New Lease</a></li>
-					  <li><a class="dropdown-item" href="{{url_for('searchLeasePage')}}">Search For A Lease</a></li>		
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					  <li><a class="dropdown-item" href="{{url_for('newLease')}}">Enter A New Tenant</a></li>
+					  <li><a class="dropdown-item" href="{{url_for('searchLeasePage')}}">Search For A Tenant</a></li>				
 					  </ul>
 				  </div>
-
-
-			</div>
+				  </div>
 		
 		</nav>
 		<div class="content">
