@@ -457,7 +457,6 @@ def searchPropertyByAttributes():
         # Create variables for easy access, if the user didn't fill out a field, set variable to "IS NOT NULL"
         
         
-
         bbq = request.form['bbq']
         if int(bbq) == 0:
             bbq = ' IS NOT NULL '
@@ -490,6 +489,23 @@ def searchPropertyByAttributes():
             beachside = ' IS NOT NULL '
             bayside = '= 1 '
 
+        oceanfront = ""
+        bayfront = ""
+        oceanfrontBayfront = request.form['oceanfrontBayfront']
+        
+        if int(oceanfrontBayfront) == 0:
+            oceanfront = ' = 0 '
+            bayfront = ' = 0 '
+        elif int(oceanfrontBayfront) == 1:
+            oceanfront = ' = 1 '
+            bayfront = ' IS NOT NULL '
+        elif int(oceanfrontBayfront) == 2:
+            oceanfront = ' IS NOT NULL '
+            bayfront = ' = 1 '
+        elif int(oceanfrontBayfront) == 3:
+            oceanfront = ' = 1 '
+            bayfront = ' = 1 '
+
         ac = request.form['ac']
         if ac == 0:
             ac = ' IS NOT NULL '
@@ -521,13 +537,14 @@ def searchPropertyByAttributes():
         else:
             numOfBathroom = ' = ' + numOfBathroom + ' '
 
-    
+        
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
        
         
         cursor.execute('SELECT * FROM Property WHERE bbq' + bbq + ' AND pool' + pool + ' AND pets ' + pets\
             + ' AND beachside ' + beachside + ' AND bayside ' + bayside + ' AND numOfBedroom ' + numOfBedrooms\
-                 + ' AND numOfBathroom ' + numOfBathroom, ())
+                 + ' AND numOfBathroom ' + numOfBathroom + ' AND oceanFront ' + oceanfront + ' AND bayFront ' + bayfront, ())
         
         print(bbq)
         print(pool)
@@ -536,6 +553,8 @@ def searchPropertyByAttributes():
         print(bayside)
         print(numOfBathroom)
         print(numOfBedrooms)
+        print(oceanfront)
+        print(bayfront)
          
         # Fetch one record and return result
         property = cursor.fetchall()
