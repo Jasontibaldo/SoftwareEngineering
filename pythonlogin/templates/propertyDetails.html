@@ -49,6 +49,35 @@
                         <td>{{ property['numOfBathroom']}}</td>
                     </tr>
 
+                    <tr>
+                        <td> Number of Parking Spots </td>
+                        <td>{{ property['numOfParkingSpots']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Wifi Name </td>
+                        <td>{{ property['wifiName']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Wifi Name </td>
+                        <td >{{ property['wifiPassword']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Commission Percentage </td>
+                        <td>{{ property['commissionPercentage']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Pool </td>
+                        {% if  property['beachside'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
                 </table>
                 <hr>
                 
