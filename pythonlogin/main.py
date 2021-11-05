@@ -24,6 +24,7 @@ app.config['MYSQL_DB'] = config.mysql_db
 # Intialize MySQL
 mysql = MySQL(app)
 
+session
 # This allows for a user to be logged in
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -537,7 +538,6 @@ def searchPropertyByAttributes():
         else:
             numOfBathroom = ' = ' + numOfBathroom + ' '
 
-        
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
        
@@ -546,15 +546,6 @@ def searchPropertyByAttributes():
             + ' AND beachside ' + beachside + ' AND bayside ' + bayside + ' AND numOfBedroom ' + numOfBedrooms\
                  + ' AND numOfBathroom ' + numOfBathroom + ' AND oceanFront ' + oceanfront + ' AND bayFront ' + bayfront, ())
         
-        print(bbq)
-        print(pool)
-        print(pets)
-        print(beachside)
-        print(bayside)
-        print(numOfBathroom)
-        print(numOfBedrooms)
-        print(oceanfront)
-        print(bayfront)
          
         # Fetch one record and return result
         property = cursor.fetchall()
@@ -567,7 +558,28 @@ def searchPropertyByAttributes():
              flash('Something is incorrect within your query or no properties matching your request exist!', 'message')
             # TODO If time allows, add a message saying that no properties were found, separating out from the error message
 
-    return render_template('searchProperty.html')
+    return render_template('searchProperty.html'), property
+
+
+# This method is used to display ALL data about a property when clicked on
+@app.route('/displayPropertyByID/',  methods=['GET', 'POST'])
+def displayPropertyByID():
+    
+   if request.method == 'POST':
+        # Create variables for easy access
+        propertyID = request.form['propertyID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property WHERE propertyID = %s', (propertyID,))
+        # Fetch one record and return result
+        property = cursor.fetchone()
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyDetails.html', property=property)
+        else:
+             print("dont Exist")
+            # Account doesnt exist or username/password incorrect
+             flash('Nah fam', 'message')
+        return render_template('searchProperty.html')
 
 
 ######################################################## LEASE SECTION ######################################################

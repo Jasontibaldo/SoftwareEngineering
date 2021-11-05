@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,40 +10,48 @@
 <body>
 {% extends 'layout.html' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Property Details{% endblock %}
 
 {% block content %}
 <div>
-    <h2>Property Information</h2>
-			<div class="profileInfo">
+    <h2>Property Details</h2>
+			<div>
 				<p>Property details are below</p>
-                {% for property in property %}
+                
                 <table>                      
                     <tr>
                         <td> Property ID </td>
                         <td>{{ property['propertyID']}}</td>
-                        
-                        
                     </tr>
+
+                    <tr>
+                        <td> Keynumber </td>
+                        <td>{{ property['keyNumber']}}</td>
+                    </tr>
+
                     <tr>
                         <td> Property Address </td>
                         <td>{{ property['propertyAddress']}}</td>
+                        
                     </tr>
                     <tr>
                         <td> Property Address Line 2 </td>
                         <td> {{ property['propertyCity']}} {{ property['propertyState']}} {{ property['propertyZip']}}</td>
                     </tr>
+
                     <tr>
-                        <td>
-                        <form action="{{ url_for('displayPropertyByID') }}" method="post" autocomplete="off">   
-                            <input id="propertyID" name="propertyID" type="hidden" value="{{ property['propertyID']}}">  
-                            <input type="submit" value="View More ">
-                        </form>
-                    </td>
+                        <td> Number of Bedrooms </td>
+                        <td>{{ property['numOfBedroom']}}</td>
                     </tr>
+
+                    <tr>
+                        <td> Number of Bathrooms </td>
+                        <td>{{ property['numOfBathroom']}}</td>
+                    </tr>
+
                 </table>
                 <hr>
-                {% endfor %}
+                
 			</div>
 		</div>
 {% endblock %}
