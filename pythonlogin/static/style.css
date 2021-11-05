@@ -19,7 +19,7 @@ body#page1{
 
 .login, .register {
     width: 400px;
-  	background-color: #ffffff;
+  	background-color: #a771dd;
   	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
   	margin: 100px auto;
 }
@@ -36,7 +36,7 @@ body#page1{
   	padding: 0 15px;
 }
 .login .links a, .register .links a {
-  	color: #adb2ba;
+  	color: #a362ad;
   	text-decoration: none;
   	display: inline-flex;
   	padding: 0 10px 10px 10px;
@@ -47,7 +47,7 @@ body#page1{
 }
 .login .links a.active, .register .links a.active {
   	border-bottom: 3px solid #3274d6;
-  	color: #3274d6;
+  	color: ##a362ad;
 }
 .login form, .register form {
   	display: flex;
@@ -61,8 +61,8 @@ body#page1{
   	align-items: center;
   	width: 50px;
   	height: 50px;
-  	background-color: #3274d6;
-  	color: #ffffff;
+  	background-color: #a771dd;
+  	color: ##a362ad;
 }
 .login form input[type=password], .login form input[type=text], .login form input[type=email], .register form input[type=password], .register form input[type=text], .register form input[type=email] {
   	width: 310px;
@@ -75,8 +75,8 @@ body#page1{
   	width: 100%;
   	padding: 15px;
   	margin-top: 20px;
-  	background-color: #3274d6;
   	border: 0;
+  	background-color: #9d6cbf;
   	cursor: pointer;
   	font-weight: bold;
   	color: #ffffff;
