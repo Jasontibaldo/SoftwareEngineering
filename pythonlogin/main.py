@@ -417,9 +417,12 @@ def searchPropertyByID():
         cursor.execute('SELECT * FROM Property WHERE propertyID = %s', (propertyID,))
         # Fetch one record and return result
         property = cursor.fetchone()
+        propertyArray = [property]
+        print(property)
+        
         # If account exists in accounts table in out database
         if property:
-            return render_template('propertyResults.html', property=property)
+            return render_template('propertyResults.html', property=propertyArray)
         else:
              print("dont Exist")
             # Account doesnt exist or username/password incorrect
@@ -438,7 +441,7 @@ def searchPropertyByAddress():
         cursor.execute('SELECT * FROM Property WHERE propertyAddress LIKE %s', (propertyAddress,))
 
         # Fetch one record and return result
-        property = cursor.fetchone()
+        property = cursor.fetchall()
 
         # If account exists in accounts table in out database
         if property:
