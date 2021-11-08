@@ -7,7 +7,7 @@
 }
 
 body {
-  	background-color: #435165;
+  	background-color: #ffffff;
   	margin: 0;
 }
 
@@ -17,19 +17,26 @@ body#page1{
 	padding: 0px;
 }
 
+.centerImage{
+	padding-top: 40px;
+	display: flex;
+	justify-content: center;
+}
+
 .login, .register {
     width: 400px;
-  	background-color: #9d6cbf;
+  	background-color: #E5E8ED;
+	border-radius: 20px;
   	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
   	margin: 100px auto;
 }
 
 .login h1, .register h1{
   	text-align: center;
-  	color: #5b6574;
+  	color: #000000;
   	font-size: 24px;
   	padding: 20px 0 20px 0;
-  	border-bottom: 1px solid #dee0e4;
+  	border-bottom: 1px solid #000000;
 }
 .login .links, .register .links {
   	display: flex;
@@ -59,24 +66,28 @@ body#page1{
   	display: flex;
   	justify-content: center;
   	align-items: center;
-  	width: 50px;
-  	height: 50px;
-  	background-color: #9d6cbf;
-  	color: #a362ad;
+  	width: 52px;
+  	height: 48px;
+  	
+  
 }
 .login form input[type=password], .login form input[type=text], .login form input[type=email], .register form input[type=password], .register form input[type=text], .register form input[type=email] {
   	width: 310px;
   	height: 50px;
+	text-align: center;
+
   	border: 1px solid #dee0e4;
   	margin-bottom: 20px;
-  	padding: 0 15px;
+  	padding-right: 15%;
 }
 .login form input[type=submit], .register form input[type=submit] {
-  	width: 100%;
+  	width: 50%;
+	border-radius: 38px;
   	padding: 15px;
   	margin-top: 20px;
+	margin-bottom: 20px;
   	border: 0;
-  	background-color: #9d6cbf;
+  	background-color: #552448;
   	cursor: pointer;
   	font-weight: bold;
   	color: #ffffff;
@@ -125,6 +136,23 @@ body#page1{
 body.loggedin {
   	background-color: #EAE3D4;
 }
+
+.homePageFlex{
+	display: flex;
+	
+}
+
+.recommendedProperties {
+	background-color: green;
+	width: 45%;
+	margin: 0 auto;
+}
+.quickSearch {
+	background-color: blue;
+	width: 45%;
+	margin: 0 auto;
+}
+
 .content {
   	width: 1000px;
   	margin: 0 auto;
