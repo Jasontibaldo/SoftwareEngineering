@@ -26,7 +26,36 @@
 <div class="recommendedProperties">
 	<h1>Featured Properties</h1>
 	<hr>
-
+	<div class="propertyDisplay">
+		{% for property in property %}
+		<div class="propertyQuickImage">
+		<img src="{{url_for('static', filename=PL1)}}" height="100px" width="100px" alt="House 1" />
+		</div>
+		<div class="propertyQuickDetails">
+		<table>                      
+		
+			<tr>
+				<td> Property Address </td>
+				<td>{{ property['propertyAddress']}}</td>
+			</tr>
+			<tr>
+				<td> Property Address Line 2 </td>
+				<td> {{ property['propertyCity']}} {{ property['propertyState']}} {{ property['propertyZip']}}</td>
+			</tr>
+			<tr>
+				<td>
+				<form action="{{ url_for('displayPropertyByID') }}" method="post" autocomplete="off">   
+					<input id="propertyID" name="propertyID" type="hidden" value="{{ property['propertyID']}}">  
+					<input type="submit" value="View More ">
+				</form>
+			</td>
+			</tr>
+			<br>
+		</table>
+	</div>
+		{% endfor %}
+	</div>
+	
 </div>
 
 <div class="quickSearch">

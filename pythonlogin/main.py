@@ -79,7 +79,15 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
-        return render_template('home.html', username=session['userName'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property WHERE recommendedProperty = 1',)
+        # Fetch one record and return result
+        property = cursor.fetchmany(3)
+        PL1 = property[0]['imageLocation']
+        PL2 = property[1]['imageLocation']
+        PL3 = property[2]['imageLocation']
+        print(property)
+        return render_template('home.html', username=session['userName'] , property=property, PL1=PL1, PL2=PL2, PL3=PL3)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 

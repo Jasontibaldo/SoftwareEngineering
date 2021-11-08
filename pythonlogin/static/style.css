@@ -97,6 +97,8 @@ body#page1{
   	background-color: #9d6cbf;
   	transition: background-color 0.2s;
 }
+
+
 .navtop {
   	background-color: #2f3947;
   	height: 60px;
@@ -142,16 +144,13 @@ body.loggedin {
 	
 }
 
-.recommendedProperties {
-	background-color: green;
+.recommendedProperties, .quickSearch{
+	background-color: #E5E8ED;
+	border-radius: 20px;
 	width: 45%;
 	margin: 0 auto;
 }
-.quickSearch {
-	background-color: blue;
-	width: 45%;
-	margin: 0 auto;
-}
+
 
 .content {
   	width: 1000px;
@@ -196,3 +195,4 @@ body.loggedin {
 	background-color: #fff3cd;
 	border-color: #ffecb5;
 }
+
