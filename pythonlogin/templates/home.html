@@ -27,9 +27,12 @@
 	<h1>Featured Properties</h1>
 	<hr>
 	<div class="propertyDisplay">
+		
 		{% for property in property %}
 		<div class="propertyQuickImage">
-		<img src="{{url_for('static', filename=PL1)}}" height="100px" width="100px" alt="House 1" />
+		
+		<img src="{{url_for('static', filename='PL' ~ loop.index)}}" height="100px" width="100px" alt="House 1" />
+		
 		</div>
 		<div class="propertyQuickDetails">
 		<table>                      
