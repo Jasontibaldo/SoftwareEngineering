@@ -8,7 +8,7 @@
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
+  --bs-purple: #552448;
   --bs-pink: #d63384;
   --bs-red: #dc3545;
   --bs-orange: #fd7e14;
@@ -7412,7 +7412,7 @@ textarea.form-control-lg {
 }
 
 .bg-light {
-  background-color: #f8f9fa !important;
+  background-color: #552448 !important;
 }
 
 .bg-dark {

@@ -14,12 +14,12 @@
 	</head>
 	
 	<body class="loggedin">
-		<nav class="navbar navbar-default bg-dark navbar-dark fixed-top">
+		<nav class="navbar navbar-default bg-light navbar-dark fixed-top">
 
 			
 			<div class="container-fluid navbar-inner">
 				
-				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="{{ url_for('home') }}">BHHS Zack Shore Rental Manager</a>
+				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-black text-decoration-none" href="{{ url_for('home') }}">BHHS Zack Shore Rental Manager</a>
 				<br>
 				<br>
 				<div class="btn-group">
@@ -31,7 +31,7 @@
 					  <li><a class="dropdown-item" href="{{url_for('searchPropertyPage')}}">Search For A Property</a></li>				
 					  </ul>
 					  </div>
-					  <span> 1 </span>
+					  &nbsp;
 				<div class="btn-group">
 				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
 					  Owners
@@ -41,7 +41,7 @@
 					  <li><a class="dropdown-item" href="{{url_for('searchOwnerPage')}}">Search For A Owner</a></li>				
 					  </ul>
 					  </div>
-					  <span> 1 </span>
+					  &nbsp;
 					  <div class="btn-group">
 					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
 					  Tenants
@@ -51,7 +51,7 @@
 					  <li><a class="dropdown-item" href="{{url_for('searchTenantPage')}}">Search For A Tenant</a></li>				
 					  </ul>
 					  </div>
-					  <span> 1 </span>
+					  &nbsp;
 					  <div class="btn-group">
 					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
 					  Leases
@@ -61,7 +61,8 @@
 					  <li><a class="dropdown-item" href="{{url_for('searchLeasePage')}}">Search For A Lease</a></li>				
 					  </ul>
 					  </div>
-					  <span> 1 </span>
+					  &nbsp;
+					  &nbsp;
 					  <a class="navbar-brand" href="{{url_for('profile')}}">
 						<img src="{{url_for('static', filename='profileIcon.png')}}" height="50px" width="50px" alt="Profile Logo" />
     					</a>
