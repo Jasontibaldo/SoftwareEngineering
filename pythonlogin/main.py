@@ -506,8 +506,8 @@ def searchPropertyByAttributes():
         oceanfrontBayfront = request.form['oceanfrontBayfront']
         
         if int(oceanfrontBayfront) == 0:
-            oceanfront = ' = 0 '
-            bayfront = ' = 0 '
+            oceanfront = ' IS NOT NULL '
+            bayfront = ' IS NOT NULL '
         elif int(oceanfrontBayfront) == 1:
             oceanfront = ' = 1 '
             bayfront = ' IS NOT NULL '
