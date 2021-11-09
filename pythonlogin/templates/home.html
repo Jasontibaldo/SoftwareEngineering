@@ -22,19 +22,29 @@
 <br>
 <h2>Home Page</h2>
 <p>Welcome back, {{ username }}!</p>
-<div class="homePageFlex">
-<div class="recommendedProperties">
+<div class="container-fluid">
+<div class="row justify-content-around">
+<div class="col-5 align-self-start  recommendedProperties">
 	<h1>Featured Properties</h1>
 	<hr>
-	<div class="propertyDisplay">
+	<div class="row  propertyDisplay">
 		
 		{% for property in property %}
-		<div class="propertyQuickImage">
-		
-		<img src="{{url_for('static', filename='PL' ~ loop.index)}}" height="100px" width="100px" alt="House 1" />
-		
+		<div class="col-4 p-3 propertyQuickImage">
+		{% if loop.index ==1 %}
+
+		<img class="rounded mx-auto d-block" src="{{url_for('static', filename= PL1)}}" height="125px" width="125px" alt="House 1" />
+		{% endif %}
+		{% if loop.index ==2 %}
+
+		<img class="rounded mx-auto d-block" src="{{url_for('static', filename= PL2)}}" height="125px" width="125px" alt="House 1" />
+		{% endif %}
+		{% if loop.index ==3 %}
+
+		<img class="rounded mx-auto d-block" src="{{url_for('static', filename= PL3)}}" height="125px" width="125px"  alt="House 1" />
+		{% endif %}
 		</div>
-		<div class="propertyQuickDetails">
+		<div class="mt-n5 p-3 propertyQuickDetails col-8 ">
 		<table>                      
 		
 			<tr>
@@ -61,10 +71,17 @@
 	
 </div>
 
-<div class="quickSearch">
+<div class="col-5 quickSearch">
 	<h1>Quick Search</h1>
 	<hr>
-	
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+	<p>LOTS OF WORDS</p>
+</div>
 </div>
 </div>
 {% endblock %}

@@ -6940,6 +6940,10 @@ textarea.form-control-lg {
   margin-top: 3rem !important;
 }
 
+.mt-n5 {
+  margin-top: -2.1rem !important;
+}
+
 .mt-auto {
   margin-top: auto !important;
 }
