@@ -60,7 +60,7 @@
                     </tr>
 
                     <tr>
-                        <td> Wifi Name </td>
+                        <td> Wifi Password </td>
                         <td >{{ property['wifiPassword']}}</td>
                     </tr>
 
@@ -70,8 +70,89 @@
                     </tr>
 
                     <tr>
-                        <td> Pool </td>
+                        <td> Beachside </td>
                         {% if  property['beachside'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> Bayside </td>
+                        {% if  property['bayside'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> Oceanfront </td>
+                        {% if  property['oceanFront'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> bayfront </td>
+                        {% if  property['bayFront'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> Pool </td>
+                        {% if  property['pool'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> BBQ </td>
+                        {% if  property['bbq'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> Pets </td>
+                        {% if  property['pets'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> Air Conditioning </td>
+                        {% if  property['airConditioning'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+                    
+                    <tr>
+                        <td> Washer Dryer </td>
+                        {% if  property['washerDryer'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td> OutsideShower </td>
+                        {% if  property['outsideShower'] == 1 %}
                         <td><input type="checkbox" disabled="disabled" checked="checked"></td>
                         {% else %}
                         <td><input type="checkbox" disabled="disabled"></td>
