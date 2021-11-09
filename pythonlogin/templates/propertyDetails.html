@@ -18,7 +18,18 @@
 			<div>
 				<p>Property details are below</p>
                 
-                <table>                      
+                <table>    
+                    <tr>
+                        <td> Owner ID </td>
+                        <td>{{ property['ownerID']}}</td>
+                    </tr>   
+
+                    <tr>
+                        <td> Owner Name </td>
+                        <td>{{ property['LastName']}} , {{ property['FirstName']}} </td>
+                    </tr>   
+                    
+
                     <tr>
                         <td> Property ID </td>
                         <td>{{ property['propertyID']}}</td>
