@@ -580,7 +580,7 @@ def displayPropertyByID():
         # Create variables for easy access
         propertyID = request.form['propertyID']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Property WHERE propertyID = %s', (propertyID,))
+        cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
         # Fetch one record and return result
         property = cursor.fetchone()
         # If account exists in accounts table in out database
