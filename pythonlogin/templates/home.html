@@ -73,13 +73,22 @@
 <div class="col-5 quickSearch">
 	<h1>Quick Search</h1>
 	<hr>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
-	<p>LOTS OF WORDS</p>
+	<form action="{{ url_for('quickOwnerID') }}" method="post" autocomplete="off">
+		<label for="ownerID">Enter The OwnerID:</label>
+		<input type="number" name="ownerID" placeholder="ownerID" id="ownerID" required>
+		<input type="submit" value="Search">
+	</form>
+	
+	<form action="{{ url_for('quickLeaseID') }}" method="post" autocomplete="off">
+		<label for="leaseID">Enter The Lease ID:</label>
+		<input type="number" name="leaseID" placeholder="leaseID" id="leaseID" required>
+		<input type="submit" value="Search">
+	</form>
+
+	<form action="{{ url_for('quickPropertyID') }}" method="post" autocomplete="off">
+		<label for="propertyID">Enter The Property ID:</label>
+		<input type="number" name="propertyID" placeholder="propertyID" id="propertyID" required>
+		<input type="submit" value="Search">
 </div>
 </div>
 </div>

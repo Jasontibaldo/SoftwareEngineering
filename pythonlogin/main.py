@@ -203,9 +203,6 @@ def searchOwnerByID():
         ownerArray =[owner]
         # If account exists in accounts table in out database
         if owner:
-            print(owner)
-            print("Hello")
-            print(ownerArray)
             return render_template('ownerResults.html', owner=ownerArray)
         else:
             # Account doesnt exist or username/password incorrect
@@ -377,12 +374,10 @@ def newProperty():
         property = cursor.fetchone()
         # If account exists show error and validation checks
         if property:
-            print("Already Exists")
             flash('A property with this address already exists.', 'error')
         elif not propertyAddress or not propertyState or not propertyCity or not propertyZipcode or not numOfBedrooms \
                 or not numOfBathroom or not keyNum or not numOfParkingSpots or not wifiName \
                 or not wifiPassword or not commissionPercentage or not ownerID:
-            print("not entered properly")
             flash('Property not created, please ensure the entire form was filled out.', 'error')
         else:
             try:
@@ -402,8 +397,7 @@ def newProperty():
                 flash('Something was incorrectly input within your data, please try again', 'error')
 
     elif request.method == 'POST':
-        # Form is empty... (no POST data)
-        print('original if statemnt failing')
+        # Form is empty... (no POST data
         msg = 'Please fill out the form!'
     # Show owner form with message (if any)
     return render_template('newProperty.html', msg=msg)
@@ -766,6 +760,66 @@ def searchLeaseByAddress():
             # Account doesnt exist or username/password incorrect
              flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
     return render_template('searchLease.html')
+
+
+######################################################## QUICKSEARCH SECTION ######################################################
+
+@app.route('/quickOwnerID/', methods=['GET', 'POST'])
+def quickOwnerID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        ownerID = request.form['ownerID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Owners WHERE ownerID = %s', (ownerID,))
+        # Fetch one record and return result
+        owner = cursor.fetchone()
+        ownerArray =[owner]
+        # If account exists in accounts table in out database
+        if owner:
+            return render_template('ownerResults.html', owner=ownerArray)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('Cannot find owner with that ID, please try again!', 'message')
+    return redirect(url_for('home'))
+
+
+@app.route('/quickLeaseID/', methods=['GET', 'POST'])
+def quickLeaseID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        leaseID = request.form['leaseID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseID = %s', (leaseID,))
+        # Fetch one record and return result
+        lease = cursor.fetchone()
+        leaseArray =[lease]
+        # If account exists in accounts table in out database
+        if lease:
+            return render_template('leaseResults.html', lease=leaseArray)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('No lease matching that ID exists, please try again!', 'message')
+    return redirect(url_for('home'))
+
+
+@app.route('/quickPropertyID/', methods=['GET', 'POST'])
+def quickPropertyID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        propertyID = request.form['propertyID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
+        # Fetch one record and return result
+        property = cursor.fetchone()
+        
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyDetails.html', property=property)
+        else:
+            
+             flash('No property matching that ID exists, please try again!', 'message')
+    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run()
