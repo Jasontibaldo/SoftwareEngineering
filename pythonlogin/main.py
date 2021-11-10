@@ -1,9 +1,11 @@
 # Imports
 from os import error
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
+import werkzeug
 import config
 import json
 from datetime import datetime
@@ -330,6 +332,10 @@ def searchTenantByName():
 
 
 ########################################################## PROPERTY SECTION ######################################################
+allowedExtensions = {'jpg', 'png', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in allowedExtensions
 
 # This is where a new property will be created
 @app.route('/newProperty', methods=['GET', 'POST'])
@@ -341,7 +347,6 @@ def newProperty():
             and 'propertyState' in request.form and 'propertyZipcode' in request.form \
             and 'numOfBedrooms' in request.form and 'keyNum' in request.form and 'ownerID' in request.form:
         # Create variables for easy access
-        print('Before Variables')
         propertyAddress = request.form['propertyAddress']
         propertyAddressLine2 = request.form['propertyAddressLine2']
         propertyState = request.form['propertyState']
@@ -365,6 +370,23 @@ def newProperty():
         bayFront = request.form['bayFront']
         commissionPercentage = request.form['commissionPercentage']
         ownerID = request.form['ownerID']
+        print("Before Image")
+
+        propertyImage = request.files['propertyImage']
+        allowedExtensions = {'jpg', 'png', 'jpeg', 'gif'}
+
+        if(propertyImage.filename != ''):
+            if propertyImage and allowed_file(propertyImage.filename):
+                propertyImage.filename = "propertyImage" + propertyAddress + ".jpg"
+                imageName = "propertyImage" + propertyAddress+".jpg"
+                propertyImage.save(os.path.join('pythonlogin\\static', propertyImage.filename))
+            else:
+                flash('Unsupported file type. Please use .jpg, .png, .jpeg or .gif', 'error')
+
+        else:
+            imageName="house-placeholder.jpg"
+        
+        
 
         # Check if owner already exists using MySQL
         print('Before Cursor')
@@ -384,11 +406,11 @@ def newProperty():
                 print('Hello World')
                 # Account doesnt exists and the form data is valid, now insert new owner into the owner table
                 cursor.execute(
-                    'INSERT INTO Property (propertyAddress,propertyAddressLine2,propertyCity,propertyState,propertyZip,numOfBedroom,numOfBathroom,keyNumber,pets,pool,airConditioning,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,OwnerID) VALUES '
-                    '( %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                    'INSERT INTO Property (propertyAddress,propertyAddressLine2,propertyCity,propertyState,propertyZip,numOfBedroom,numOfBathroom,keyNumber,pets,pool,airConditioning,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,OwnerID, imageLocation) VALUES '
+                    '( %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                     (propertyAddress,propertyAddressLine2, propertyCity, propertyState, propertyZipcode, numOfBedrooms,
                      numOfBathroom, keyNum, pets, pool, ac, bbq, washerDryer, numOfParkingSpots, outsideShower, wifiName,
-                     wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID))
+                     wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID, imageName))
                 mysql.connection.commit()
                 flash('The new lease was added successfully', 'message')
                 return redirect(url_for('home'))
