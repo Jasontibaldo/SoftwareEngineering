@@ -17,7 +17,13 @@
 		<div class="login">
 			
 			<h1>Login</h1>
-			
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+     			 	{% for message in messages %}
+        				 {{ message }}
+      				{% endfor %}
+   				{% endif %}
+			{% endwith %}
 			<form action="{{ url_for('login') }}" method="post">
 				<label for="username">
 					<img src="{{url_for('static', filename='newIcon.png')}}" height="50px" width="50px" alt="Company Logo" />
