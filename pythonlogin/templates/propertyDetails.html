@@ -13,12 +13,41 @@
 {% block title %}Property Details{% endblock %}
 
 {% block content %}
-<div>
+
     <h2>Property Details</h2>
-			<div>
-				<p>Property details are below</p>
+<div>
+    <div class="container-fluid">
+        <div class ="row justify-content-around">
+            
+            <table>
+                <tr>
+                    <td>
+                        <img class="rounded mx-auto d-block" src="{{url_for('static', filename= property['imageLocation'])}}" height="250px" width="250px" alt="Property Image" />  
+                        
+                    </td>
+                    <td>
+                        <h1>{{ property['propertyAddress']}} {{ property['propertyCity']}}</h1>
+                    </td>
+                </tr>
+            </table>
+
+
+            
                 
-                <table>    
+        </div>
+
+    </div>
+</div>
+<hr>
+<div>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+        
+        <div class="col-5 align-self-start">
+                <div class="col-4 p-3">
+                    
+                <table>  
+                   
                     <tr>
                         <td> Owner ID </td>
                         <td>{{ property['ownerID']}}</td>
@@ -79,7 +108,12 @@
                         <td> Commission Percentage </td>
                         <td>{{ property['commissionPercentage']}}</td>
                     </tr>
-
+                </table>
+                </div>
+                </div>
+                <div class="col-5">
+                  
+                <table>
                     <tr>
                         <td> Beachside </td>
                         {% if  property['beachside'] == 1 %}
@@ -171,10 +205,12 @@
                     </tr>
 
                 </table>
-                <hr>
                 
 			</div>
-		</div>
+            </div>
+        </div>
+	</div>
+    </div>
 {% endblock %}
 
 </body>
