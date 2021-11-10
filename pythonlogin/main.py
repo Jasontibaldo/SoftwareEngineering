@@ -48,7 +48,7 @@ def login():
             return redirect(url_for('home'))
         else:
             # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
+            flash('Incorrect Username/Password', 'error')
     # Show the login form 
     return render_template('index.html')
 
@@ -86,7 +86,7 @@ def home():
         PL1 = property[0]['imageLocation']
         PL2 = property[1]['imageLocation']
         PL3 = property[2]['imageLocation']
-        print(property)
+        
         return render_template('home.html', username=session['userName'] , property=property, PL1=PL1, PL2=PL2, PL3=PL3)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
@@ -102,33 +102,34 @@ def register():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-
+        firstName = request.form['firstname']
+        lastName = request.form['lastname']
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM user WHERE userName = %s', (username,))
         account = cursor.fetchone()
+        print(account)
         # If account exists show error and validation checks
-        if account:
-            msg = 'Account already exists!'
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            msg = 'Invalid email address!'
-        elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers!'
-        elif not username or not password or not email:
-            msg = 'Please fill out the form!'
-        else:
-            # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO user (userName, pass, Email) VALUES ( %s, %s, %s)',
-                           (username, password, email,))
-            mysql.connection.commit()
-            msg = 'You have successfully registered!'
-
+        try:
+            if account:
+                flash('An owner with this email address already exists.', 'error')
+            else:
+                # Account doesnt exists and the form data is valid, now insert new account into accounts table
+                cursor.execute('INSERT INTO user (userName, pass, LastName, FirstName, Email) VALUES ( %s, %s, %s, %s, %s)',
+                           (username, password, email, firstName, lastName,))
+                mysql.connection.commit()
+                flash('New user successfully created!', 'message')
+                return redirect(url_for('home'))
+        except Exception as e:
+            # If there is an exception, show the error message
+            flash('An owner with this email address already exists.', 'error')
+            return render_template('profile.html', msg=msg)
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
-        msg = 'Please fill out the form!'
+        flash('Please fill out the form properly!', 'error')
     # Show registration form with message (if any)
-    return render_template('register.html', msg=msg)
+    return render_template('profile.html', msg=msg)
 
 
 ######################################################## OWNER SECTION ######################################################
@@ -208,7 +209,7 @@ def searchOwnerByID():
             return render_template('ownerResults.html', owner=ownerArray)
         else:
             # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
+             flash('Cannot find owner with that ID, please try again!', 'message')
     return render_template('searchOwner.html')
 
 # This method is used to search for an owner by their name
@@ -426,7 +427,6 @@ def searchPropertyByID():
         # Fetch one record and return result
         property = cursor.fetchone()
         propertyArray = [property]
-        print(property)
         
         # If account exists in accounts table in out database
         if property:

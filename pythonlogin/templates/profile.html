@@ -13,7 +13,6 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div>
     <h2>Profile Page</h2>
 			<div class="profileInfo">
 				<p>Your account details are below</p>
@@ -26,13 +25,66 @@
                         <td> Password: </td>
                         <td> {{ account['pass']}}</td>
                     </tr>
-                    <!-- <tr>
+                    
+                    <tr>
                         <td> Email: </td>
-                        <td> {{ account['email']}}</td>
-                    </tr> -->
+                        <td> {{ account['Email']}}</td>
+                    </tr>
+
                 </table>
 			</div>
-		</div>
+		<div>
+            <h2>Create a new platform user:</h2>
+            <form action="{{ url_for('register') }}" method="post" autocomplete="off">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="firstname">Enter the new users first name: </label>
+                        </td>
+                        <td>
+                            <input type="text" name="firstname" id="firstname" placeholder="John" required>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <label for="lastname">Enter the new users last name: </label>
+                        </td>
+                        <td>
+                            <input type="text" name="lastname" id="lastname" placeholder="Smith" required>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="username">Enter The new users username: </label>
+                        </td>
+                        <td>
+                            <input type="text" name="username" placeholder="username" id="username" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">Enter The new users password: </label>
+                        </td>
+                        <td>
+                            <input type="password" name="password" placeholder="password" id="password" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="email">Enter the new users email address: </label>
+                        </td>
+                        <td>
+                            <input type="email" name="email" placeholder="johnsmith@test.com" id="email" required>
+                        </td>
+                    </tr>
+                
+            </table>
+                <input type="submit" value="Create User">
+            </form>
+        </div>
 {% endblock %}
 
 </body>
