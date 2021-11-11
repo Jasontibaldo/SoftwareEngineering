@@ -2,10 +2,12 @@
 from os import error
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask.helpers import make_response 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
-import werkzeug
+import csv
+import io
 import config
 import json
 from datetime import datetime
@@ -783,6 +785,43 @@ def searchLeaseByAddress():
              flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
     return render_template('searchLease.html')
 
+########################################################## REPORT SECTION ########################################################
+
+@app.route('/tenantContact/', methods=['GET', 'POST'])
+def tenantContactPage():
+    si = io.StringIO()
+    file  = csv.writer(si)
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Tenant')
+    tenant = cursor.fetchall()
+    print(tenant)
+    file.writerow([i[0] for i in cursor.description])
+    
+    for row in tenant:
+        line = [str(row['tenantID']), row['LastName'], str(row['FirstName']), str(row['Email']), str(row['phoneNumber']), str(row['mailingAddress']), str(row['mailingAddressLine2']), str(row['mailingCity']), str(row['mailingState']), str(row['mailingZip'])]
+        file.writerow(line)
+    output = make_response(si.getvalue())
+    output.headers["Content-Disposition"] = "attachment; filename=Tenant_Contact_Info.csv"
+    output.headers["Content-type"] = "text/csv"
+    return output
+
+@app.route('/ownerContact/', methods=['GET', 'POST'])
+def ownerContactPage():
+    si = io.StringIO()
+    file  = csv.writer(si)
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Owners')
+    owner = cursor.fetchall()
+    print(owner)
+    file.writerow([i[0] for i in cursor.description])
+    
+    for row in owner:
+        line = [str(row['ownerID']), row['LastName'], str(row['FirstName']), str(row['Email']), str(row['mailingAddress']), str(row['mailingAddressLine2']), str(row['city']), str(row['state']), str(row['zip'])]
+        file.writerow(line)
+    output = make_response(si.getvalue())
+    output.headers["Content-Disposition"] = "attachment; filename=Owner_Contact_Info.csv"
+    output.headers["Content-type"] = "text/csv"
+    return output
 
 ######################################################## QUICKSEARCH SECTION ######################################################
 

@@ -63,6 +63,16 @@
 					  </ul>
 					  </div>
 					  &nbsp;
+					  <div class="btn-group">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+						Reports
+					  </button>
+					  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+						<li><a class="dropdown-item" href="{{url_for('tenantContactPage')}}">Generate Tenant Contact Information</a></li>
+						<li><a class="dropdown-item" href="{{url_for('ownerContactPage')}}">Generate Owner Contact Information</a></li>				
+						</ul>
+						</div>
+						&nbsp;
 					  &nbsp;
 					  <a class="navbar-brand" href="{{url_for('profile')}}">
 						<img src="{{url_for('static', filename='profileIcon.png')}}" height="50px" width="50px" alt="Profile Logo" />
