@@ -314,9 +314,8 @@ def searchTenantByID():
         if tenant:
             return render_template('tenantResults.html', tenant=tenant)
         else:
-             print("dont Exist")
             # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
+             flash('No tenant matching that ID exists, please try again!', 'error')
     return render_template('searchTenant.html')
 
 # This method is used to search for a tenant by their name
@@ -457,9 +456,8 @@ def searchPropertyByID():
         if property:
             return render_template('propertyResults.html', property=propertyArray)
         else:
-             print("dont Exist")
             # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
+             flash('No property matching that ID exists, please try again!', 'message')
     return render_template('searchProperty.html')
 
 # This method is used to search for a property by its address
@@ -480,9 +478,8 @@ def searchPropertyByAddress():
         if property:
             return render_template('propertyResults.html', property=property)
         else:
-             print("dont Exist")
             # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
+             flash('No property matching that address exists, please try again!', 'message')
     return render_template('searchProperty.html')
 
 
@@ -612,9 +609,8 @@ def displayPropertyByID():
         if property:
             return render_template('propertyDetails.html', property=property)
         else:
-             print("dont Exist")
             # Account doesnt exist or username/password incorrect
-             flash('Nah fam', 'message')
+             flash('No property matching that ID exists, please try again!', 'message')
         return render_template('searchProperty.html')
 
 
