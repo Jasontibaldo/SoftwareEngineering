@@ -98,8 +98,6 @@ def home():
 # http://localhost:5000/Flask/register - this will be the registration page, we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    # Output message if something goes wrong...
-    msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
         # Create variables for easy access
@@ -125,7 +123,7 @@ def register():
             else:
                 # Account doesnt exists and the form data is valid, now insert new account into accounts table
                 cursor.execute('INSERT INTO user (userName, pass, LastName, FirstName, Email) VALUES ( %s, %s, %s, %s, %s)',
-                           (username, password, email, firstName, lastName,))
+                           (username, password, lastName, firstName, email,))
                 mysql.connection.commit()
                 flash('New user successfully created!', 'message')
                 return render_template('profile.html', account=account)
