@@ -13,6 +13,15 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+			{% if messages %}
+     			 {% for message in messages %}
+        			 {{ message }}
+      			{% endfor %}
+   			{% endif %}
+		{% endwith %}
+        
     <h2>Profile Page</h2>
 			<div class="profileInfo">
 				<p>Your account details are below</p>

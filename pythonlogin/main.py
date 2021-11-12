@@ -103,6 +103,10 @@ def register():
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
         # Create variables for easy access
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM user WHERE userID = %s', (session['userID'],))
+        account = cursor.fetchone()
+        
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
@@ -111,29 +115,32 @@ def register():
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM user WHERE userName = %s', (username,))
-        account = cursor.fetchone()
-        print(account)
+        dupAccount = cursor.fetchone()
+        print(dupAccount)
         # If account exists show error and validation checks
         try:
-            if account:
-                flash('An owner with this email address already exists.', 'error')
+            if dupAccount:
+                flash('A User with this username address already exists.', 'error')
+                return render_template('profile.html', account=account)
             else:
                 # Account doesnt exists and the form data is valid, now insert new account into accounts table
                 cursor.execute('INSERT INTO user (userName, pass, LastName, FirstName, Email) VALUES ( %s, %s, %s, %s, %s)',
                            (username, password, email, firstName, lastName,))
                 mysql.connection.commit()
                 flash('New user successfully created!', 'message')
-                return redirect(url_for('home'))
+                return render_template('profile.html', account=account)
+                
         except Exception as e:
             # If there is an exception, show the error message
             flash('An owner with this email address already exists.', 'error')
-            return render_template('profile.html', msg=msg)
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         flash('Please fill out the form properly!', 'error')
     # Show registration form with message (if any)
-    return render_template('profile.html', msg=msg)
+    
+    
+    return render_template('profile.html', account=account)
 
 
 ######################################################## OWNER SECTION ######################################################
