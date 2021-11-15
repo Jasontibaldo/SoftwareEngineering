@@ -458,6 +458,25 @@ def searchPropertyByID():
              flash('No property matching that ID exists, please try again!', 'message')
     return render_template('searchProperty.html')
 
+# This method is used to search for a property by its Owner's ID
+@app.route('/searchPropertyByOwnerID/', methods=['GET', 'POST'])
+def searchPropertyByOwnerID():
+    if request.method == 'POST':
+        # Create variables for easy access
+        ownerID = request.form['ownerID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Property WHERE ownerID = %s', (ownerID,))
+        # Fetch one record and return result
+        property = cursor.fetchall()
+        
+        # If account exists in accounts table in out database
+        if property:
+            return render_template('propertyResults.html', property=property)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('No property matching that Owner ID exists, please try again!', 'message')
+    return render_template('searchProperty.html')
+
 # This method is used to search for a property by its address
 @app.route('/searchPropertyByAddress/', methods=['GET', 'POST'])
 def searchPropertyByAddress():
