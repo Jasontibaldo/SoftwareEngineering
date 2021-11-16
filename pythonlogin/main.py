@@ -376,15 +376,16 @@ def newProperty():
         bayFront = request.form['bayFront']
         commissionPercentage = request.form['commissionPercentage']
         ownerID = request.form['ownerID']
-        print("Before Image")
+        
 
         propertyImage = request.files['propertyImage']
-        allowedExtensions = {'jpg', 'png', 'jpeg', 'gif'}
+        fileType = propertyImage.filename.rsplit('.', 1)[1].lower()
+        
 
         if(propertyImage.filename != ''):
             if propertyImage and allowed_file(propertyImage.filename):
-                propertyImage.filename = "propertyImage" + propertyAddress + ".jpg"
-                imageName = "propertyImage" + propertyAddress+".jpg"
+                propertyImage.filename = "propertyImage" + propertyAddress + '.' + fileType
+                imageName = propertyImage.filename
                 propertyImage.save(os.path.join('pythonlogin\\static', propertyImage.filename))
             else:
                 flash('Unsupported file type. Please use .jpg, .png, .jpeg or .gif', 'error')
@@ -418,7 +419,7 @@ def newProperty():
                      numOfBathroom, keyNum, pets, pool, ac, bbq, washerDryer, numOfParkingSpots, outsideShower, wifiName,
                      wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID, imageName))
                 mysql.connection.commit()
-                flash('The new lease was added successfully', 'message')
+                flash('The new property was added successfully', 'message')
                 return redirect(url_for('home'))
             except:
                 print("Failed insert")
