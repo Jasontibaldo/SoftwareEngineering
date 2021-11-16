@@ -631,6 +631,11 @@ def displayPropertyByID():
              flash('No property matching that ID exists, please try again!', 'message')
         return render_template('searchProperty.html')
 
+@app.route('/newPropertyPricing/',  methods=['GET', 'POST'])
+def newPropertyPricing():
+    
+        return render_template('propertyPricing.html')
+
 
 ######################################################## LEASE SECTION ######################################################
 
