@@ -379,11 +379,12 @@ def newProperty():
         
 
         propertyImage = request.files['propertyImage']
-        fileType = propertyImage.filename.rsplit('.', 1)[1].lower()
+        
         
 
         if(propertyImage.filename != ''):
             if propertyImage and allowed_file(propertyImage.filename):
+                fileType = propertyImage.filename.rsplit('.', 1)[1].lower()
                 propertyImage.filename = "propertyImage" + propertyAddress + '.' + fileType
                 imageName = propertyImage.filename
                 propertyImage.save(os.path.join('pythonlogin\\static', propertyImage.filename))
@@ -623,16 +624,46 @@ def displayPropertyByID():
         cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
         # Fetch one record and return result
         property = cursor.fetchone()
+        print(property)
         cursor.execute('SELECT Property.propertyID, reason, startDate, endDate FROM Property INNER JOIN unavailability ON Property.propertyID = unavailability.PropertyID WHERE Property.propertyID = %s', (propertyID,))
         # If account exists in accounts table in out database
         events = cursor.fetchall()
-        print(events)
+        
+        mapLink = createMapLinkString(property)
+        print(mapLink)
+
         if property:
-            return render_template('propertyDetails.html', property=property, events=events)
+            return render_template('propertyDetails.html', property=property, events=events, mapLink=mapLink)
         else:
             # Account doesnt exist or username/password incorrect
              flash('No property matching that ID exists, please try again!', 'message')
         return render_template('searchProperty.html')
+
+def createMapLinkString(property):
+    brokenUpAddress= property['propertyAddress'].split()
+    brokenUpCity = property['propertyCity'].split()
+    mapLink=''
+
+    for i in range(len (brokenUpAddress)):
+        if i==len(brokenUpAddress)-1:
+            mapLink += brokenUpAddress[i]
+        else:
+            mapLink += brokenUpAddress[i] + '+'
+
+    mapLink += "," + '+'
+
+    brokenUpCity = property['propertyCity'].split()
+    for i in range( len (brokenUpCity)):
+        if i==len(brokenUpCity)-1:
+            mapLink += brokenUpCity[i]
+        else:
+            mapLink += brokenUpCity[i] + '+'
+
+    mapLink += ',' + '+' + property['propertyState']
+    mapLink += ',' + '+' + 'USA'
+
+    return mapLink
+
 
 @app.route('/newPropertyPricing/',  methods=['GET', 'POST'])
 def newPropertyPricing():
