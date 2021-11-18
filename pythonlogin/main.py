@@ -623,9 +623,12 @@ def displayPropertyByID():
         cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
         # Fetch one record and return result
         property = cursor.fetchone()
+        cursor.execute('SELECT Property.propertyID, reason, startDate, endDate FROM Property INNER JOIN unavailability ON Property.propertyID = unavailability.PropertyID WHERE Property.propertyID = %s', (propertyID,))
         # If account exists in accounts table in out database
+        events = cursor.fetchall()
+        print(events)
         if property:
-            return render_template('propertyDetails.html', property=property)
+            return render_template('propertyDetails.html', property=property, events=events)
         else:
             # Account doesnt exist or username/password incorrect
              flash('No property matching that ID exists, please try again!', 'message')

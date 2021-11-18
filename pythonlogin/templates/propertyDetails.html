@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Property Information Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 </head>
 
 
@@ -209,6 +211,64 @@
 			</div>
             </div>
         </div>
+
+        <div class="container">
+
+        <div id="calendar" class="calendar">
+            <script>
+                let calendarEl = document.getElementById('calendar');
+
+            
+                
+
+                let calendar = new FullCalendar.Calendar(calendarEl, {
+                    events: [
+                        {% for event in events %}
+                        {% if  event['reason'] == 'LeaseRes' %}
+                        {
+                            title: 'Booked',
+                            start : '{{event.startDate}}',
+                            end : '{{event.endDate}}',
+                            allDay : true,
+                            backgroundColor: '#08D9D6',
+                            borderColor : '#ffffff',
+                            
+                        },
+                        {% endif %}
+
+                        {% if  event['reason'] == 'OwnerRes' %}
+                        {
+                            title: 'Owner Blocked Off',
+                            start : '{{event.startDate}}',
+                            end : '{{event.endDate}}',
+                            allDay : true,
+                            backgroundColor: '#252A34',
+                            borderColor : '#ffffff',
+                            
+                        },
+                        {% endif %}
+
+                        {% if  event['reason'] == 'BlockedOff' %}
+                        {
+                            title: 'Blackout Dates',
+                            start : '{{event.startDate}}',
+                            end : '{{event.endDate}}',
+                            allDay : true,
+                            backgroundColor: '#FF2E63',
+                            borderColor : '#ffffff',
+                            
+                        },
+                        {% endif %}
+
+                        {% endfor %}
+                    ]
+                    
+                });
+                
+                calendar.render();
+            </script>
+        </div>
+    </div>
 	</div>
     </div>
 {% endblock %}
