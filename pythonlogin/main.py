@@ -411,7 +411,6 @@ def newProperty():
             flash('Property not created, please ensure the entire form was filled out.', 'error')
         else:
             try:
-                print('Hello World')
                 # Account doesnt exists and the form data is valid, now insert new owner into the owner table
                 cursor.execute(
                     'INSERT INTO Property (propertyAddress,propertyAddressLine2,propertyCity,propertyState,propertyZip,numOfBedroom,numOfBathroom,keyNumber,pets,pool,airConditioning,bbq,washerDryer,numOfParkingSpots,outsideShower,wifiName,wifiPassword,beachside,bayside,oceanFront,bayFront,commissionPercentage,OwnerID, imageLocation) VALUES '
@@ -421,7 +420,7 @@ def newProperty():
                      wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID, imageName))
                 mysql.connection.commit()
                 flash('The new property was added successfully', 'message')
-                return redirect(url_for('home'))
+                return render_template('propertyPricing.html', property=propertyAddress)
             except:
                 print("Failed insert")
                 flash('Something was incorrectly input within your data, please try again', 'error')
@@ -666,9 +665,17 @@ def createMapLinkString(property):
 
 
 @app.route('/newPropertyPricing/',  methods=['GET', 'POST'])
-def newPropertyPricing():
-    
-        return render_template('propertyPricing.html')
+def newPropertyPricing(property):
+    #if request.method == 'POST':
+        # Create variables for easy access
+        # startDate = request.form['startDate']
+        # endDate = request.form['endDate']
+        # pricing = request.form['pricing']
+        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        # cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
+        # Fetch one record and return result
+        # property = cursor.fetchone()
+    return render_template('propertyPricing.html')
 
 
 ######################################################## LEASE SECTION ######################################################
@@ -890,12 +897,13 @@ def leaseReport():
 
 
 @app.route('/leaseReportResults/', methods=['GET', 'POST'])
-def leaseReportResults():
+def leaseReportResults(property):
     if request.method == 'POST':
         startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
         endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
-        print(request.form['in'])
-    return render_template('leaseReportResults.html')
+        print(request.form['type'])
+
+        return render_template('leaseReportResults.html')
     
 
 

@@ -25,13 +25,21 @@
       			{% endfor %}
    			{% endif %}
 		{% endwith %}
+		
+			
+		
         
         
 
-			<h1>Lease Main Page</h1>
+			<h1>Pricing Information For Property:</h1>
+
+			<form id = 'property'>
+				<label for="propertyName">Please input information for property: </label>
+				<input type="text" name="propertyAddress" value="{{property}}" disabled="disabled">
+			</form>
 
 			<form id="pricingform" action="{{ url_for('newPropertyPricing') }}" method="post" autocomplete="off">
-                <label for="date">Start Date: </label>
+                <label for="startDate">Start Date: </label>
                 <input type="date" name="startDate">
                 <label for="endDate">End Date: </label>
                 <input type="date" name="endDate">
@@ -42,7 +50,8 @@
                 <input type="submit" value="Submit Final Pricing">
                 
             </form>
-			
+		
+		
 		{% endblock %}
 	</body>
 </html>
