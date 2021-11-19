@@ -883,6 +883,22 @@ def ownerContactPage():
     output.headers["Content-type"] = "text/csv"
     return output
 
+
+@app.route('/LeaseReport/', methods=['GET', 'POST'])
+def leaseReport():
+    return render_template('leaseReportForm.html')
+
+
+@app.route('/leaseReportResults/', methods=['GET', 'POST'])
+def leaseReportResults():
+    if request.method == 'POST':
+        startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
+        endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        print(request.form['in'])
+    return render_template('leaseReportResults.html')
+    
+
+
 ######################################################## QUICKSEARCH SECTION ######################################################
 
 @app.route('/quickOwnerID/', methods=['GET', 'POST'])
