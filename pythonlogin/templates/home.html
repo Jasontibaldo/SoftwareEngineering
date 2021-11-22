@@ -24,7 +24,7 @@
 <div class="container-fluid">
 <div class="row justify-content-around">
 <div class="col-5 align-self-start  recommendedProperties">
-	<h1>Featured Properties</h1>
+	<h1 class="recommendedPropertyTitle">Featured Properties</h1>
 	<hr>
 	<div class="row  propertyDisplay">
 		
@@ -71,24 +71,38 @@
 </div>
 
 <div class="col-5 quickSearch">
-	<h1>Quick Search</h1>
+	<h1 class="recommendedPropertyTitle">Quick Search</h1>
 	<hr>
+	<div class="container-fluid h-100">
+		<div class="row">
+			<div class="d-flex flex-column  align-self-center">
+		<div class="align-self-start">
 	<form action="{{ url_for('quickOwnerID') }}" method="post" autocomplete="off">
 		<label for="ownerID">Enter The OwnerID:</label>
-		<input type="number" name="ownerID" placeholder="ownerID" id="ownerID" required>
+		<input type="number" name="ownerID" placeholder="Owner ID " id="ownerID" required>
+		
 		<input type="submit" value="Search">
 	</form>
-	
+</div>
+<div class="align-self-center">
 	<form action="{{ url_for('quickLeaseID') }}" method="post" autocomplete="off">
 		<label for="leaseID">Enter The Lease ID:</label>
-		<input type="number" name="leaseID" placeholder="leaseID" id="leaseID" required>
+		<input type="number" name="leaseID" placeholder="Lease ID" id="leaseID" required>
+		
 		<input type="submit" value="Search">
 	</form>
+</div>
+<div class="align-self-end">
 
 	<form action="{{ url_for('quickPropertyID') }}" method="post" autocomplete="off">
 		<label for="propertyID">Enter The Property ID:</label>
-		<input type="number" name="propertyID" placeholder="propertyID" id="propertyID" required>
+		<input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
+		
 		<input type="submit" value="Search">
+	</div>
+	</div>
+	</div>
+	</div>
 </div>
 </div>
 </div>
