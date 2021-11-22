@@ -26,7 +26,7 @@
 
 <form action="{{ url_for('searchPropertyByID') }}" method="post" autocomplete="off">
     <label for="PropertyID">Enter The Property ID:</label>
-    <input type="number" name="propertyID" placeholder="propertyID" id="propertyID" required>
+    <input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
 	<input type="submit" value="Search">
 </form>
 
@@ -34,7 +34,7 @@
 <h3>Search by Owner ID</h3>
 <form action="{{ url_for('searchPropertyByOwnerID') }}" method="post" autocomplete="off">
     <label for="ownerID">Enter The Owner ID:</label>
-    <input type="number" name="ownerID" placeholder="ownerID" id="ownerID" required>
+    <input type="number" name="ownerID" placeholder="Owner ID" id="ownerID" required>
 	<input type="submit" value="Search">
 </form>
 <hr>
@@ -42,7 +42,7 @@
 <h3>Search By Property Address</h3>
 <form action="{{ url_for('searchPropertyByAddress') }}" method="post" autocomplete="off">
     <label for="address">Enter The Address:</label>
-    <input type="text" name="propertyAddress" placeholder="address" id="propertyAddress" required>
+    <input type="text" name="propertyAddress" placeholder="Address" id="propertyAddress" required>
 	<input type="submit" value="Search">
 </form>
 
