@@ -202,3 +202,8 @@ body.loggedin {
 	border-color: #ffecb5;
 }
 
+.recommendedPropertyTitle {
+	font-size: 2.2rem;
+	text-align: center;
+
+}
