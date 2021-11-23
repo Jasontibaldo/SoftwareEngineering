@@ -420,6 +420,7 @@ def newProperty():
                      wifiPassword, beachside, bayside, oceanFront, bayFront, commissionPercentage, ownerID, imageName))
                 mysql.connection.commit()
                 flash('The new property was added successfully', 'message')
+                
                 return render_template('propertyPricing.html', property=propertyAddress)
             except:
                 print("Failed insert")
@@ -665,16 +666,18 @@ def createMapLinkString(property):
 
 
 @app.route('/newPropertyPricing/',  methods=['GET', 'POST'])
-def newPropertyPricing(property):
-    #if request.method == 'POST':
-        # Create variables for easy access
-        # startDate = request.form['startDate']
-        # endDate = request.form['endDate']
-        # pricing = request.form['pricing']
-        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        # cursor.execute('SELECT * FROM Property INNER JOIN Owners ON Property.OwnerID = Owners.ownerID WHERE propertyID = %s', (propertyID,))
+def newPropertyPricing():
+    if request.method == 'POST':
+        startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
+        endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        pricing = request.form['pricing']
+        propertyAddress = request.form['propertyAddress']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT propertyID FROM Property WHERE propertyAddress = %s', (propertyAddress,))
         # Fetch one record and return result
-        # property = cursor.fetchone()
+        propertyID = cursor.fetchone()
+        cursor.execute('Insert into Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' , '( %s, %s,%s, %s)', (startDate, endDate, propertyID['propertyID'], pricing))
+
     return render_template('propertyPricing.html')
 
 

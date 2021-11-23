@@ -12,7 +12,7 @@
         
         {% extends 'layout.html' %}
 
-        {% block title %}New Lease{% endblock %}
+        {% block title %}New Property Pricing Information{% endblock %}
 
         {% block content %} 
 
@@ -34,11 +34,13 @@
 			<h1>Pricing Information For Property:</h1>
 
 			<form id = 'property'>
-				<label for="propertyName">Please input information for property: </label>
-				<input type="text" name="propertyAddress" value="{{property}}" disabled="disabled">
+				
 			</form>
 
 			<form id="pricingform" action="{{ url_for('newPropertyPricing') }}" method="post" autocomplete="off">
+				<label for="propertyName">Please input information for property: </label>
+				<input type="text" name="propertyAddress" value="{{property}}" disabled="disabled">
+				<br>
                 <label for="startDate">Start Date: </label>
                 <input type="date" name="startDate">
                 <label for="endDate">End Date: </label>
