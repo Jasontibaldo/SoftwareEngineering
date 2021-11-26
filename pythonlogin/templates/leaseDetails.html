@@ -83,7 +83,7 @@
                 <table>
                     <tr>
                         <td> Lease Address </td>
-                        <td> {{ lease['propertyAddress']}} {{ lease['propertyAddressLine2']}}</td>
+                        <td> {{ lease['propertyAddress']}} </td>
                     </tr>
                     <tr>
                         <td> Lease Address Line 2 </td>
@@ -115,20 +115,32 @@
             
         </div>
         <div>
+            <table>
             <h1>Update Lease Status</h1>
-
+            
             <form action="{{ url_for('updateLeaseStatus') }}" method="post" autocomplete="off">  
                 <input id="leaseID" name="leaseID" type="hidden" value="{{ lease['leaseID']}}">  
-                <label for="leaseStatus">Lease Status</label>
-  				<select id="leaseStatus" name="leaseStatus">
-    				<option value="Active">Active</option>
-    				<option value="Cancelled">Cancelled</option>
-    				<option value="Checked In">Checked In</option>
-    				<option value="Checked Out">Checked Out</option>
-  				</select>
-                <input type="submit" value="Update Status">
+                <tr>
+                    <td>
+                        <label for="leaseStatus">Lease Status</label>
+                    </td>
+                    <td>
+                        <select id="leaseStatus" name="leaseStatus">
+                            <option value="Active">Active</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Checked In">Checked In</option>
+                            <option value="Checked Out">Checked Out</option>
+                          </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Update Status">
+                    </td>
+                </tr>
+               
             </form>
-
+        </table>
         </div>
 	</div>
     </div>
