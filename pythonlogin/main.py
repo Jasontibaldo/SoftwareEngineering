@@ -670,13 +670,22 @@ def newPropertyPricing():
     if request.method == 'POST':
         startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
         endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        print(startDate)
+        print(endDate)
         pricing = request.form['pricing']
+        print(pricing)
         propertyAddress = request.form['propertyAddress']
+        
+        print("Made it here")
+        print(propertyAddress)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT propertyID FROM Property WHERE propertyAddress = %s', (propertyAddress,))
+        print("here")
         # Fetch one record and return result
         propertyID = cursor.fetchone()
-        cursor.execute('Insert into Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' , '( %s, %s,%s, %s)', (startDate, endDate, propertyID['propertyID'], pricing))
+        print(propertyID)
+        cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate, endDate, propertyID, pricing))
+        mysql.connection.commit()
 
     return render_template('propertyPricing.html')
 
