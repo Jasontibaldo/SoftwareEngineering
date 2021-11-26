@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lease Information Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+</head>
+
+
+<body>
+{% extends 'layout.html' %}
+
+{% block title %}Lease Details For:{% endblock %}
+
+{% block content %}
+
+    <h2>Lease Details</h2>
+<div>
+    <div class="container-fluid">
+        <div class ="row justify-content-around">
+            
+            <table>
+                
+                    <td>
+                        <h1>{{ lease['propertyAddress']}}, {{ lease['propertyCity']}}</h1>
+                    </td>
+                </tr>
+            </table>
+
+
+            
+                
+        </div>
+
+    </div>
+</div>
+<hr>
+
+
+<div>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+        
+        <div class="col-6 align-self-start">
+                <div class="col-4 p-3">
+                    
+                <table>  
+                   
+                    <tr>
+                        <td> Lease ID </td>
+                        <td>{{ lease['leaseID']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Owner ID </td>
+                        <td>{{ lease['OwnerID']}}</td>
+                    </tr>   
+
+                    <tr>
+                        <td> Property ID </td>
+                        <td>{{ lease['propertyID']}}</td>
+                    </tr>   
+                    <tr>
+                        <td>Rental Insurance</td>
+                        {% if  lease['rentalInsurance'] == 1 %}
+                        <td><input type="checkbox" disabled="disabled" checked="checked"></td>
+                        {% else %}
+                        <td><input type="checkbox" disabled="disabled"></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Rental Agent</td>
+                        <td>{{lease['rentalAgent']}}</td>
+                    </tr>
+
+                </table>
+                </div>
+                </div>
+               <div class="col-5">
+
+               
+                <table>
+                    <tr>
+                        <td> Lease Address </td>
+                        <td> {{ lease['propertyAddress']}} {{ lease['propertyAddressLine2']}}</td>
+                    </tr>
+                    <tr>
+                        <td> Lease Address Line 2 </td>
+                        <td> {{ lease['propertyCity']}} {{ lease['propertyState']}} {{ lease['propertyZip']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>{{lease['startDate']}}</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>{{lease['endDate']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>${{lease['price']}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Lease Status </td>
+                        <td>{{lease['leaseStatus']}}</td>
+                </tr>
+                    
+                </table>
+            </div>
+			</div>
+            </div>
+
+            
+        </div>
+        <div>
+            <h1>Update Lease Status</h1>
+
+            <form action="{{ url_for('updateLeaseStatus') }}" method="post" autocomplete="off">  
+                <input id="leaseID" name="leaseID" type="hidden" value="{{ lease['leaseID']}}">  
+                <label for="leaseStatus">Lease Status</label>
+  				<select id="leaseStatus" name="leaseStatus">
+    				<option value="Active">Active</option>
+    				<option value="Cancelled">Cancelled</option>
+    				<option value="Checked In">Checked In</option>
+    				<option value="Checked Out">Checked Out</option>
+  				</select>
+                <input type="submit" value="Update Status">
+            </form>
+
+        </div>
+	</div>
+    </div>
+{% endblock %}
+
+</body>
+</html>

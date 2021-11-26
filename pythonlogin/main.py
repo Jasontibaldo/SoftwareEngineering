@@ -773,7 +773,7 @@ def searchLeaseByID():
         # Create variables for easy access
         leaseID = request.form['leaseID']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseID = %s', (leaseID,))
+        cursor.execute('SELECT Leases.leaseID, Leases.leaseStatus, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseID = %s', (leaseID,))
         # Fetch one record and return result
         lease = cursor.fetchone()
         leaseArray =[lease]
@@ -792,7 +792,7 @@ def searchLeaseByStatus():
         # Create variables for easy access
         status = request.form['leaseStatus']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseStatus = %s', (status,))
+        cursor.execute('SELECT Leases.leaseID, Leases.leaseStatus, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE leaseStatus = %s', (status,))
         # Fetch one record and return result
         lease = cursor.fetchall()
         print(lease)
@@ -812,7 +812,7 @@ def searchLeaseByTenant():
         # Create variables for easy access
         tenantID = request.form['tenantID']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE tenantID = %s', (tenantID,))
+        cursor.execute('SELECT Leases.leaseID, Leases.leaseStatus, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE tenantID = %s', (tenantID,))
         # Fetch one record and return result
         lease = cursor.fetchall()
         print(lease)
@@ -832,7 +832,7 @@ def searchLeaseByProperty():
         # Create variables for easy access
         propertyID = request.form['propertyID']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Leases.propertyID = %s', (propertyID,))
+        cursor.execute('SELECT Leases.leaseID, Leases.leaseStatus, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Leases.propertyID = %s', (propertyID,))
         # Fetch one record and return result
         lease = cursor.fetchall()
         print(lease)
@@ -852,7 +852,7 @@ def searchLeaseByAddress():
         propertyAddress = request.form['propertyAddress']
         propertyAddress = '%' + propertyAddress + '%'
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Property.propertyAddress LIKE %s', (propertyAddress,))
+        cursor.execute('SELECT Leases.leaseID, Leases.leaseStatus, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE Property.propertyAddress LIKE %s', (propertyAddress,))
         # Fetch one record and return result
         lease = cursor.fetchall()
         print(lease)
@@ -863,6 +863,46 @@ def searchLeaseByAddress():
             # Account doesnt exist or username/password incorrect
              flash('Either no lease with that information exists, or your information was entered incorrectly, please try again!', 'message')
     return render_template('searchLease.html')
+
+
+# This method is used to display ALL data about a lease when clicked on
+@app.route('/displayLeaseByID/',  methods=['GET', 'POST'])
+def displayLeaseByID():
+    
+   if request.method == 'POST':
+        # Create variables for easy access
+        leaseID = request.form['leaseID']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Leases INNER JOIN Property ON Leases.propertyID = Property.PropertyID WHERE leaseID = %s', (leaseID,))
+        # Fetch one record and return result
+        lease = cursor.fetchone()
+        print(lease)
+
+        if lease:
+            return render_template('leaseDetails.html', lease=lease)
+        else:
+            # Account doesnt exist or username/password incorrect
+             flash('No Lease matching that ID exists, please try again!', 'message')
+        return render_template('searchLease.html')
+
+# This method is used to search for a lease by its Status
+@app.route('/updateLeaseStatus/', methods=['GET', 'POST'])
+def updateLeaseStatus():
+    if request.method == 'POST':
+        # Create variables for easy access
+        leaseID = request.form['leaseID']
+        status = request.form['leaseStatus']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        try:
+            cursor.execute('UPDATE Leases SET leaseStatus = %s WHERE leaseID = %s', (status, leaseID,))
+            mysql.connection.commit()
+            flash('Lease Status Updated', 'message')
+        except:
+            mysql.connection.rollback()
+            flash('Error, lease status not updated', 'error')
+            # Account doesnt exist or username/password incorrect
+    return render_template('searchLease.html')
+
 
 ########################################################## REPORT SECTION ########################################################
 

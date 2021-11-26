@@ -40,6 +40,14 @@
                         <td>Price</td>
                         <td>${{lease['price']}}</td>
                     </tr>
+                    <tr>
+                        <td>
+                            <form action="{{ url_for('displayLeaseByID') }}" method="post" autocomplete="off">  
+                                <input id="leaseID" name="leaseID" type="hidden" value="{{ lease['leaseID']}}">  
+                                <input type="submit" value="View More ">
+                            </form>
+                        </td>
+                    </tr>
                 </table>
                 <hr>
                 {% endfor %}
