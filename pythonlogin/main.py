@@ -949,13 +949,28 @@ def leaseReport():
 
 
 @app.route('/leaseReportResults/', methods=['GET', 'POST'])
-def leaseReportResults(property):
+def leaseReportResults():
     if request.method == 'POST':
         startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
         endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
-        print(request.form['type'])
+        type = request.form['type']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-        return render_template('leaseReportResults.html')
+        if(type == 'IN'):
+            #Check-in Querry
+            cursor.execute('SELECT Leases.leaseID, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE startDate between %s and %s order by startDate', (startDate,endDate))
+        else:
+            cursor.execute('SELECT Leases.leaseID, Leases.startDate, Leases.endDate, Leases.price, Property.propertyAddress, Property.propertyAddressLine2, Property.propertyState, Property.propertyCity, Property.propertyZip FROM Leases INNER JOIN Property ON Leases.propertyID = Property.propertyID WHERE startDate between %s and %s order by startDate', (startDate,endDate))
+
+        lease=cursor.fetchall()
+
+        if lease:
+            return render_template('leaseResults.html', lease=lease)
+        else:
+            flash("No lease exists within this time period")
+    return leaseReport()
+
+        
     
 
 
@@ -1015,6 +1030,7 @@ def quickPropertyID():
         else:
             
              flash('No property matching that ID exists, please try again!', 'message')
+             
     return redirect(url_for('home'))
 
 
