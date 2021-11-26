@@ -684,7 +684,7 @@ def newPropertyPricing():
         # Fetch one record and return result
         propertyID = cursor.fetchone()
         print(propertyID)
-        cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate, endDate, propertyID, pricing))
+        cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate, endDate, propertyID['propertyID'], pricing))
         mysql.connection.commit()
 
     return render_template('propertyPricing.html')
