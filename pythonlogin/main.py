@@ -1026,7 +1026,7 @@ def quickPropertyID():
         
         # If account exists in accounts table in out database
         if property:
-            return render_template('propertyDetails.html', property=property)
+            return displayPropertyByID()
         else:
             
              flash('No property matching that ID exists, please try again!', 'message')

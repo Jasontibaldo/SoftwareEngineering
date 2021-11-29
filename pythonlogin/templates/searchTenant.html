@@ -20,7 +20,9 @@
 		{% endwith %}
 <br>
 <br>
-<h2>Search Tenant</h2>
+<div>
+<h1>Search Tenant</h1>
+<br>
 <h3>Search by Tenant ID</h3>
 <form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
     <label for="tenantID">Enter The Tenant ID:</label>
@@ -34,7 +36,8 @@
     <input type="text" name="TenantLastName" placeholder="Last Name" id="TenantLastName" required>
 	<input type="submit" value="Search">
 </form>
-
+</div>
 {% endblock %}
 </body>
+
 </html>

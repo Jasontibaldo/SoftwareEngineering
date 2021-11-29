@@ -20,7 +20,9 @@
 		{% endwith %}
 <br>
 <br>
-<h2>Search Lease</h2>
+<div>
+<h1>Search Lease</h1>
+<br>
 <h3>Search by Lease ID</h3>
 <form action="{{ url_for('searchLeaseByID') }}" method="post" autocomplete="off">
     <label for="leaseID">Enter The Lease ID:</label>
@@ -68,5 +70,6 @@
 </form>
 
 {% endblock %}
+</div>
 </body>
 </html>

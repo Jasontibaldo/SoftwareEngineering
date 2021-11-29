@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,31 +74,53 @@
 	<h1 class="recommendedPropertyTitle">Quick Search</h1>
 	<hr>
 	<div class="container-fluid h-100 ">
-		<div class="row justify-content-center">
+		<div class="row justify-content">
 			<div class="d-flex flex-column">
-		<div class="d-flex pt-5 pb-5">
+		<div class="quicksearchtext d-flex pt-5 pb-5  ">
 	<form action="{{ url_for('quickOwnerID') }}" method="post" autocomplete="off">
-		<label for="ownerID">Enter The OwnerID:</label>
-		<input type="number" name="ownerID" placeholder="Owner ID " id="ownerID" required>
+		<h3 style="padding-left:45px;padding-bottom:0px;margin-bottom:0px;height: 20px;">Enter The Owner ID:</h3>
 		<br>
-		<input type="submit" value="Search">
-	</form>
+		<input type="number" name="ownerID" placeholder="Owner ID " id="ownerID" required style="
+  	  	padding-left: 2px;
+    	padding-right: 2px;
+    	width: 241px;
+   	 	margin-left: 47px;">
+		<br>
+		<input type="submit" value="Search" style="
+    	margin-left: 50px;
+    	padding-left: 30px;
+    	padding-right: 30px;">
+		</form>
 </div>
+
 <div class="d-flex  pt-5 pb-5">
 	<form action="{{ url_for('quickLeaseID') }}" method="post" autocomplete="off">
-		<label for="leaseID">Enter The Lease ID:</label>
-		<input type="number" name="leaseID" placeholder="Lease ID" id="leaseID" required>
+		<h3 style="padding-left:45px;padding-bottom:0px;margin-bottom:0px;height: 20px;">Enter The Lease ID:</h3>
 		<br>
-		<input type="submit" value="Search">
+		<input type="number" name="leaseID" placeholder="Lease ID" id="leaseID" required style="padding-left: 2px;
+    	padding-right: 2px;
+    	width: 241px;
+   	 	margin-left: 47px;">
+		<br>
+		<input type="submit" value="Search" style="
+    	margin-left: 120px;
+    	padding-left: 30px;
+    	padding-right: 30px;">
 	</form>
 </div>
 
 <div class="d-flex  pt-5 pb-5">
 	<form action="{{ url_for('quickPropertyID') }}" method="post" autocomplete="off">
-		<label for="propertyID">Enter The Property ID:</label>
-		<input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
+		<h3 style="padding-left:30px;padding-bottom:0px;margin-bottom:0px;height: 20px;">Enter The Property ID:</h3>
 		<br>
-		<input type="submit" value="Search">
+		<input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required style="padding-right: 2px;
+    	width: 241px;
+   	 	margin-left: 47px;">
+		<br>
+		<input type="submit" value="Search" style="margin-left: 120px;
+    	padding-left: 30px;
+    	padding-right: 30px;">
+		</form>
 	</div>
 	</div>
 	</div>
