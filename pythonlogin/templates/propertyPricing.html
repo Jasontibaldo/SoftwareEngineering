@@ -41,12 +41,9 @@
 				<label for="propertyName">Please input information for property: </label>
 				<input type="text" id= "propertyAddress" name="propertyAddress" value="{{property}}" readonly="readonly">
 				<br>
-                <label for="startDate">Start Date: </label>
-                <input type="date" name="startDate">
-                <label for="endDate">End Date: </label>
-                <input type="date" name="endDate">
-                <label for="pricing">Price for this date range: </label>
-                <input type="number" name = "pricing">
+                <script>
+					addNewFields();
+				</script>
             </div>
                 <input type="button" onclick="addNewFields()" value="Add another price">
                 <input type="submit" value="Submit Final Pricing">
