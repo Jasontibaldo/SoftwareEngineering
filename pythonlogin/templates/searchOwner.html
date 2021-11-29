@@ -14,7 +14,9 @@
 
 <br>
 <br>
-<h2>Search Page</h2>
+<div>
+<h1>Search Page</h1>
+<br>
 <!-- This with block displays any "Flashed" messages to the user, like a successful data insert -->
 {% with messages = get_flashed_messages() %}
 			{% if messages %}
@@ -23,6 +25,7 @@
       			{% endfor %}
    			{% endif %}
 		{% endwith %}
+
 <h3>Search by Owner ID</h3>
 <form action="{{ url_for('searchOwnerByID') }}" method="post" autocomplete="off">
     <label for="ownerID">Enter The OwnerID:</label>
@@ -36,7 +39,7 @@
     <input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
 	<input type="submit" value="Search">
 </form>
-
+</div>
 {% endblock %}
 </body>
 </html>
