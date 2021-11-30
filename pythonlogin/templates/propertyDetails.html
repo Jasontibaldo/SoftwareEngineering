@@ -227,9 +227,6 @@
             <script>
                 let calendarEl = document.getElementById('calendar');
 
-            
-                
-
                 let calendar = new FullCalendar.Calendar(calendarEl, {
                     events: [
                         {% for event in events %}
@@ -270,7 +267,21 @@
                         {% endif %}
 
                         {% endfor %}
+
+                        {% for pricing in pricing %}
+                        {
+                            {% if pricing['weeklyRate'] != None %}
+                            title: '${{pricing['weeklyRate']}}',
+                            start : '{{pricing['startDate']}}',
+                            end : '{{pricing['endDate']}}',
+                            allDay : true,
+                            backgroundColor: '#2ecc71',
+                            borderColor : '#ffffff',
+                            {% endif %}
+                        },
+                        {% endfor %}
                     ]
+                    
                     
                 });
                 

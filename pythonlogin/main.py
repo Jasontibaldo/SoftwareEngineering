@@ -629,11 +629,14 @@ def displayPropertyByID():
         # If account exists in accounts table in out database
         events = cursor.fetchall()
         
+        cursor.execute('SELECT Property.propertyID, startDate, endDate, weeklyRate FROM Property INNER JOIN Pricing ON Property.propertyID = Pricing.PropertyID WHERE Property.propertyID = %s', (propertyID,))
+        pricing = cursor.fetchall()
+
         mapLink = createMapLinkString(property)
         print(mapLink)
 
         if property:
-            return render_template('propertyDetails.html', property=property, events=events, mapLink=mapLink)
+            return render_template('propertyDetails.html', property=property, events=events, pricing=pricing, mapLink=mapLink)
         else:
             # Account doesnt exist or username/password incorrect
              flash('No property matching that ID exists, please try again!', 'message')
