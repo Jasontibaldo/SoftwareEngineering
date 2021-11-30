@@ -669,29 +669,28 @@ def createMapLinkString(property):
 def newPropertyPricing():
     if request.method == 'POST':
         
-        startDate = datetime.strptime (request.form.getlist['startDate'],'%Y-%m-%d')
-        endDate = datetime.strptime (request.form.getlist['endDate'],'%Y-%m-%d')
-        print(startDate)
-        print(endDate)
+        startDate = request.form.getlist('startDate')
+        endDate = request.form.getlist('endDate')        
         
+        pricing = request.form.getlist('pricing')
         
-        pricing= request.form.getlist('pricing')
-        print(pricing)
+
+        
 
 
         propertyAddress = request.form['propertyAddress']
         
         print(propertyAddress)
 
-      # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-      # cursor.execute('SELECT propertyID FROM Property WHERE propertyAddress = %s', (propertyAddress,))
-      # print("here")
-      # # Fetch one record and return result
-      # propertyID = cursor.fetchone()
-      # print(propertyID)
-      # for pricing in pricing:
-      #     cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate, endDate, propertyID['propertyID'], pricing))
-      # mysql.connection.commit()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT propertyID FROM Property WHERE propertyAddress = %s', (propertyAddress,))
+        
+        #Fetch one record and return result
+        propertyID = cursor.fetchone()
+        print(propertyID)
+        for i in range(len(pricing)):
+           cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate[i], endDate[i], propertyID['propertyID'], pricing[i]))
+        mysql.connection.commit()
 
     return render_template('propertyPricing.html')
 
