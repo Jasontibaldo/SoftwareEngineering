@@ -1,5 +1,3 @@
-var i = 1;
-
 function addNewFields() {
     var newFields = document.createElement("div");
     newFields.innerHTML = '<label for="date">Start Date: </label>' + ' ' +
@@ -11,3 +9,4 @@ function addNewFields() {
 
     document.getElementById("pricingform").appendChild(newFields);
 }
+
