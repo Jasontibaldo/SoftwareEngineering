@@ -668,17 +668,17 @@ def createMapLinkString(property):
 @app.route('/newPropertyPricing/',  methods=['GET', 'POST'])
 def newPropertyPricing():
     if request.method == 'POST':
-        pricing =[]
-        startDate = datetime.strptime (request.form['startDate'],'%Y-%m-%d')
-        endDate = datetime.strptime (request.form['endDate'],'%Y-%m-%d')
+        
+        startDate = datetime.strptime (request.form.getlist['startDate'],'%Y-%m-%d')
+        endDate = datetime.strptime (request.form.getlist['endDate'],'%Y-%m-%d')
         print(startDate)
         print(endDate)
-        form = request.form
-        for key in form.keys():
-            for value in form.getlist(key):
-                print(key, ":",value)
-                pricing.append(request.form['pricing'])
+        
+        
+        pricing= request.form.getlist('pricing')
         print(pricing)
+
+
         propertyAddress = request.form['propertyAddress']
         
         print(propertyAddress)
