@@ -23,6 +23,7 @@
     <div class="container-fluid ">
         <div class="text-center">
         <h1>Search Lease</h1>
+        <hr>
         </div>  <!-- end of div for header -->
         <br />
         <div class="row justify-content-center searchPageBackground ">
@@ -30,6 +31,7 @@
           <div class="col-5 p-3 m-3">
            
             <h3>Search by Lease ID</h3>
+            <hr>
              <br>
               <form
                 action="{{ url_for('searchLeaseByID') }}"
@@ -52,6 +54,7 @@
 
               <br>
               <h3>Search By Lease Status</h3>
+              <hr>
               <br>
               <form
                 action="{{ url_for('searchLeaseByStatus') }}"
@@ -80,6 +83,7 @@
               </form>
               <br>
               <h3>Search By Tenant ID</h3>
+              <hr>
               <br>
               <form
                 action="{{ url_for('searchLeaseByTenant') }}"
@@ -103,6 +107,7 @@
           </div>
           <div class="col-5 p-3 m-3">
             <h3>Search By Property ID</h3>
+            <hr>
             <br>
             <form
               action="{{ url_for('searchLeaseByProperty') }}"
@@ -124,6 +129,7 @@
             </form>
             <br>
             <h3>Search By Property Address</h3>
+            <hr>
             <br>
             <form
               action="{{ url_for('searchLeaseByAddress') }}"
