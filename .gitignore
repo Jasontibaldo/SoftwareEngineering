@@ -7,3 +7,5 @@
 .idea/vcs.xml
 .idea/workspace.xml
 pythonlogin/__pycache__/config.cpython-38.pyc
+.vscode/java-formatter.xml
+.vscode/settings.json

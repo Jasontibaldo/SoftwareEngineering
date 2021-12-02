@@ -151,6 +151,11 @@ body.loggedin {
 	
 }
 
+.searchPageBackground{
+	background-color: #E5E8ED;
+	border-radius: 20px;
+}
+
 .whiteNavbar{
 	background-color: #ffffff;
 }
@@ -210,4 +215,4 @@ body.loggedin {
 .quicksearchtext{
 	text-align:center !important;
 	}
-}
+
