@@ -18,24 +18,46 @@
       			{% endfor %}
    			{% endif %}
 		{% endwith %}
-<br>
-<br>
+
 <div>
-<h1>Search Tenant</h1>
-<br>
-<h3>Search by Tenant ID</h3>
-<form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
-    <label for="tenantID">Enter The Tenant ID:</label>
-    <input type="number" name="tenantID" placeholder="tenant ID" id="tenantID" required>
-	<input type="submit" value="Search">
-</form>
-<hr>
-<h3>Search By Tenant Name</h3>
-<form action="{{ url_for('searchTenantByName') }}" method="post" autocomplete="off">
-    <label for="LastName">Enter The Name:</label>
-    <input type="text" name="TenantLastName" placeholder="Last Name" id="TenantLastName" required>
-	<input type="submit" value="Search">
-</form>
+	<div class="container-fluid ">
+        <div class="text-center">
+        <h1>Search Lease</h1>
+        <hr>
+        </div>  <!-- end of div for header -->
+        <br />
+        <div class="row justify-content-center searchPageBackground ">
+            
+          <div class="col-5 p-3 m-3">
+			<h3>Search by Tenant ID</h3>
+			<hr>
+			<br>
+			<form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
+				<label for="tenantID">Enter The Tenant ID:</label>
+				<input type="number" name="tenantID" placeholder="tenant ID" id="tenantID" required>
+				<br><br>
+				<div class="text-center">
+					<input type="submit" value="Search">
+				</div>
+			</form>
+			</div>
+
+			<div class="col-5 p-3 m-3">
+			<h3>Search By Tenant Name</h3>
+			<hr>
+			<br>
+			<form action="{{ url_for('searchTenantByName') }}" method="post" autocomplete="off">
+				<label for="LastName">Enter The Name:</label>
+				<input type="text" name="TenantLastName" placeholder="Last Name" id="TenantLastName" required>
+				<br><br>
+				<div class="text-center">
+					<input type="submit" value="Search">
+				</div>
+			</form>
+
+
+			</div>
+	</div>
 </div>
 {% endblock %}
 </body>
