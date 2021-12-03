@@ -22,19 +22,26 @@
       			{% endfor %}
    			{% endif %}
 		{% endwith %}
-		<br>
-			<h1>New Property Details</h1>
+		<div>
+			<div class="container-fluid ">
+				<div class="text-center">
+				<h1>Create New Property</h1>
+				<hr>
+				</div>  <!-- end of div for header -->
+				<br />
+				<div class="row justify-content-center searchPageBackground ">
+				  <div class="col-5 p-3 m-3">
 			
-			<form action="{{ url_for('newProperty') }}" method="post" autocomplete="off" enctype="multipart/form-data">
+				<form action="{{ url_for('newProperty') }}" method="post" autocomplete="off" enctype="multipart/form-data">
 				
 				<label for="propertyAddress">Enter the Property Address: </label>
 				<input type="text" name="propertyAddress" placeholder="Property Address" id="propertyAddress" required>
-				<br>
+				<br><br>
 				<label for="propertyAddressLine2">Enter the Property Address Line 2: </label><input type="text" name="propertyAddressLine2" placeholder="Property Address Line 2" id="propertyAddressLine2">
-				<br>
-				<label for="propertyCity">Enter the Property city: </label><input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
-				<br>
-				<label for="propertyState">Enter the Property State: </label>
+				<br><br>
+				<label for="propertyCity">Enter the Property city: </label><br><input type="text" name="propertyCity" placeholder="Property City" id="propertyCity" required>
+				<br><br>
+				<label for="propertyState">Enter the Property State: </label><br>
 				<select name="propertyState" id="propertyState" required>
 					<option value="AL">Alabama</option>
 					<option value="AK">Alaska</option>
@@ -88,83 +95,91 @@
 					<option value="WI">Wisconsin</option>
 					<option value="WY">Wyoming</option>
 				</select>
-				<br>
-				<label for="propertyZipcode">Enter the Property Zip: </label>
+				<br><br>
+				<label for="propertyZipcode">Enter the Property Zip: </label><br>
 				<select name="propertyZipcode" id="propertyZipcode">
 					<option value="08006">08006</option>
   					<option value="08008">08008</option>
 				</select>
-				<br>
+				<br><br>
 				<label for="numOfBedrooms">Enter the number of Bedrooms: </label>
 				<input type="number" name="numOfBedrooms" placeholder="Number Of Bedrooms" id="numOfBedrooms" required>
-				<br>
+				<br><br>
 				<label for="numOfBathrooms">Enter the number of Bathrooms: </label>
 				<input type="number" name="numOfBathrooms" placeholder="Number Of Bathrooms" id="numOfBathrooms" required>
-				<br>
-				<label for="keyNum">Enter the key number: </label><input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
-				<br>
+				<br><br>
+				<label for="keyNum">Enter the key number: </label><br><input type="number" name="keyNum" placeholder ="Key Number" id="keyNum" required>
+				<br><br>
+				<label for="wifiName">Enter the wifi name: </label><br>
+				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >
+				<br><br>
+				<label for="wifiPassword">Enter the wifi password: </label>
+				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPassword" >
+				<br><br>
+				<label for="numOfParkingSpots">Enter the number of parking spaces: </label> 
+				<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
+				<br><br>
+				<label for="commissionPercentage">Enter the commission percentage: </label>
+				<input type="number" name="commissionPercentage" placeholder ="Commission Percentage" id="commissionPercentage" required >
+ 				<br><br>
+			</div>
+				<div class="col-5 p-3 m-3">
 				<input type="checkbox" name="pets" id="pets" value="1">
 				<input type="hidden" name="pets" id="pets" value="0">
 				<label for="pets">Are Pets Allowed?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="pool" id="pool" value="1">
 				<input type="hidden" name="pool" id="pool" value="0">
 				<label for="pool">Is there a pool?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="bbq" id="bbq" value="1">
 				<input type="hidden" name="bbq" id="bbq" value="0">
 				<label for="bbq">Is there a BBQ Grill?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="ac" id="ac" value="1">
 				<input type="hidden" name="ac" id="ac" value="0">
 				<label for="ac">Is there air conditioning?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="washerDryer" id="washerDryer" value="1">
 				<input type="hidden" name="washerDryer" id="washerDryer" value="0">
 				<label for="washerDryer">Is there a Washer and Dryer?</label>
-				<br>
-				<label for="numOfParkingSpots">Enter the number of parking spaces: </label> 
-				<input type="number" name="numOfParkingSpots" placeholder ="Number of Parking Spots" id="numOfParkingSpots" >
-				<br>
+				<br><br>
+				
 				<input type="checkbox" name="outsideShower" id="outsideShower" value="1">
 				<input type="hidden" name="outsideShower" id="outsideShower" value="0">
 				<label for="outsideShower">Is there an outside shower?</label>
-				<br>
-				<label for="wifiName">Enter the wifi name: </label>
-				<input type="text" name="wifiName" placeholder ="Wifi Name" id="wifiName" >
-				<br>
-				<label for="wifiPassword">Enter the wifi password: </label>
-				<input type="text" name="wifiPassword" placeholder ="Wifi Password" id="wifiPassword" >
-				<br>
+				<br><br>
+				
 				<input type="checkbox" name="beachside" id="beachside" value="1">
 				<input type="hidden" name="beachside" id="beachside" value="0">
 				<label for="beachside">Is this property beachside?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="bayside" id="bayside" value="1">
 				<input type="hidden" name="bayside" id="bayside" value="0">
 				<label for="bayside">Is this property Bayside</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="oceanFront" id="oceanFront" value="1">
 				<input type="hidden" name="oceanFront" id="oceanFront" value="0">
 				<label for="oceanfront">Is this property Oceanfront?</label>
-				<br>
+				<br><br>
 				<input type="checkbox" name="bayFront" id="bayFront" value="1">
 				<input type="hidden" name="bayFront" id="bayFront" value="0">
 				<label for="bayfront">Is this property Bayfront?</label>
-				<br>
-				<label for="commissionPercentage">Enter the commission percentage: </label>
-				<input type="number" name="commissionPercentage" placeholder ="Commission Percentage" id="commissionPercentage" required >
- 				<br>
+				<br><br>
+				
  				<label for="ownerID">Enter the owner's ID </label>
 				 <input type="number" name ="ownerID" placeholder ="Owner ID" id="ownerID" required >
-				<br>
+				<br><br>
 				
 			
 				<label for="propertyImage">Upload an Image of the property to display</label>
 				<input type="file" name = "propertyImage" id = "propertyImage">
 					
-				 <br>
-				<input type="submit" value="Create">
+				</div>
+				</div>
+				<div class="text-center">
+					<input type="submit" value="Create">
+				</div>
 			</form>
 		</div>
         {% endblock %}
