@@ -35,29 +35,29 @@
 			<div class="col-5 p-3 m-3">
 			
 			<form action="{{ url_for('newOwner') }}" method="post" autocomplete="off">
-				<label for="FirstName">Enter The First Name:</label> <br>
+				<label for="FirstName"><strong>Enter The First Name:</strong></label> <br>
 				<input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
 				<br>
 				<br>
-				<label for="LastName">Enter The Last Name:</label> <br>
+				<label for="LastName"><strong>Enter The Last Name:</strong></label> <br>
 				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
 				<br>
 				<br>
-				<label for="Email">Enter The Email:</label> <br>
+				<label for="Email"><strong>Enter The Email:</strong></label> <br>
 				<input type="Email" name="Email" placeholder="Email" id="Email" required>
 				<br>
 				</div>
 				<div class="col-5 p-3 m-3">
-				<label for="mailingAddress">Enter The Mailing Address:</label><input type="text" name="mailingAddress" placeholder="Mailing Address" id="mailingAddress" required>
-				<label for="mailingAddressLine2"><br>Mailing Address Line 2:</label>
+				<label for="mailingAddress"><strong>Enter The Mailing Address:</strong></label><input type="text" name="mailingAddress" placeholder="Mailing Address" id="mailingAddress" required>
+				<label for="mailingAddressLine2"><br><strong>Mailing Address Line 2:</strong></label>
 				<input type="text" name="mailingAddressLine2" placeholder="Mailing Address Line 2" id="mailingAddressLine2">
 					<br>
 				<br>
-				<label for="city">Enter The City:</label> <br>
+				<label for="city"><strong>Enter The City:</strong></label> <br>
 				<input type="text" name="city" placeholder="City" id="city" required>
 					<br>
 				<br>
-				<label for="state">State:</label>
+				<label for="state"><strong>State:</strong></label>
 				<select name="state" id="state" required>
 					<option value="" disabled selected hidden>State</option>
 					<option value="AL">Alabama</option>
@@ -114,8 +114,9 @@
 				</select>				
 				<br>				
 				<br>
-				<label for="zipcode">Enter Zipcode:</label> <br>
+				<label for="zipcode"><strong>Enter Zipcode:</strong></label> <br>
 				<input type="number" name="zipcode" placeholder="Zip Code" id="zipcode" required>
+				</div>
 				</div>
 				<div class="text-center">
 					<br>
