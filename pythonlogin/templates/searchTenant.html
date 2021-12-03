@@ -31,7 +31,7 @@
           <div class="col-5 p-3 m-3">
 			<h3>Search by Tenant ID</h3>
 			<hr>
-			<br>
+			
 			<form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
 				<label for="tenantID">Enter The Tenant ID:</label>
 				<input type="number" name="tenantID" placeholder="tenant ID" id="tenantID" required>
@@ -45,7 +45,7 @@
 			<div class="col-5 p-3 m-3">
 			<h3>Search By Tenant Name</h3>
 			<hr>
-			<br>
+			
 			<form action="{{ url_for('searchTenantByName') }}" method="post" autocomplete="off">
 				<label for="LastName">Enter The Name:</label>
 				<input type="text" name="TenantLastName" placeholder="Last Name" id="TenantLastName" required>
