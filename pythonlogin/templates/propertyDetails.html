@@ -227,8 +227,7 @@
     <div class ="row justify-content-around">
         <h1>Add Unavailability</h1>
         <form id="unavailabilityform" action="{{ url_for('newPropertyUnavailability') }}" method="post" autocomplete="off">
-            <label for="propertyName">Property ID: </label>
-            <input type="text" id= "propertyAddress" name="propertyAddress" value="{{ property['propertyID']}}" readonly="readonly">
+            <input type="hidden" id= "propertyAddress" name="propertyAddress" value="{{ property['propertyID']}}" readonly="readonly">
             <br>
             <label for="date">Start Date: </label>
             <input type="date" name="startDate">

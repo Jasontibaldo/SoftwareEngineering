@@ -12,9 +12,8 @@
 {% block content %}
 
 
-<br>
-<br>
-<div>
+
+
 <br>
 <!-- This with block displays any "Flashed" messages to the user, like a successful data insert -->
 {% with messages = get_flashed_messages() %}
@@ -38,7 +37,7 @@
 			<h3>Search by Owner ID</h3>
 			<hr>
 			<form action="{{ url_for('searchOwnerByID') }}" method="post" autocomplete="off">
-    <label for="ownerID"><strong>Enter The Owner ID:</strong></label>
+    <label for="ownerID"><strong>Owner ID:</strong></label>
     <input type="number" name="ownerID" placeholder="Owner ID" id="ownerID" required>
 	<div class="text-center">
 	<br>
@@ -51,13 +50,15 @@
 			<hr>
 			<br>
 			<form action="{{ url_for('searchOwnerByName') }}" method="post" autocomplete="off">
-    <label for="LastName"><strong>Enter The Name:</strong></label>
+    <label for="LastName"><strong>Name:</strong></label>
     <input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
 	<div class="text-center">
 	<br>
 		<input type="submit" value="Search">
 	</div>
 </form>
+</div>
+</div>
 </div>
 </div>
 {% endblock %}

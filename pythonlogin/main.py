@@ -695,7 +695,7 @@ def newPropertyPricing():
            cursor.execute('INSERT INTO Pricing (startDate, endDate, propertyID, weeklyRate) VALUES ' '( %s, %s,%s, %s)', (startDate[i], endDate[i], propertyID['propertyID'], pricing[i]))
         mysql.connection.commit()
 
-    return render_template('propertyUnavailability.html', property=propertyAddress)
+    return redirect(url_for('home'))
 
 @app.route('/newPropertyUnavailability/',  methods=['GET', 'POST'])
 def newPropertyUnavailability():
@@ -706,8 +706,6 @@ def newPropertyUnavailability():
         
         reason = request.form['Reason']
         
-
-        
         propertyID = request.form['propertyAddress']
         
 
@@ -715,7 +713,7 @@ def newPropertyUnavailability():
         cursor.execute('INSERT INTO unavailability (startDate, endDate, propertyID, reason) VALUES ' '( %s, %s,%s, %s)', (startDate, endDate, propertyID, reason))
         mysql.connection.commit()
 
-    return redirect(url_for('home.html'))
+    return redirect(url_for('home'))
 
 
 ######################################################## LEASE SECTION ######################################################

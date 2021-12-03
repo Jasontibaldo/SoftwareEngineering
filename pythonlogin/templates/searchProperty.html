@@ -76,6 +76,7 @@
 
 </div>
 <div class="col-5 p-3 m-3">
+<form action="{{ url_for('searchPropertyByAttributes') }}" method="post" autocomplete="off">
 <h3>Search by Attributes</h3>
 <hr>
 <table>
@@ -108,7 +109,7 @@
 </tr>
 </table>
 
-<form action="{{ url_for('searchPropertyByAttributes') }}" method="post" autocomplete="off">
+
 <table>
     <tr>
 	<td><label for="bbq">Has a BBQ Grill</label></td>

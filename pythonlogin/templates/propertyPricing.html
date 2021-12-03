@@ -38,8 +38,7 @@
 			</form>
 
 			<form id="pricingform" action="{{ url_for('newPropertyPricing') }}" method="post" autocomplete="off">
-				<label for="propertyName">Please input information for property: </label>
-				<input type="text" id= "propertyAddress" name="propertyAddress" value="{{property}}" readonly="readonly">
+				<input type="hidden" id= "propertyAddress" name="propertyAddress" value="{{property}}" readonly="readonly">
 				<br>
 				<label for="date">Start Date: </label>
                 <input type="date" name="startDate">
