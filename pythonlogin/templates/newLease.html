@@ -3,8 +3,6 @@
 	<head>
 		<meta charset="utf-8">
 		<title>New Lease</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-		<link rel="stylesheet" href="all.css">
 		
 	</head>
 	<body>
@@ -25,49 +23,61 @@
    			{% endif %}
 		{% endwith %}
 
-				<br>
+		<div>
+			<div class="container-fluid ">
+				<div>
+			<div class="text-center">
 			<h1>New Lease Details</h1>
-			
+			</div>
+			<hr>
+			<br />
+			<div class="row searchPageBackground ">
+			<div class="col-5 p-3 m-3">
 			<form action="{{ url_for('newLease') }}" method="post" autocomplete="off">
+				
 				<label for="startDate">Enter The Start Date Of The Lease:</label>
 				<input type="date" name="startDate" placeholder="Start Date" id="startDate" required>
+				<br> <br>
 				<label for="endDate">Enter The End Date Of The Lease:</label>
 
 				<input type="date" name="endDate" placeholder="End Date" id="endDate" required>
-				<br>
+				<br> <br>
 				<label for="price">Enter The Price Of The Lease:</label>
 
 				<input type="number" name="price" placeholder="Price" id="price" required>
-
+				<br><br>
+				
 				<!-- Hidden rental insurance necessary for sending over a 0 when the user doesn't want rental insurance -->
+				<label for="rentalInsurance">Does The Lease Have Rental Insurance?</label>
 				<input type="checkbox" name="rentalInsurance" id="rentalInsurance" value="1">
 				<input type="hidden" name="rentalInsurance" id="rentalInsurance" value="0">
 
-				<label for="rentalInsurance">Does The Lease Have Rental Insurance?</label>
-
-				<br>
+				
+			</div>
+			<div class="col-5 p-3 m-3">
 
 				<label for="rentalAgent">Name Of The Rental Agent:</label>
 				<input type="text" name="rentalAgent" placeholder="Rental Agent" id="rentalAgent" required>
-				<!-- Unneeded, as lease status will always be active when creating a new lease -->
-				<!-- <label for="leaseStatus">Lease Status</label>
-  				<select id="leaseStatus" name="leaseStatus">
-    				<option value="Active">Active</option>
-    				<option value="Cancelled">Cancelled</option>
-    				<option value="Checked In">Checked In</option>
-    				<option value="Checked Out">Checked Out</option>
-  				</select> -->
 
-				&nbsp;<br>
+				<br><br>
 				<label for="tenantID">Enter The Tenant ID:</label>
 				<input type="number" name="tenantID" placeholder="Tenant ID" id="tenantID" required>
+				<br><br>
 				<label for="propertyID">Enter The Property ID:</label>
 
 				<input type="number" name="propertyID" placeholder="property ID" id="propertyID" required>
-
-				<input type="submit" value="Create">
-			</form>
+			</div>
 		</div>
+		<div class="text-center">
+			<br>
+				<input type="submit" value="Create">
+			</div>
+			</form>
+		
+		</div>
+	</div>
+	</div>	
+</div>
 
 		{% endblock %}
 	</body>
