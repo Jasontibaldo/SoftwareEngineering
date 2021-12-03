@@ -33,7 +33,7 @@
 			<hr>
 			
 			<form action="{{ url_for('searchTenantByID') }}" method="post" autocomplete="off">
-				<label for="tenantID">Enter The Tenant ID:</label>
+				<label for="tenantID"><strong>Tenant ID:</strong></label>
 				<input type="number" name="tenantID" placeholder="tenant ID" id="tenantID" required>
 				<br><br>
 				<div class="text-center">
@@ -47,7 +47,7 @@
 			<hr>
 			
 			<form action="{{ url_for('searchTenantByName') }}" method="post" autocomplete="off">
-				<label for="LastName">Enter The Name:</label>
+				<label for="LastName"><strong>Name</strong></label>
 				<input type="text" name="TenantLastName" placeholder="Last Name" id="TenantLastName" required>
 				<br><br>
 				<div class="text-center">
