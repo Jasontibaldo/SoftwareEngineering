@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Search Property Page</title>
 </head>
 <body>
 {% extends 'layout.html' %}
@@ -21,42 +21,92 @@
 <br>
 <br>
 
+<div>
+    <div class="container-fluid ">
+        <div class="text-center">
+			<h1>Search Property</h1>
+			<hr>
+		</div>
 
 
-	
-<h2>Search Property</h2>
-<h3>Search by Property ID</h3>
+<br />
 
+<div class="row justify-content-center searchPageBackground ">
+	<div class="col-5 p-3 m-3">
+		<h3>Search by Property ID</h3>
+		<hr>
 <form action="{{ url_for('searchPropertyByID') }}" method="post" autocomplete="off">
-    <label for="PropertyID">Enter The Property ID:</label>
+    <label for="PropertyID"><strong>Property ID:</strong></label>
     <input type="number" name="propertyID" placeholder="Property ID" id="propertyID" required>
+	
+	<div class="text-center">
+		<br> 
 	<input type="submit" value="Search">
-
+	</div>		
 
 </form>
 
-
-
-<hr>
+<br>
 <h3>Search by Owner ID</h3>
+<hr>
+<br>
 <form action="{{ url_for('searchPropertyByOwnerID') }}" method="post" autocomplete="off">
-    <label for="ownerID">Enter The Owner ID:</label>
+    <label for="ownerID"><strong> Owner ID: </strong></label>
     <input type="number" name="ownerID" placeholder="Owner ID" id="ownerID" required>
+	
+	<div class="text-center">
+		<br> 
 	<input type="submit" value="Search">
+	</div>
 </form>
-<hr>
 
+<br>
 <h3>Search By Property Address</h3>
+<hr>
+<br>
 <form action="{{ url_for('searchPropertyByAddress') }}" method="post" autocomplete="off">
-    <label for="address">Enter The Address:</label>
+    <label for="address"><strong> Address:</strong></label>
     <input type="text" name="propertyAddress" placeholder="Address" id="propertyAddress" required>
+
+	<div class="text-center">
+		<br> 
 	<input type="submit" value="Search">
+	</div>
 </form>
 
-<hr>
-
+</div>
+<div class="col-5 p-3 m-3">
 <h3>Search by Attributes</h3>
+<hr>
+<table>
+	<tr>
+		<td>
+<label for="beachsideBayside">Beachside or bayside:</label>
+</td>
+<td>
+<select name="beachsideBayside" id="beachsideBayside">
+<option value="0" >Neither</option>
+<option value="1">Beachside</option>
+<option value="2">Bayside</option>
+</select>
+</td>
+</tr>
+</table>
 
+<table>
+	<tr>
+		<td>
+<label for="oceanfrontBayfront">Oceanfront or Bayfront:</label>
+</td>
+<td>
+<select name="oceanfrontBayfront" id="oceanfrontBayfront">
+<option value="0">Neither</option>
+<option value="1">Oceanfront</option>
+<option value="2">Bayfront</option>
+<option value="3">Both</option>
+</select></td>
+</tr>
+</table>
 
 <form action="{{ url_for('searchPropertyByAttributes') }}" method="post" autocomplete="off">
 <table>
@@ -82,22 +132,6 @@
 </table>
 
 
-    <label for="beachsideBayside">Is beachside or bayside:</label>
-	<select name="beachsideBayside" id="beachsideBayside">
-	<option value="0" >Neither</option>
-	<option value="1">Beachside</option>
-	<option value="2">Bayside</option>
-	</select>
-
-	
-  <label for="oceanfrontBayfront">Is Oceanfront or Bayfront:</label>
-	<select name="oceanfrontBayfront" id="oceanfrontBayfront">
-	<option value="0">Neither</option>
-	<option value="1">Oceanfront</option>
-	<option value="2">Bayfront</option>
-	<option value="3">Both</option>
-	</select>
-
 <table>
 	<tr>
 	<td>    <label for="ac">Has Air Conditioning:</label></td>
@@ -116,29 +150,37 @@
 
 <table>
     <tr>
-	<td><label for="outsideShower">Has an outside shower:</label>
-	<td><input type="checkbox" name="outsideShower" id="outsideShower" value="1">
-	<td><input type="hidden" name="outsideShower" id="outsideShower" value="0">
+	<td><label for="outsideShower">Has an outside shower:</label> </td>
+	<td><input type="checkbox" name="outsideShower" id="outsideShower" value="1"> </td>
+	<td><input type="hidden" name="outsideShower" id="outsideShower" value="0"> </td>
 </tr>
 </table>
 
 <table>
     <tr>
-	<td><label for="numOfBedrooms">Number of Bedrooms:</label>
-	<td><input type="number" name="numOfBedrooms" id="numOfBedrooms" placeholder="Enter a number here">
+	<td><label for="numOfBedrooms">Number of Bedrooms:</label> </td>
+	<td><input type="number" name="numOfBedrooms" id="numOfBedrooms" placeholder="Enter a number here"></td>
 	</tr>
 </table>
 
 <table>
     <tr>
-        <td>	<label for="numOfBathrooms">Number of Bathrooms:</label>
-	<td><input type="number" step="any" name="numOfBathrooms" id="numOfBathrooms" placeholder="Enter a number here">
-	
-<td>	<input type="submit" value="Search">
+        <td>	<label for="numOfBathrooms">Number of Bathrooms:</label></td>
+	<td><input type="number" step="any" name="numOfBathrooms" id="numOfBathrooms" placeholder="Enter a number here"></td>
 </tr>
-</table>
-</form>
 
+	
+
+</table>
+<br>
+	<div class="text-center">
+		<input type="submit" value="Search">
+	</div>
+</form>
+</div>
+</div>
+</div>
+</div>
 
 
 {% endblock %}
