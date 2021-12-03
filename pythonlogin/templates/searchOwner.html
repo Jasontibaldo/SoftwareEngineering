@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,19 +26,41 @@
    			{% endif %}
 		{% endwith %}
 
-<h3>Search by Owner ID</h3>
-<form action="{{ url_for('searchOwnerByID') }}" method="post" autocomplete="off">
+<div>
+	<div class="container-fluid ">
+        <div class="text-center">
+        <h1>Search Lease</h1>
+        <hr>
+        </div>  <!-- end of div for header -->
+        <br />
+        <div class="row justify-content-center searchPageBackground ">
+            
+          <div class="col-5 p-3 m-3">
+			<h3>Search by Owner ID</h3>
+			<hr>
+			<br>
+			<form action="{{ url_for('searchOwnerByID') }}" method="post" autocomplete="off">
     <label for="ownerID">Enter The OwnerID:</label>
     <input type="number" name="ownerID" placeholder="Owner ID" id="ownerID" required>
-	<input type="submit" value="Search">
+	<div class="text-center">
+	<br>
+		<input type="submit" value="Search">
+	</div>
 </form>
-<hr>
-<h3>Search By Owner Name</h3>
-<form action="{{ url_for('searchOwnerByName') }}" method="post" autocomplete="off">
+</div>
+<div class="col-5 p-3 m-3">
+			<h3>Search By Owner Name</h3>
+			<hr>
+			<br>
+			<form action="{{ url_for('searchOwnerByName') }}" method="post" autocomplete="off">
     <label for="LastName">Enter The Name:</label>
     <input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
-	<input type="submit" value="Search">
+	<div class="text-center">
+	<br>
+		<input type="submit" value="Search">
+	</div>
 </form>
+</div>
 </div>
 {% endblock %}
 </body>

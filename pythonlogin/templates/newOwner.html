@@ -23,29 +23,45 @@
 		{% endwith %}
 		
 
-
-		<div>
-		<br>
+<div>
+			<div class="container-fluid ">
+				<div>
+			<div class="text-center">
 			<h1>New Owner Details</h1>
+			</div>
+			<hr>
+			<br />
+			<div class="row searchPageBackground ">
+			<div class="col-5 p-3 m-3">
 			
 			<form action="{{ url_for('newOwner') }}" method="post" autocomplete="off">
 				<label for="FirstName">Enter The First Name:</label>
+				<br>
 				<input type="text" name="FirstName" placeholder="First Name" id="FirstName" required>
 				<br>
+				<br>
 				<label for="LastName">Enter The Last Name:</label>
-				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required><br>
+				<br>
+				<input type="text" name="LastName" placeholder="Last Name" id="LastName" required>
+				<br>
+				<br>
 				<label for="Email">Enter The Email:</label>
+				<br>
 				<input type="Email" name="Email" placeholder="Email" id="Email" required>
 				<br>
-				<label for="mailingAddress">Enter The Mailing Address:</label>
-				<input type="text" name="mailingAddress" placeholder="Mailing Address" id="mailingAddress" required>
-				<label for="mailingAddressLine2">Mailing Address Line 2:</label>
+				</div>
+				<div class="col-5 p-3 m-3">
+				<label for="mailingAddress">Enter The Mailing Address:</label><input type="text" name="mailingAddress" placeholder="Mailing Address" id="mailingAddress" required>
+				<label for="mailingAddressLine2"><br>Mailing Address Line 2:</label>
 				<input type="text" name="mailingAddressLine2" placeholder="Mailing Address Line 2" id="mailingAddressLine2">
+					<br>
 				<br>
 				<label for="city">Enter The City:</label>
+				<br>
 				<input type="text" name="city" placeholder="City" id="city" required>
-
-				<label for="state">State</label>
+					<br>
+				<br>
+				<label for="state">State:</label>
 				<select name="state" id="state" required>
 					<option value="" disabled selected hidden>State</option>
 					<option value="AL">Alabama</option>
@@ -100,13 +116,17 @@
 					<option value="WI">Wisconsin</option>
 					<option value="WY">Wyoming</option>
 				</select>				
+				<br>				
 				<br>
 				<label for="zipcode">Enter Zipcode:</label>
+				<br>
 				<input type="number" name="zipcode" placeholder="Zip Code" id="zipcode" required>
-				
-				<input type="submit" value="Create">
+				</div>
+				<div class="text-center">
+					<br>
+					<input type="submit" value="Create">
+				</div>
 			</form>
-		</div>
         {% endblock %}
 	</body>
 </html>
